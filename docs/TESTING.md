@@ -135,6 +135,12 @@ Phase 10 is complete. Cosmic Echoes is a verified hackathon release candidate wi
 
 Phase 11 carried forward 179 Edge automated passes and 14 supplementary Chrome passes from Phase 10. The developer reported 50/50 Phase 10 acceptance checks and 236 cumulative manual passes. The regression suites were not rerun for documentation. A locally served root session supplied five screenshots, and a separate short offline export was parsed and decoded. The sample did not undergo a fresh independent-player listening test. See [demonstration evidence](assets/README.md).
 
+## Phase 12 local release smoke
+
+The Python loopback server on port 8000 returned HTTP 200 and exact local file bytes for the root HTML, stylesheet and eight JavaScript modules. Headless Chrome 158.0.8127.38 initialized Canvas, environment options and the ready state at both `/` and `/preview/` with a temporary profile and default autoplay policy. The preview path was a local mount of the same repository. Source inspection confirmed that audio initialization is user-triggered. The smoke did not include a listening check. An initial sandboxed Edge launch did not initialize a browser session. Chrome supplied the browser smoke evidence. Phase 10 regression results carry forward because production source and tests match the approved baseline.
+
+All five PNGs passed binary validation. The sample WAV still matches its documented PCM format, frame count, file size, clipping count and SHA-256. Independent listening to this specific file remains pending. [Evidence kit](assets/README.md).
+
 ## Phase 9 automated verification
 
 On 2026-11-26, headless Microsoft Edge ran eight browser suites over a local Python HTTP server. The browser debugger waited for asynchronous summaries. Live suites used `?live=1`, an autoplay override and muted monitoring. Scheduler edge cases used controlled positions and rejection responses. The real creative workflow used the actual same-origin root app, Web Audio, Canvas and offline renderer. The download anchor click was controlled.

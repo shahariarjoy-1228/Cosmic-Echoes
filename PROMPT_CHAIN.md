@@ -37,7 +37,9 @@ This document indexes the AI-assisted development interactions used throughout t
 | 019 | Codex | Phase 3 | Musical mapping implementation | ai-logs/019-musical-mapping-implementation.md | Archived |
 | 020 | Codex | Phase 4 | Procedural audio engine implementation | ai-logs/020-procedural-audio-engine.md | Archived |
 | 026 | Codex | Phase 7 | WAV export system implementation | ai-logs/026-wav-export-implementation.md | Archived |
-| P11 | Codex | Phase 11 | Documentation and demonstration | ai-logs/phase11-documentation-and-demonstration.md | Incomplete — original task attachment preserved, archive final response after delivery |
+| P11 | Codex | Phase 11 | Documentation and demonstration | ai-logs/phase11-documentation-and-demonstration.md | Archived |
+| P11A | Codex | Phase 11 | Official documentation and demonstration approval | ai-logs/phase11-approval.md | Archived |
+| P12 | Codex | Phase 12 | Final submission preparation | ai-logs/phase12-final-submission-preparation.md | Incomplete - original task attachment preserved, archive final response after delivery |
 
 ## Recovered exchanges
 
@@ -81,7 +83,7 @@ Supplemental identifiers preserve existing interaction numbers. These are origin
 - 012 — Image-only documentation verification. Recover the original screenshot and full response.
 - 014 — Audit review and corrective planning. Recover the exact prompt submitted to ChatGPT and the full original response.
 - 016 — AI archive guidance. Recover the complete original prompt and response and confirm the AI tool.
-- P11 — Archive the final response to the indexed Phase 11 attachment after delivery.
+- P12: Archive the original final response once delivered. Index subsequent approval, deployment and submission exchanges if they occur.
 - See the [recovery inventory](docs/AI_USAGE.md) for the unindexed duplicate 018 and later coverage gaps.
 - Check the source conversations for additional development prompts and follow-ups. Index each original exchange and mark any missing original explicitly.
 ## Recording Policy

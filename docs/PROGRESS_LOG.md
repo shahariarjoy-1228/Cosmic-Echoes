@@ -6,7 +6,7 @@ Cosmic Echoes
 
 ## Current Phase
 
-P10 is complete and developer-approved. P11 documentation and demonstration preparation is complete and developer-approved within the documented scope. Rehearsal and AI archive recovery remain open. P12 — Final Submission is next planned and awaits explicit authorization.
+P10 is complete and developer-approved. P11 documentation and demonstration preparation is complete and developer-approved within the documented scope. Rehearsal and AI archive recovery remain open. P12 preparation is complete within the available scope. Full submission readiness remains blocked by original rules verification and AI archive recovery.
 
 ## Status Definitions
 
@@ -31,7 +31,7 @@ P10 is complete and developer-approved. P11 documentation and demonstration prep
 | P09 | Creative features and polish | Completed (root verified) |
 | P10 | Final testing and debugging | Completed and developer-approved (verified release candidate) |
 | P11 | Documentation and demonstration | Preparation complete and developer-approved; rehearsal and archive recovery pending |
-| P12 | Final submission | Next planned, pending explicit authorization |
+| P12 | Final submission | Preparation complete within available scope; mandatory compliance blocked |
 
 ## Development Entries
 
@@ -194,10 +194,17 @@ Reviewed all six pending deliverable mappings and the 24 pending application tes
 - Approval accepts the 72 resolved links and anchors, successful Git diff check, preserved source and tests, and the prior [Phase 10 results](TESTING.md#phase-10-automated-qa). No regression suites were rerun for this approval.
 - The approved archive inventory contains 41 indexed paths, 25 archived records covering 40 exchanges, 15 incomplete records and one indexed empty record. The unindexed duplicate remains empty. The original Phase 11 implementation response and approval exchange still need to be archived along with the other missing originals. [Recovery inventory](AI_USAGE.md).
 
+### Entry 026 — Phase 12 release preparation (2026-11-26)
+
+- Started from clean `main` at `1fedfd0`, which matched live GitHub `main`. Phase 11 documentation and approval were already committed and pushed. Production source and test files match `9c0e64a`.
+- Verified local static delivery and Chrome initialization at the root and a preview subpath. Rechecked 153 link and anchor occurrences, five PNGs and the unchanged WAV. [Smoke evidence](TESTING.md#phase-12-local-release-smoke).
+- Recovered the original Phase 11 implementation reply and approval exchange and preserved the original Phase 12 attachment. The archive remains incomplete. [Inventory and recovery checklist](AI_USAGE.md).
+- Prepared the judge-facing text, rehearsal checklist, deployment and Git plans, compliance matrix and release gates. The original rules PDF remains unavailable. No regression suite reran. [Submission preparation](SUBMISSION.md).
+
 ## Known Issues
 
 The procedural audio engine and listening page are standalone. Integrated demo synchronization is verified within the reported scope. The tested root workflows passed. Physical mobile touch, assistive technology and formal audit checks, and physical audio-to-display latency remain unverified. Browser saving and independent-player playback passed in developer testing. Archive entries 001–012, 014, 016, 017 and 019 are incomplete or pending. An extra 018 file is empty. Entries 020 and 026 are outside the table and labeled Archived despite empty files. Phase 5, Phase 6 and Phase 8 exchanges still need archival or indexing.
 
 ## Next Task
 
-Outstanding work includes demonstration rehearsal and recovery of the [remaining original AI records](AI_USAGE.md). Phase 12 — Final Submission awaits explicit authorization. Feature work remains frozen.
+Obtain the original organizer rules, complete the [archive recovery checklist](AI_USAGE.md), rehearse the demonstration and independently listen to the sample. Git synchronization, deployment if applicable, and organizer submission each await authorization. Feature work remains frozen.

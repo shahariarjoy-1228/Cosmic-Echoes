@@ -2163,4 +2163,24 @@ Do not begin Phase 12.
 
 ## Agent Response
 
-Original final response pending archival.
+**Phase 11 documentation and demonstration materials are ready for rehearsal.** Cosmic Echoes remains a verified release candidate within the Phase 10 testing scope. Missing original AI transcripts and attachments still block full hackathon submission compliance.
+
+### Documentation and demonstration
+
+- Updated `README.md` with the project motivation, local setup, screenshots, verification summary and AI disclosure. Updated `AGENTS.md`, the project plan and progress log to record Phase 11 work and identify Phase 12 as next planned.
+- Created `docs/ALGORITHM.md`, `docs/USER_GUIDE.md`, `docs/PRESENTATION.md` and `docs/AI_USAGE.md`. Updated the architecture with a Mermaid diagram and explanations of recursive event counts, musical mapping, audio-clock synchronization, recording and offline WAV export. The user guide documents all four presets.
+- Updated the testing record and mapped all six mandatory product deliverables and the weighted judging criteria to implementation evidence and judge actions. The original rules PDF was unavailable for independent review. [Hackathon requirements](docs/HACKATHON_REQUIREMENTS.md) · [Testing record](docs/TESTING.md)
+- Prepared two- and four-minute live demos, an offline fallback and a four-slide presentation outline. [Demo scripts](docs/DEMO_SCRIPT.md) · [Presentation](docs/PRESENTATION.md)
+
+### Captured evidence and verification
+
+- Captured five actual application screenshots in headless Edge 158.0.4370.33 at 1440 × 1040 and an emulated 390 × 844 viewport, all at DPR 1. They show the home screen, an early paused Nebula Dreams session, Focus Mode, export-ready controls and the narrow layout. The narrow capture provides layout evidence only. [Screenshot manifest](docs/assets/README.md)
+- Generated `quiet-orbit-sample.wav` with the existing exporter. It rendered a 12-second composition to **15.1 seconds** of 44.1 kHz stereo 16-bit PCM, with 665,910 frames, 2,663,684 bytes and zero clipped samples. The browser decoded the file and its binary was checked. This sample did not receive a fresh independent-player listening check. [Sample WAV](docs/assets/audio/quiet-orbit-sample.wav)
+- Carried forward Phase 10 evidence of **179 Edge automated passes**, zero failures or skips, **14 supplementary Chrome passes**, and **50/50 developer-reported final acceptance checks**. No regression suites were rerun. The documented browser, accessibility, physical latency and profiling limitations still apply. [Phase 10 evidence](docs/TESTING.md#phase-10-automated-qa)
+- Started from clean `main` at `9c0e64a`, matching live GitHub `main`. All 72 checked local documentation links and anchors resolved, and `git diff --check` passed. Production code and tests match the approved baseline. The feature freeze remains in effect. The working tree contains 14 modified and 31 new files, all unstaged. Nothing was committed, pushed, deployed or submitted.
+
+### Archive and submission status
+
+Recovered original replies for `017`, `019`, `020` and `026`, corrected the misplaced index rows, and indexed the additional implementation, closure and coordination exchanges recovered from the project’s Codex history. All **41 indexed paths** resolve. There are **25 archived records covering 40 exchanges**, **15 incomplete records**, **one indexed empty record** and **one unindexed empty duplicate**. [Prompt chain](PROMPT_CHAIN.md) · [Recovery checklist](docs/AI_USAGE.md)
+
+Before submission, recover the early ChatGPT replies, original screenshots and rules PDF, resolve the missing material for `014`, `016` and `S18`, and append this Phase 11 response to its indexed record. **Phase 12 — Final Submission** awaits explicit authorization.

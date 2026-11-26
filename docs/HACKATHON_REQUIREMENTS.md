@@ -1,6 +1,6 @@
 # Hub's Quest Epoch 1 Hackathon Requirements
 
-Source: Official Hub's Quest Epoch 1 rules PDF, as supplied by the developer.
+The deliverables, weights and AI policy below reflect the developer's earlier project record. The original Hub's Quest Epoch 1 rules PDF and an authoritative organizer source were unavailable during Phase 12. Exact wording, source pages, eligibility, team restrictions, deadline and timezone, platform, fields, publication and deployment rules, required assets and disqualification criteria remain unverified. The six product deliverables retain their scoped Phase 10 acceptance. [Compliance matrix](SUBMISSION.md#compliance-matrix).
 
 ## Mandatory deliverables
 
@@ -13,7 +13,7 @@ Source: Official Hub's Quest Epoch 1 rules PDF, as supplied by the developer.
 | 5 | A working audio export feature. | `js/export.js`, `js/audio.js`, `js/controller.js`, `app.js` | Prepare, download and play a WAV. | WAV format and root preparation tests passed. Developer confirmed root download and independent-player playback. |
 | 6 | A polished, accessible experience designed around relaxation and enjoyment. | `index.html`, `style.css`, `app.js`, `js/visuals.js`, `js/music.js`, `js/audio.js` | Compose with the keyboard and enable reduced motion. | Root checks passed at six widths, with visible keyboard focus. Developer confirmed keyboard placement, reduced motion and calm presentation. Formal accessibility and physical touch unverified. |
 
-## Official evaluation weights
+## Provisional evaluation weights
 
 - Relaxation and user experience — 35%
 - Musical quality — 25%
@@ -33,10 +33,10 @@ Source: Official Hub's Quest Epoch 1 rules PDF, as supplied by the developer.
 | Interaction and usability (10%) | Pointer and keyboard placement, feedback, transport, recording and export. Root tests and manual checks passed. [User guide](USER_GUIDE.md) | Place a star with the keyboard, pause, replay and download. |
 | Technical execution (5%) | Native browser modules, shared audio clock, atomic bounds and offline WAV. Final automated QA passed. [Evidence](TESTING.md#phase-10-automated-qa) | Inspect the timing evidence and verify the download plays. |
 
-The original rules PDF was referenced in the project requirements record and was unavailable for independent review during Phase 11. The accepted evidence and limits are recorded in the [testing record](TESTING.md).
+The original rules PDF remained unavailable during Phases 11 and 12. The accepted evidence and limits are recorded in the [testing record](TESTING.md).
 
 ## AI usage requirement
 
-AI coding agents are permitted, but the repository must contain the prompt chain and corresponding agent response for every prompt. Failure to submit these may result in disqualification.
+The earlier project record describes permission to use AI coding agents and a requirement to preserve original prompts and corresponding responses in the repository, with possible disqualification for omissions. Confirm the exact policy, attachment handling and disclosure terms with the organizer. Archive completeness remains outstanding.
 
 The [prompt index](../PROMPT_CHAIN.md) tracks archival status.
