@@ -2,9 +2,9 @@
 
 ## Status
 
-The standalone recursion suite ran in headless Microsoft Edge over loopback HTTP on 2026-11-26. It reported **32 passed, 0 failed**. Application integration, interactive browser use, playback, listening, and export tests remain pending.
+Both test pages ran in headless Microsoft Edge over local Python HTTP on 2026-11-26. Recursion reported **32 passed, 0 failed** and musical mapping reported **69 passed, 0 failed**. No cases were skipped. A transient lock on the music page output cleared before the summary was read. Application integration, interactive browser use, playback, listening, and export tests remain pending.
 
-From the project root, run `python -m http.server 8000 --bind 127.0.0.1` using an existing Python installation or serve the root through another static HTTP server. Open `http://127.0.0.1:8000/tests/recursion.test.html` in a browser and check the summary and individual results. Stop the server with Ctrl+C.
+From the project root, run `python -m http.server 8000 --bind 127.0.0.1` using an existing Python installation or serve the root through another static HTTP server. Open `http://127.0.0.1:8000/tests/recursion.test.html` and `http://127.0.0.1:8000/tests/music.test.html` in a browser and check the summaries and individual results. Stop the server with Ctrl+C.
 
 Automated checks measure expected behavior. Browser checks exercise the interface and timing. Listening checks assess the audible result.
 
@@ -15,7 +15,7 @@ Automated checks measure expected behavior. Browser checks exercise the interfac
 | T03 | Maximum depth | Automated | Depth never exceeds 4. | Passed (standalone) |
 | T04 | Identical inputs | Automated | Identical event IDs, order, geometry, timing and parent links. | Passed (standalone) |
 | T05 | Audio initialization | Browser | Audio initializes only after a user gesture. | Pending |
-| T06 | Default musical scale | Automated | Generated melodic notes belong to C major pentatonic. | Pending |
+| T06 | Default musical scale | Automated | Generated melodic notes belong to C major pentatonic. | Passed (standalone) |
 | T07 | Polyphony | Automated + browser | At most 8 simultaneous melodic voices across roots. | Pending |
 | T08 | Audio-visual synchronization | Browser | Visuals and notes match event timing on the Web Audio clock. | Pending |
 | T09 | Playback controls | Browser | Play starts at zero, Pause freezes both streams, and Resume continues from the saved playhead without replaying prior onsets. | Pending |

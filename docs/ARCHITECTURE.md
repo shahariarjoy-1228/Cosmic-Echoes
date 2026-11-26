@@ -65,15 +65,48 @@ With depth *d* and branching factor *b*, the tree contains 1 + b + … + bᵈ ev
 
 ## Musical Mapping
 
-The default scale is C major pentatonic (C, D, E, G, A).
+The standalone `js/music.js` module reads the recursive engine's event IDs and timing and produces JSON-serializable instructions.
 
-- Depth determines register and softness.
-- Parent notes determine harmonic relationships.
-- Child indices determine melodic responses.
-- Radius influences note duration.
-- Decay controls amplitude.
-- Horizontal position controls stereo panning.
-- Event timing controls note onset.
+| Scale ID | Notes | Environment |
+|---|---|---|
+| `c-major-pentatonic` | C, D, E, G, A | Deep Space (default) |
+| `a-minor-pentatonic` | A, C, D, E, G | Nebula Dreams |
+| `f-major-pentatonic` | F, G, A, C, D | Solar Harmony |
+
+### Musical mapping API
+
+| Export | Contract |
+|---|---|
+| `DEFAULT_MUSIC_CONFIG`, `MUSICAL_SCALES` | Frozen defaults and scale registry. Each scale defines a tonic pitch class, frozen intervals in semitones, and an environment name. |
+| `validateMusicConfig(config)` | Returns fresh `scaleId`, `minMidi`, `maxMidi`, `maxIntensity`, and `panLimit` settings. Missing or non-finite numeric settings default. MIDI settings round and clamp to 0–127. Intensity and pan limits clamp to 0–0.70 and 0–0.65 respectively. Unknown scales and ranges with no valid pitches throw RangeError. |
+| `isValidScaleId(id)`, `getScale(id)` | Test a scale ID or retrieve its frozen definition. An omitted lookup ID selects the default. |
+| `buildScaleNotes(scaleId, minMidi = 48, maxMidi = 79)`, `isNoteInScale(note, scaleId)` | Build ascending pitches or test scale membership. The scale defaults to C major pentatonic. Explicit MIDI values must be integers from 0 to 127. Empty or reversed ranges throw RangeError. |
+| `midiToFrequency(note)`, `midiToNoteName(note)` | Convert MIDI to Hz using equal temperament with MIDI 69 at 440 Hz, or to a readable name using MIDI 60 as C4. |
+| `mapCelestialEventsToMusic(events, config)` | Return raw melody and echo notes, with up to 300 input events per batch and 121 per root. Empty input yields an empty array with valid configuration. |
+| `generateAmbientHarmony(config, startTime = 0, duration = 60)` | Return a sustained tonic and fifth on the requested composition timeline, in seconds. |
+| `planMelodicVoices(notes, voiceLimit = 8)` | Return `{ retained, suppressed }` from up to 300 melody and echo notes. Notes are returned by reference. Inputs are never mutated. |
+
+### Inheritance and timing
+
+Root pitch uses a position within the middle half of the ascending scale-note list. The index is the rounded result of `(0.25 + 0.5 × (x + 1 − y) / 2) × (numberOfPitches − 1)`. Bottom-left positions favor lower notes and top-right positions favor higher notes.
+
+At odd depths, child indices 0, 1, and 2 request +2, −2, and 0 scale steps from the parent's pitch. At even depths the directions reverse. Two steps often give a third or fourth. At a range edge, move as far as available. If the result exceeds seven semitones, step back toward the parent until it fits. Narrow ranges can yield repeated notes.
+
+The mapper validates geometry, depth, IDs, timing, durations, amplitudes and roots. It processes lower depths first, including for shuffled input. Duplicate event IDs or roots, missing parents, cross-root links, mismatched depths and early child onsets are rejected. Output sorts by onset, then depth, then lexical musical ID. Onsets preserve the original celestial seconds. Recursion already applied tempo.
+
+Musical duration is `celestialDuration × (1 + min(radius, 1)) ÷ (1 + 0.15 × depth)`, clamped to 0.4–3 seconds. Relative intensity equals celestial amplitude times the configured maximum, which defaults to 0.70. Pan is `(2 × x − 1) × panLimit`, with a default limit of 0.65 on either side.
+
+### Musical events and ambient harmony
+
+Each event has `id`, `celestialEventId`, `rootId`, `parentMusicalEventId`, `depth`, `midiNote`, `noteName`, `frequency` in Hz, `startTime` and `duration` in seconds, `intensity`, `pan`, `instrument`, and `role`. Melodic IDs are JSON-encoded pairs of the string "note" and the celestial ID. Roots use instrument `starlight` and role `melody`, with a null musical parent. Children use `echo` for both.
+
+Ambient events use instrument `nebula-pad` and role `ambient`. Celestial, root, parent and depth references are null. The tonic is MIDI 36 plus its pitch class, and the fifth is seven semitones higher. Both have intensity 0.12 and centered pan. Ambient register is independent of the melody range. Start time defaults to zero when missing or non-finite, and finite negative starts clamp to zero. Duration defaults to 60 seconds and clamps to 0.4–60 seconds. An onset too large to represent its duration is rejected. The controller should request one layer per composition and manage its lifecycle and crossfades.
+
+### Voice planning and integration
+
+The planner sorts by onset, depth and ID. It counts voices over half-open intervals `[startTime, startTime + duration)`. Roots and then shallower notes get first access at simultaneous onsets. Already sounding notes keep their slots. Silent and excess notes appear in `suppressed` with unchanged onsets and references. Finite limits round and clamp to 1–8 and non-finite limits default to eight. The planner rejects malformed intervals and duplicate or non-melodic inputs. Ambient and visual events stay separate from this budget.
+
+The future audio engine will synthesize the abstract instruments, translate relative intensity into gain and envelopes, and enforce runtime voice limits with release tails and live interaction.
 
 ## Synchronization
 
@@ -97,4 +130,4 @@ Export stereo 16-bit PCM WAV at 44,100 Hz. Provide headroom and peak control in 
 
 ## Status
 
-The recursive engine is implemented and its standalone browser tests passed. Application integration, playback, rendering and export are planned.
+The recursive engine and musical mapper passed their standalone browser suites. Application integration, playback, rendering and export are planned.
