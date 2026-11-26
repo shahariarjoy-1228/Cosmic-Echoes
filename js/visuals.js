@@ -222,7 +222,7 @@ export class VisualEngine {
     this.renderAt(this.#position);
   }
 
-  addEvents(batch) {
+  addEvents(batch, { redraw = true } = {}) {
     this.#requireOpen();
     if (!Array.isArray(batch) || batch.length > GLOBAL_EVENT_BUDGET) throw new RangeError("Use at most 300 celestial events per batch.");
     const incoming = new Map();
@@ -256,10 +256,14 @@ export class VisualEngine {
       siblings.add(event.childIndex);
       branches.set(parent.id, siblings);
     }
+    if (!redraw && [...incoming.values()].some(event => event.startTime <= this.#position)) {
+      throw new RangeError("Deferred batches must start after the current visual time.");
+    }
     if (incoming.size + this.#events.size > GLOBAL_EVENT_BUDGET) throw new RangeError("The complete tree does not fit the visual capacity.");
     for (const [id, event] of incoming) this.#events.set(id, event);
     for (const [id, count] of counts) this.#roots.set(id, count);
-    this.renderAt(this.#position);
+    if (redraw) this.renderAt(this.#position);
+    else this.#pending += incoming.size;
     return incoming.size;
   }
 

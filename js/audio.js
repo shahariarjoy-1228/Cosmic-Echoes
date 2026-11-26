@@ -116,11 +116,13 @@ export function createAudioGraph(context, destination = context.destination, con
   dry.connect(compressor);
   wet.connect(compressor);
   compressor.connect(master);
-  master.connect(destination);
+  const endpoint = gain(1);
+  master.connect(endpoint);
+  endpoint.connect(destination);
   return {
-    melodic, ambient, atmosphere, dry, wet, master,
+    melodic, ambient, atmosphere, dry, wet, master, endpoint,
     disconnect() {
-      for (const node of [melodic, ambient, atmosphere, dry, wet, convolver, compressor, master]) node.disconnect();
+      for (const node of [melodic, ambient, atmosphere, dry, wet, convolver, compressor, master, endpoint]) node.disconnect();
     },
   };
 }
@@ -229,8 +231,10 @@ function startAtmosphere(context, destination, settings, start, duration, onEnd)
   return sourceHandle([source], [filter, envelope], start, start + duration, onEnd);
 }
 
-function prepareComposition({ notes = [], ambient = [], duration = MAX_DURATION } = {}) {
-  if (!between(duration, 0.05, MAX_DURATION)) throw new RangeError("Composition duration must be 0.05 to 60 seconds.");
+function prepareComposition({ notes = [], ambient = [], duration = MAX_DURATION, hardEnd = false, layerDuration = duration, fixedPlayback = false } = {}) {
+  if (!between(duration, hardEnd ? 0.000001 : 0.05, MAX_DURATION) || !between(layerDuration, duration, MAX_DURATION)) {
+    throw new RangeError("Invalid bounded composition duration.");
+  }
   if (!Array.isArray(notes) || !Array.isArray(ambient) || notes.length > GLOBAL_EVENT_BUDGET || ambient.length > PAD_LIMIT) {
     throw new RangeError("Use at most 300 melodic and two ambient events per composition.");
   }
@@ -245,26 +249,62 @@ function prepareComposition({ notes = [], ambient = [], duration = MAX_DURATION 
   }
   const events = [...Array.from(notes, (event) => copy(event, false)),
     ...Array.from(ambient, (event) => copy(event, true))];
-  events.sort((a, b) => a.startTime - b.startTime || (a.depth ?? 0) - (b.depth ?? 0) ||
-    (a.id < b.id ? -1 : Number(a.id > b.id)));
-  return { events, duration };
+  events.sort(compareNotes);
+  return { events, duration, hardEnd: hardEnd === true, layerDuration, fixedPlayback: fixedPlayback === true };
+}
+
+function compareNotes(a, b) {
+  return a.startTime - b.startTime || (a.depth ?? 0) - (b.depth ?? 0) ||
+    (a.id < b.id ? -1 : Number(a.id > b.id));
 }
 
 // This same scheduler is fed incrementally in live playback and in one pass offline.
 function createSchedule(context, graph, composition, settings, origin) {
   const voices = new Map();
   const suppressed = [];
+  const admitted = [];
+  const ids = new Set(composition.events.map(({ id }) => id));
+  const ambientCount = composition.events.filter(note => note.role === "ambient").length;
+  let queue = [...composition.events];
   let index = 0;
   let peak = 0;
   let retainedMelodic = 0;
   let atmosphere = settings.atmosphereEnabled
-    ? startAtmosphere(context, graph.atmosphere, settings, origin, composition.duration, () => { atmosphere = null; })
+    ? startAtmosphere(context, graph.atmosphere, settings, origin, composition.layerDuration, () => { atmosphere = null; })
     : null;
 
   return {
+    append(notes) {
+      if (!Array.isArray(notes) || ids.size - ambientCount + notes.length > GLOBAL_EVENT_BUDGET) {
+        throw new RangeError("Live note capacity exceeded.");
+      }
+      const additions = new Map();
+      for (const note of notes) {
+        requireNote(note);
+        if (note.role === "ambient" || ids.has(note.id) || additions.has(note.id) ||
+            origin + note.startTime <= context.currentTime || note.startTime >= composition.duration) {
+          throw new RangeError("Live notes must have unique IDs and future onsets inside the session.");
+        }
+        additions.set(note.id, { ...note });
+      }
+      // A synchronous placement can undo this insertion before the next polling tick.
+      queue = [...queue.slice(index), ...additions.values()].sort(compareNotes);
+      index = 0;
+      for (const id of additions.keys()) ids.add(id);
+      let rolledBack = false;
+      return () => {
+        if (rolledBack || queue.slice(0, index).some(note => additions.has(note.id)) ||
+            admitted.some(note => additions.has(note.id)) || suppressed.some(note => additions.has(note.id))) return false;
+        rolledBack = true;
+        queue = queue.slice(index).filter(note => !additions.has(note.id));
+        index = 0;
+        for (const id of additions.keys()) ids.delete(id);
+        return true;
+      };
+    },
     fill(horizon, live = false) {
-      while (index < composition.events.length) {
-        const note = composition.events[index];
+      while (index < queue.length) {
+        const note = queue[index];
         const desired = origin + note.startTime;
         if (desired > horizon) break;
         index += 1;
@@ -272,7 +312,7 @@ function createSchedule(context, graph, composition, settings, origin) {
         const isPad = note.role === "ambient";
         const now = live ? context.currentTime : 0;
         const start = Math.max(now, desired);
-        const duration = Math.min(note.duration, origin + composition.duration - start);
+        const duration = Math.min(note.duration, origin + composition.layerDuration - start);
         const end = start + duration + instruments[note.instrument].release;
         const overlaps = [...voices.values()].filter((voice) =>
           voice.isPad === isPad && voice.start < end && start < voice.end).length;
@@ -291,6 +331,8 @@ function createSchedule(context, graph, composition, settings, origin) {
           handle: scheduleInstrumentVoice(context, isPad ? graph.ambient : graph.melodic, note, start, duration,
             () => voices.delete(note.id)),
         });
+        admitted.push({ ...note, effectiveStart: start - origin, effectiveDuration: duration,
+          release: instruments[note.instrument].release });
         if (!isPad) {
           retainedMelodic += 1;
           peak = Math.max(peak, overlaps + 1);
@@ -307,6 +349,9 @@ function createSchedule(context, graph, composition, settings, origin) {
         atmosphereLayerCount: Number(Boolean(atmosphere) && now >= origin),
         suppressed: suppressed.map((event) => ({ ...event })),
       };
+    },
+    journal() {
+      return { admitted: admitted.map(note => ({ ...note })), suppressed: suppressed.map(note => ({ ...note })) };
     },
     stop() {
       for (const voice of voices.values()) voice.handle.stop();
@@ -325,7 +370,7 @@ export async function renderCompositionOffline(composition, config) {
   const prepared = prepareComposition(composition);
   const settings = validateAudioConfig(config);
   if (typeof globalThis.OfflineAudioContext !== "function") throw new Error("Offline Web Audio is unavailable.");
-  const frames = Math.ceil((prepared.duration + tailDuration(settings)) * settings.sampleRate);
+  const frames = Math.ceil((prepared.duration + (prepared.hardEnd ? 0 : tailDuration(settings))) * settings.sampleRate);
   const context = new OfflineAudioContext(2, frames, settings.sampleRate);
   const graph = createAudioGraph(context, context.destination, settings);
   const schedule = createSchedule(context, graph, prepared, settings, 0);
@@ -350,6 +395,7 @@ export class AudioEngine {
   #position = 0;
   #revision = 0;
   #lastDiagnostics = null;
+  #lastJournal = null;
   #error = "";
   #starting = false;
 
@@ -359,6 +405,15 @@ export class AudioEngine {
 
   getState() { return this.#state; }
   getDuration() { return this.#composition?.duration ?? 0; }
+
+  getSchedulingJournal() {
+    return this.#schedule?.journal() ?? structuredClone(this.#lastJournal ?? { admitted: [], suppressed: [] });
+  }
+
+  appendNotes(notes) {
+    if (this.#state !== "playing" || this.#composition.fixedPlayback) throw new Error("Live insertion requires an active recording session.");
+    return this.#schedule.append(notes);
+  }
 
   getPlaybackPosition() {
     if (this.#state !== "playing") return this.#position;
@@ -394,7 +449,7 @@ export class AudioEngine {
     const prepared = prepareComposition(composition);
     this.stop();
     this.#composition = prepared;
-    this.#lastDiagnostics = null;
+    this.#lastDiagnostics = this.#lastJournal = null;
   }
 
   async play() {
@@ -408,10 +463,14 @@ export class AudioEngine {
       await this.initialize();
       if (revision !== this.#revision) return;
       this.#graph = createAudioGraph(this.#context, this.#context.destination, this.#settings);
-      this.#origin = this.#context.currentTime + LEAD;
+      this.#origin = this.#context.currentTime + (this.#composition.fixedPlayback ? 0.15 : LEAD);
       this.#schedule = createSchedule(this.#context, this.#graph, this.#composition, this.#settings, this.#origin);
+      if (this.#composition.hardEnd) {
+        this.#graph.endpoint.gain.setValueAtTime(0, this.#origin + this.getDuration());
+      }
+      if (this.#composition.fixedPlayback) this.#schedule.fill(Infinity);
       this.#position = 0;
-      this.#lastDiagnostics = null;
+      this.#lastDiagnostics = this.#lastJournal = null;
       this.#state = "playing";
       this.#startTimer();
     } catch (error) {
@@ -430,7 +489,7 @@ export class AudioEngine {
         const now = this.#context.currentTime;
         const end = this.#origin + this.getDuration();
         this.#schedule.fill(now >= end ? Infinity : now + this.#settings.schedulingHorizon, true);
-        if (now >= end + tailDuration(this.#settings)) {
+        if (now >= end + (this.#composition.hardEnd ? 0 : tailDuration(this.#settings))) {
           const duration = this.getDuration();
           this.stop();
           this.#position = duration;
@@ -491,6 +550,7 @@ export class AudioEngine {
     this.#starting = false;
     this.#clearTimer();
     const stats = this.#schedule?.diagnostics();
+    if (this.#schedule) this.#lastJournal = this.#schedule.journal();
     this.#schedule?.stop();
     this.#graph?.disconnect();
     this.#schedule = null;
@@ -505,7 +565,7 @@ export class AudioEngine {
   reset() {
     this.stop();
     this.#composition = null;
-    this.#lastDiagnostics = null;
+    this.#lastDiagnostics = this.#lastJournal = null;
     this.#error = "";
   }
 

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cosmic Echoes synchronized demo</title>
+  <style>
+    :root { color-scheme: dark; font: 16px/1.5 system-ui; background: #0b1020; color: #e4ecff; }
+    main { max-width: 68rem; margin: auto; padding: 1rem; }
+    h1 { margin: 0; font-weight: 550; }
+    canvas { display: block; width: 100%; height: clamp(230px, 53vh, 620px); background: #080d1e; border-radius: .7rem; }
+    fieldset { min-width: 0; margin: .85rem 0; border: 1px solid #586782; border-radius: .5rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); gap: .6rem; }
+    .grid label { display: grid; gap: .2rem; }
+    button, input, select { min-height: 2.2rem; font: inherit; }
+    button { margin: .2rem; }
+    :focus-visible { outline: 2px solid #afd6ff; outline-offset: 3px; }
+    #diagnostics { color: #c9d8ec; font-variant-numeric: tabular-nums; }
+  </style>
+  <script type="module" src="./sync-demo.js"></script>
+</head>
+<body>
+<main>
+  <h1>Cosmic Echoes synchronized demo</h1>
+  <p id="instructions">Start a session, then click or tap the sky or use the placement controls. Stop the session to replay its recording.</p>
+  <canvas id="sky" role="img" aria-label="Cosmic sky with synchronized recursive stars" aria-describedby="instructions diagnostics"></canvas>
+  <p id="message" role="status">Ready to start a session.</p>
+  <p id="diagnostics"></p>
+  <fieldset>
+    <legend>Session</legend>
+    <button id="start">Start session</button>
+    <button id="pause">Pause</button>
+    <button id="resume">Resume</button>
+    <button id="stop">Stop</button>
+    <button id="replay">Replay recording</button>
+    <button id="reset">Clear session</button>
+  </fieldset>
+  <fieldset>
+    <legend>Environment and display</legend>
+    <div class="grid">
+      <label>Environment <select id="environment"></select></label>
+      <label>Monitoring volume <input id="volume" type="range" min="0" max="1" step=".01" value="1"></label>
+      <label>Motion <select id="motion"><option value="auto">Automatic</option><option value="full">Full</option><option value="reduced">Reduced</option></select></label>
+    </div>
+    <label><input id="particles" type="checkbox" checked> Particles</label>
+    <label><input id="ripples" type="checkbox" checked> Ripples</label>
+    <label><input id="connections" type="checkbox" checked> Constellation lines</label>
+  </fieldset>
+  <form id="placement">
+    <fieldset>
+      <legend>Star placement</legend>
+      <div class="grid">
+        <label>Depth <input id="maxDepth" type="number" min="0" max="4" step="1" value="3" required></label>
+        <label>Children per star <input id="childrenPerStar" type="number" min="1" max="3" step="1" value="2" required></label>
+        <label>Decay <input id="decay" type="number" min="0.35" max="0.85" step="0.01" value="0.65" required></label>
+        <label>Spread (°) <input id="spreadAngle" type="number" min="30" max="180" step="1" value="100" required></label>
+        <label>Base delay (s) <input id="generationDelay" type="number" min="0.4" max="2" step="0.05" value="0.8" required></label>
+        <label>Tempo (BPM) <input id="tempo" type="number" min="40" max="80" step="1" value="55" required></label>
+        <label>Root X <input id="x" type="number" min="0" max="1" step="0.01" value="0.5" required></label>
+        <label>Root Y <input id="y" type="number" min="0" max="1" step="0.01" value="0.5" required></label>
+      </div>
+      <button type="submit">Place Star</button><button id="center" type="button">Place Center Star</button>
+    </fieldset>
+  </form>
+  <fieldset>
+    <legend>Scenarios</legend>
+    <label>Scenario <select id="scenario">
+      <option value="single">Single root</option><option value="binary">Default binary tree</option>
+      <option value="ternary">Maximum ternary tree</option><option value="multiple">Independent roots</option>
+      <option value="capacity">Capacity rejection</option><option value="voices">Polyphony suppression</option>
+    </select></label>
+    <button id="run">Place scenario</button>
+    <p>Use Pause and Resume to check both transports. Stop and choose Replay recording to repeat the session.</p>
+  </fieldset>
+</main>
+</body>
+</html>

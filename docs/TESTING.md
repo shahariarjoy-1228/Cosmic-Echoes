@@ -48,6 +48,45 @@ Automated checks measure expected behavior. Browser checks exercise the interfac
 
 The standalone capacity helper passed exact-fit, rejection and invalid-occupancy checks. T16 and T20 remain pending for controller integration. Standalone user-gesture playback and listening passed the developer-reported checks below. Future application integration tests, including synchronization and WAV export, remain pending.
 
+## Phase 6 automated verification
+
+On 2026-11-26, Microsoft Edge ran all five browser suites headlessly over Python loopback HTTP. Browser debugger polling waited for the final summaries. Audio and sync used `?live=1` with an autoplay override and muted monitoring. Offline checks inspected real stereo AudioBuffer samples.
+
+| Suite | Passed | Failed | Skipped |
+|---|---:|---:|---:|
+| Recursion | 32 | 0 | 0 |
+| Musical mapping | 69 | 0 | 0 |
+| Procedural audio | 23 | 0 | 0 |
+| Visual engine | 15 | 0 | 0 |
+| Synchronized integration | 8 | 0 | 0 |
+| **Total** | **147** | **0** | **0** |
+
+The eight integration cases group live placement, rollback, shared capacity, configuration snapshots, pause and resume, natural completion, cleanup, suppression, replay and offline rendering. Headless smoke checks loaded both older demos. The synchronized demo started with AudioContext uninitialized, accepted the 15-event binary scenario, reported one admitted melody voice and one active star, and cleared live occupancy on stop without reported JavaScript errors. A foreground debugger sample reported **18.7 ms logical render lag** at roughly 0.58 seconds into the session, with one active star and fourteen pending. This measures clock sampling versus latest Canvas render. Physical audio-to-display latency and subjective synchronization are pending.
+
+These five suite totals come from the prior implementation run. No suites were rerun during closure. The prior run used real Web Audio and Canvas in headless Edge. The transaction failure cases used controlled exceptions. The prior smoke check verified idle, start, placement, scheduling, visible activity and stop; snapshot, replay and other lifecycle checks were exercised by the integration suite and developer manual checks.
+
+During closure, a separate headless Edge check used the same autoplay override and muted live monitoring. A completed 2-second session with 12 simultaneous root candidates recorded 8 admitted melodies and 4 suppressed IDs. The offline adapter excluded all 4 suppressed IDs. Rendering produced two finite, non-silent channels at 44,100 Hz and 119,071 frames, approximately 2.70002 seconds including the 0.7-second tail rounded up to a frame. The earlier integration suite separately verified early-stop hard-cut duration and cancellation. This targeted check is separate from the 147 suite results.
+
+## Phase 6 developer-reported manual results
+
+The developer reported **28 of 28 passes** in normal browser use. No manual synchronization-latency or frame-rate measurements were reported. No additional observations were supplied.
+
+| Area | Reported PASS checks | Count |
+|---|---|---:|
+| Integrated experience | No autoplay. Start produces audible playback. Root star and note appear together. Recursive visuals and notes appear together. Independent roots coexist. Placements leave playback running. Ambient harmony continues. Scale and theme correspond. | 8 |
+| Playback and recording | Pause freezes both streams. Resume continues from the same position. Stop silences audio and stops animation. Replay starts at the beginning and reproduces the celestial structure and music. Parameter changes affect future placements only. Natural completion works. | 8 |
+| Capacity and stability | Near-capacity scenes remain usable. Excess placements are rejected clearly. Melody stays within eight voices. Suppressed notes retain visuals. Rapid clicks do not duplicate trees. Rapid transport commands and repeated reset/replay remain stable. | 7 |
+| Accessibility and experience | Keyboard placement works. Reduced motion works. Volume works. Controls and feedback are readable. The combined experience feels calm and coherent. | 5 |
+
+## Phase 6 manual integrated verification
+
+For repeat checks, Serve the repository using `python -m http.server 8000 --bind 127.0.0.1` and open `http://127.0.0.1:8000/tests/sync-demo.html` in a regular browser with normal autoplay policy.
+
+1. Confirm no autoplay, start with a gesture at low volume, and place a root by pointer and by keyboard. Check the visible and audible root and child responses, all environments, and continuous ambient harmony during additional placements.
+2. Pause and resume both streams, change recursion parameters for new placements, stop, replay the same tree and notes, and allow a session to complete naturally. Retry rapid transport commands.
+3. Place several roots, run the capacity and voice-stress scenarios, and confirm polite rejection, no duplicate trees, at most eight melodic voices, and visual continuity for suppressed notes. Repeat reset and replay.
+4. Toggle reduced motion, check labels and status, and adjust monitoring volume. Record perceived timing, audio or visual artifacts, calmness, browser and output device. Mobile touch and hardware latency are separate checks.
+
 ## Phase 5 automated verification
 
 On 2026-11-26, headless Microsoft Edge ran all four suites through a local Python HTTP server. The browser debugger waited for each final asynchronous summary. The audio regression used the prior muted live test workflow with the autoplay override and `?live=1`.
@@ -88,7 +127,7 @@ For repeat checks and outstanding mobile and touch coverage, serve the repo with
 - **Responsive and accessible behavior** — Resize during animation and confirm proportional positions, high-DPI sharpness, narrow-screen usability, reduced motion with recognizable recursion, visible focus and labels, and status outside the canvas.
 - **Stability and performance** — Try the maximum ternary and near-capacity scenarios. Repeat placements and theme switching, watch occupied and retained counts decline, resize during playback, and record approximate FPS with browser, device, canvas size, DPR and active event count. Observe prolonged use.
 
-Phase 6 audio-clock integration and application-level synchronization tests remain pending.
+Phase 6 audio-clock integration is verified in the standalone synchronized demo. Final application integration tests remain pending.
 
 ## Phase 4 developer-reported manual results
 

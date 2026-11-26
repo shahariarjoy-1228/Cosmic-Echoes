@@ -8,7 +8,7 @@ Cosmic Echoes
 
 P05 — Cosmic Visual Engine (completed, standalone verified)
 
-Next phase is P06 — Audio-Visual Synchronization, pending authorization.
+P06 — Audio-Visual Synchronization (completed, integrated demo verified). Next is P07 — WAV Export System, pending authorization.
 
 ## Status Definitions
 
@@ -27,8 +27,8 @@ Next phase is P06 — Audio-Visual Synchronization, pending authorization.
 | P03 | Musical mapping | Completed (standalone) |
 | P04 | Procedural audio engine | Completed (standalone verified) |
 | P05 | Cosmic visual engine | Completed (standalone verified) |
-| P06 | Audio-visual synchronization | Next (pending authorization) |
-| P07 | WAV export | Pending |
+| P06 | Audio-visual synchronization | Completed (integrated demo verified) |
+| P07 | WAV export | Next (pending authorization) |
 | P08 | User interface and accessibility | Pending |
 | P09 | Optional features and polish | Pending |
 | P10 | Testing and debugging | Pending |
@@ -114,10 +114,23 @@ Reviewed all six pending deliverable mappings and the 24 pending application tes
 - The developer reported 29 of 29 manual checks passed on the standalone visual demo. Mobile and touch results were not reported, and the developer did not measure FPS.
 - Phase 5 is complete in standalone use. Phase 6 is next. Application-wide synchronization remains pending.
 
+### Entry 013 — Phase 6 synchronization (2026-11-26)
+
+- Connected the existing engines with an audio-clock controller, live transactional placement, bounded recording, replay and an offline adapter.
+- Added the synchronized development demo and test suite. Headless Edge passed 32 recursion, 69 mapping, 23 audio, 15 visual and 8 integration tests. No failures or skips. The integrated demo smoke check and standalone demo load checks passed.
+- Manual audible synchronization and integrated usability remain pending. The developer will archive the Phase 6 exchange.
+
+### Entry 014 — Phase 6 closure (2026-11-26)
+
+- Reviewed the prior 147 passing browser tests and integrated demo smoke check. No regression suites were rerun during closure.
+- The developer reported 28 of 28 manual checks passed. Manual synchronization latency and frame rate were not measured.
+- A separate headless offline smoke check rendered a completed two-second recording to stereo at 44,100 Hz with approximately 0.7 seconds of tail. Eight admitted melodies were rendered and four suppressed IDs were excluded.
+- Phase 6 integrated-demo verification is complete. Phase 7 awaits authorization.
+
 ## Known Issues
 
-The procedural audio engine and listening page are standalone. Mobile and touch verification, application integration, synchronization and WAV export remain pending. Archive entries 001–012, 014, 016, 017 and 019 are incomplete or pending. The entry for 020 is outside the index table and labeled Archived, but its referenced file is empty.
+The procedural audio engine and listening page are standalone. Integrated demo synchronization is verified within the reported scope. Mobile and touch verification in the final application, physical latency, final UI integration and WAV export remain pending. Archive entries 001–012, 014, 016, 017 and 019 are incomplete or pending. The entry for 020 is outside the index table and labeled Archived, but its referenced file is empty.
 
 ## Next Task
 
-Recover the original [AI transcripts](../PROMPT_CHAIN.md) before closing Phase 1. Begin Phase 6 — Audio-Visual Synchronization only when explicitly authorized.
+Recover the original [AI transcripts](../PROMPT_CHAIN.md) before closing Phase 1. Begin Phase 7 — WAV Export System only when explicitly authorized.

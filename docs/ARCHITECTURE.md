@@ -184,7 +184,7 @@ The background uses a cached radial gradient and a bounded, seeded field of tiny
 
 The renderer enforces 121 events per root and 300 pending plus active events total. The demo uses recursion's count and capacity helpers before generating complete trees with unique root IDs. It stamps placements with demo time, including zero before Start and the frozen time while paused. Rejected placements are reported and never queued. Clear Universe keeps the clock and visual settings. The future controller owns application-wide capacity and any replay history.
 
-Phase 6 can call `renderer.renderAt(audioEngine.getPlaybackPosition())` or use `renderer.start(() => audioEngine.getPlaybackPosition())` with transport coordination. The Phase 5 demo uses a separate `performance.now()` clock and does not import audio.
+The Phase 6 controller supplies `audioEngine.getPlaybackPosition()` to the renderer's animation provider and coordinates both transports. The Phase 5 demo uses a separate `performance.now()` clock and does not import audio.
 
 ## Synchronization
 
@@ -200,6 +200,33 @@ Tempo defaults to 55 BPM and ranges from 40 to 80 BPM. The configured generation
 | Stop | Fade and cancel audio, clear active visuals, and return the playhead to zero while retaining the composition and settings. |
 | Reset | Stop playback, clear composition events and parameter history, and restore defaults. |
 
+## Synchronized controller
+
+`new CosmicEchoesController(canvas, config)` owns one audio engine and one Canvas renderer. Importing and constructing the controller leave Web Audio uninitialized. Call `initialize()` or `startSession()` from a user gesture. The renderer receives `AudioEngine.getPlaybackPosition()` on each frame. Animation callbacks drive drawing only. Both engines receive the original composition-relative event times from recursion and mapping.
+
+| API | Behavior |
+|---|---|
+| `DEFAULT_CONTROLLER_CONFIG`, `validateControllerConfig(config)` | Defaults and validated snapshots. Nested keys are `audio`, `visuals`, `recursion`, and `music`. Environment determines theme and scale. Duration defaults to 60 seconds and clamps to 0.05–60. Recording capacity clamps to 1–300. |
+| `initialize()`, `startSession()`, `pause()`, `resume()`, `replay()`, `dispose()` | Async lifecycle methods. Start and replay return whether they entered playback. Pause and resume report whether they changed state. |
+| `placeStar(x, y)` | Synchronous normalized placement. Returns `{ accepted: true, rootId, onset, eventCount }` or `{ accepted: false, reason, message }`. Only recording playback permits placement. |
+| `stop()`, `reset()` | Stop finalizes an interrupted recording. Reset also discards it. |
+| `setRecursionConfig(config)`, `setEnvironment(id)`, `setMonitoringVolume(value)` | Update future placements, choose an environment between sessions, or multiply the live monitor gain by a 0–1 factor. The monitor value is excluded from the recorded mix. |
+| `setReducedMotion(mode)`, `setParticlesEnabled(on)`, `setRipplesEnabled(on)`, `setConnectionsEnabled(on)` | Change visual presentation independently of musical data. |
+| `getState()`, `getPlaybackPosition()`, `getDiagnostics()` | Report controller state, audio-relative seconds and diagnostics. The logical gap compares the sampled audio clock with the latest visual frame time. |
+| `getCompositionSnapshot()`, `getOfflineCompositionInput()` | Return a detached JSON-safe recording snapshot, or `{ composition, config }` for a finalized positive-duration recording. The adapter returns null before finalization or for a zero endpoint. |
+
+States are idle, initializing, playing, paused, stopped, completed, replaying and disposed. Placement before Start, during pause, after stop, during replay or after disposal is declined. Stop drops live resources and preserves the endpoint. Natural completion records the session boundary after audio tail cleanup. Async operations use a revision token so a stopped or disposed session cannot restart.
+
+Placement validates coordinates, time remaining and whole-tree capacity before staging notes. The default onset lead is 160 ms, with at least 40 ms beyond the configured scheduler lookahead. The controller counts pending and active celestial lifetimes against 300. Its separate historical cap defaults to 300 for the existing offline batch interface. Expiry releases visual and shared capacity while preserving recording history. No rejected tree is queued or recorded.
+
+`AudioEngine.appendNotes(notes)` validates IDs and future onsets, merges into the existing queue, and returns a rollback function for unscheduled notes. `VisualEngine.addEvents(batch, { redraw: false })` validates a future batch before committing it without invoking Canvas drawing. Both operations and recorder publication run synchronously between scheduler ticks. If visual validation fails, the controller rolls back staged audio. Neither accepting nor rejecting a placement restarts ambient harmony, atmosphere or the audio graph.
+
+Release-aware admission still counts attack, decay and release against eight melodic voices, plus separate budgets for two pads and one atmosphere. `AudioEngine.getSchedulingJournal()` reports admitted notes with effective onset, duration and release, plus suppression IDs and reasons. The finalized recording retains the schema version, session and environment, root and config snapshots, complete celestial and raw note arrays, admitted and suppressed notes, cancellations, interruptions, ambient instructions and audio settings including the procedural seed.
+
+Replay restores recorded celestial events and schedules only originally admitted notes at effective onsets. It uses recorded pitches, durations, pan and ambient harmony, with the original synthesis settings. Finished visual events are reloaded from the recording. Early stop is a hard cut for all layers. Replay and offline rendering preserve the original layer envelope up to the cut, then truncate output at that endpoint. Completed sessions retain the normal bounded tail. Future export can pass the adapter directly to `renderCompositionOffline(composition, config)`. Phase 7 must encode the bounded stereo buffer as WAV and add a download workflow. Session recording is in memory and captures static environment and mix plus per-placement recursion settings. Monitoring gain, live mix automation, and hardware output latency are outside the recorded content.
+
+Deep Space pairs with C major pentatonic, Nebula Dreams with A minor pentatonic, and Solar Harmony with F major pentatonic. The environment and synthesis mix are fixed during a recording. Recursion changes apply only to future placements.
+
 ## Audio Export
 
 The composition duration defaults to 60 seconds. Preserve its scheduled events and relevant parameter changes in composition time. OfflineAudioContext renders a snapshot of that history using the same musical events, synthesis settings, ambient layers, and effects as live playback. Export uses the current composition history directly. Render up to 4 seconds of reverb tail after the composition ends.
@@ -208,4 +235,4 @@ Export stereo 16-bit PCM WAV at 44,100 Hz. Provide headroom and peak control in 
 
 ## Status
 
-Recursion, musical mapping and procedural audio are implemented as standalone modules. The development listening page exercises the audio engine. Standalone audio verification is complete, including developer-reported listening checks. The standalone visual engine and demo are implemented. Standalone visual verification includes developer-reported desktop checks. Mobile and touch verification, application integration, synchronization and WAV export remain pending.
+Recursion, musical mapping and procedural audio are implemented as standalone modules. The development listening page exercises the audio engine. Standalone audio verification is complete, including developer-reported listening checks. The standalone visual engine and demo are implemented. Standalone visual verification includes developer-reported desktop checks. Phase 6 synchronization is verified in the integrated development demo. Physical latency, final UI integration, mobile and touch verification, and WAV export remain pending.
