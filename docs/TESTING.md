@@ -66,9 +66,25 @@ On 2026-11-26, headless Microsoft Edge ran eight browser suites over a local Pyt
 
 The root workflow started silent, selected Quiet Orbit, recorded one real automatic root and one manual root, paused and resumed, toggled Focus Mode, and recorded another manual root under Starlight. It finalized 21 celestial events and prepared an independently parsed 44.1 kHz stereo PCM16 WAV. Replay kept Auto Meditation off and preserved the recording and prepared metadata. The root smoke check and all four development demo loads passed. The normal layout was checked at 320, 375, 390, 768, 1024 and 1440 CSS pixels. Focus Mode was checked at 320, 390, 768 and 1440 CSS pixels. Browser viewport checks do not establish physical touch or screen-reader behavior.
 
+The eight suite totals and viewport checks above are from the implementation run. The suites were not rerun during closure. The direct smoke check covered idle load, the Canvas and visible Tab focus. The same-origin workflow separately exercised actual auto and manual placement, pause and resume, Focus Mode, finalization, WAV header parsing and replay. Controlled download requests did not verify disk saving.
+
+## Phase 9 developer-reported manual results
+
+The developer reported **38 of 38 checks passed**, including actual browser download and independent media-player playback. Browser, device and exact manual viewport details were not recorded. Physical mobile touch and formal accessibility or screen-reader verification were not reported. There were no additional observations.
+
+| Area | Reported PASS checks | Count |
+|---|---|---:|
+| Auto Meditation | Off by default. Respects audio activation. Gentle intervals. Synchronized audio and visuals. Manual placement remains available. Pause freezes placements. Resume continues. Stop prevents new roots. Completion disables it. Recording limit is clear. Repeated toggles are stable. | 11 |
+| Focus Mode | Canvas is prominent. Essential playback and keyboard placement remain available. Easy exit. Layout changes preserve playback and recording. Placement survives resize. The layout feels calm. | 8 |
+| Recursion presets | Four presets are available. Controls and event counts match. Presets create distinct experiences. Existing events persist. Manual editing shows Custom. Environments stay independent. | 7 |
+| Recording and export | Automatic and manual roots are recorded together. Replay creates no new roots. A recording with automatic roots exports. The downloaded file plays independently. Exported music matches the recording. | 5 |
+| Accessibility and overall experience | Keyboard operation. Visible focus. Reduced motion. Usable narrow layouts. Unobtrusive feedback. No obvious audio or visual regression. Creative features improve the experience. | 7 |
+
+The automated total remains **174 passes**, separate from **186 developer-reported manual passes** across Phases 4–9.
+
 ## Phase 9 manual verification
 
-**Pending.** Serve the project root with `python -m http.server 8000 --bind 127.0.0.1` and open `http://127.0.0.1:8000/` in a normal browser.
+For repeat checks, Serve the project root with `python -m http.server 8000 --bind 127.0.0.1` and open `http://127.0.0.1:8000/` in a normal browser.
 
 - **Auto Meditation:** Confirm it is off before starting and cannot activate audio. Start with Quiet Orbit, enable it, watch and listen for automatic roots, add a manual root, pause and resume, stop, and let a separate session finish naturally. Try rapid toggles and dense presets near both capacity limits. Look for clear feedback and no bursts after backgrounding.
 - **Focus Mode:** Use keyboard and pointer entry/exit, including Escape. Check Canvas emphasis, proportional placement after resize, transport, volume, center placement, Auto Meditation controls, progress and recording status. Confirm the timeline and prepared WAV survive layout changes.
