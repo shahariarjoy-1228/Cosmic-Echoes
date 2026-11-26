@@ -9,6 +9,9 @@ On 2026-11-26 all three suites ran in headless Microsoft Edge over Python loopba
 | Recursion | 32 | 0 | 0 |
 | Musical mapping | 69 | 0 | 0 |
 | Audio | 23 | 0 | 0 |
+| **Total** | **124** | **0** | **0** |
+
+These are results from the prior automated run. The suites were not rerun during Phase 4 closure.
 
 The initial audio run revealed a signed-zero noise endpoint and two wall-clock-sensitive transport assertions. The revised checks wait for audio-clock progress. In the final 44,100 Hz render, eight melody voices, two pads and one atmosphere source played at full master volume. Across dry, default and fully wet mixes, absolute peaks were **0.393525 left** and **0.171352 right**, below the 0.95 target. The demo generated mapped notes with its context still uninitialized.
 
@@ -43,7 +46,19 @@ Automated checks measure expected behavior. Browser checks exercise the interfac
 | T23 | Export ambience and effects | Automated + listening | Ambient layers and effects remain audible in the WAV, with a reverb tail of at most 4 seconds. | Pending |
 | T24 | Reduced motion | Browser | With the reduced-motion preference enabled, motion is reduced and essential controls remain usable. | Pending |
 
-The standalone capacity helper passed exact-fit, rejection and invalid-occupancy checks. T16 and T20 remain pending for controller integration. Normal user-gesture playback, subjective listening, full application synchronization and WAV export remain pending.
+The standalone capacity helper passed exact-fit, rejection and invalid-occupancy checks. T16 and T20 remain pending for controller integration. Standalone user-gesture playback and listening passed the developer-reported checks below. Future application integration tests, including synchronization and WAV export, remain pending.
+
+## Phase 4 developer-reported manual results
+
+The developer tested the standalone audio demo using normal browser playback and reported **20 passed out of 20**. These checks are separate from the automated results above.
+
+| Area | Reported PASS checks | Count |
+|---|---|---:|
+| Basic playback | No audio before Play. Play produces audible music. Pause freezes playback. Resume continues from the same position. Stop silences playback. Replay works. | 6 |
+| Sound quality | Root sounds soft and pleasant. Echoes sound related to the root. Ambient harmony supports the melody. Atmosphere is unobtrusive. Reverb sounds spacious. No noticeable clicks or harsh peaks. Stereo feels balanced. | 7 |
+| Stress and interaction | Maximum ternary tree plays correctly. Multiple roots play correctly. At most eight melodic voices. Smooth volume changes. All three environments work. Rapid commands behave correctly. Natural completion works. | 7 |
+
+Combined standalone evidence is **124 automated passes and 20 developer-reported manual passes**.
 
 ## Phase 4 manual listening checklist
 
@@ -57,4 +72,4 @@ From the project root, run `python -m http.server 8000 --bind 127.0.0.1`. Open `
 6. Pause and confirm the clock freezes. Resume and confirm playback continues. Stop and confirm silence, then replay.
 7. Try rapid playback commands and let a composition finish naturally. Check the endpoint and control states.
 
-**Subjective sound quality is pending.** If tuning is needed, reduce the Starlight harmonic blend or cutoff for harshness, shorten release for ringing, lower pads or reverb for muddy bass, and lower atmosphere if it masks melody. Try a lower voice cap for density or a smaller pan range for imbalance. If sliders click, inspect the smoothing on the audio clock. Record browser, output device, scenario and observations.
+If tuning is needed, reduce the Starlight harmonic blend or cutoff for harshness, shorten release for ringing, lower pads or reverb for muddy bass, and lower atmosphere if it masks melody. Try a lower voice cap for density or a smaller pan range for imbalance. If sliders click, inspect the smoothing on the audio clock. Record browser, output device, scenario and observations.

@@ -165,4 +165,4 @@ Export stereo 16-bit PCM WAV at 44,100 Hz. Provide headroom and peak control in 
 
 ## Status
 
-Recursion, musical mapping and procedural audio are implemented as standalone modules. The development listening page exercises the audio engine. Application integration, listening verification, rendering, synchronization and WAV export remain pending.
+Recursion, musical mapping and procedural audio are implemented as standalone modules. The development listening page exercises the audio engine. Standalone audio verification is complete, including developer-reported listening checks. Application integration, rendering, synchronization and WAV export remain pending.

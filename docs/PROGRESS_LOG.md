@@ -6,7 +6,9 @@ Cosmic Echoes
 
 ## Current Phase
 
-P04 — Procedural Web Audio Engine (manual verification pending)
+P04 — Procedural Web Audio Engine (completed, standalone verified)
+
+Next phase is P05 — Cosmic Visual Engine, pending authorization.
 
 ## Status Definitions
 
@@ -23,8 +25,8 @@ P04 — Procedural Web Audio Engine (manual verification pending)
 | P01 | Environment and repository setup | In progress |
 | P02 | Recursive celestial engine | Completed (standalone) |
 | P03 | Musical mapping | Completed (standalone) |
-| P04 | Procedural audio engine | Implemented (manual verification pending) |
-| P05 | Cosmic visual engine | Pending |
+| P04 | Procedural audio engine | Completed (standalone verified) |
+| P05 | Cosmic visual engine | Next (pending authorization) |
 | P06 | Audio-visual synchronization | Pending |
 | P07 | WAV export | Pending |
 | P08 | User interface and accessibility | Pending |
@@ -94,10 +96,16 @@ Reviewed all six pending deliverable mappings and the 24 pending application tes
 - Headless Edge over loopback HTTP passed 32 recursion, 69 music and 23 audio cases with zero failures or skips. The demo generated 12 preview rows without initializing audio.
 - The developer will archive this exchange. Older transcript gaps remain listed in the prompt index.
 
+### Entry 010 — Phase 4 standalone closure (2026-11-26)
+
+- Prior automated run: 124 passed, 0 failed, 0 skipped. No automated rerun during closure.
+- Developer reported 20 of 20 manual checks passed on the standalone demo using normal browser playback. See [manual results](TESTING.md#phase-4-developer-reported-manual-results).
+- Phase 4 is complete in standalone use. Phase 5 is next. Future application integration tests remain pending.
+
 ## Known Issues
 
-The procedural audio engine and listening page are standalone. Subjective listening, normal user-gesture playback, application integration, visuals, synchronization and WAV export remain pending.
+The procedural audio engine and listening page are standalone. Application integration, visuals, synchronization and WAV export remain pending. Archive entries 001–012, 014, 016, 017 and 019 are incomplete or pending. The entry for 020 is outside the index table and labeled Archived, but its referenced file is empty.
 
 ## Next Task
 
-Recover the original [AI transcripts](../PROMPT_CHAIN.md) before closing Phase 1. Complete the Phase 4 listening checklist. Begin Phase 5 only when explicitly authorized.
+Recover the original [AI transcripts](../PROMPT_CHAIN.md) before closing Phase 1. Begin Phase 5 — Cosmic Visual Engine only when explicitly authorized.

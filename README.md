@@ -34,7 +34,7 @@ The application is designed to run entirely in the browser without external runt
 
 ## Development Status
 
-Phase 4 adds standalone procedural Web Audio playback, a development listening page and bounded offline stereo rendering. Manual listening and user-gesture verification are pending. Canvas rendering, application integration and WAV export are planned. The Phase 1 transcript archive remains incomplete.
+Phase 4 adds standalone procedural Web Audio playback, a development listening page and bounded offline stereo rendering. Standalone verification is complete with 124 previously passed automated tests and 20 developer-reported manual checks. Phase 5 — Cosmic Visual Engine is next. Canvas rendering, application integration and WAV export are planned. The Phase 1 transcript archive remains incomplete.
 
 Serve the project from the root with `python -m http.server 8000 --bind 127.0.0.1` if Python is available, then open `http://127.0.0.1:8000/tests/audio-demo.html`. Select a scenario, choose Generate composition, then press Play. Any static HTTP server can serve the page. See the [audio API](docs/ARCHITECTURE.md#procedural-audio-engine) and [test results](docs/TESTING.md).
 
