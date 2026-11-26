@@ -32,6 +32,7 @@ This document indexes the AI-assisted development interactions used throughout t
 | 014 | ChatGPT | Phase 1 | Audit review and corrective planning | ai-logs/014-phase1-corrective-planning.md | Incomplete — original prompt and response missing |
 | 015 | Codex | Phase 1 | Corrective documentation task | ai-logs/015-codex-corrective-task.md | Archived |
 | 016 | Unconfirmed | Phase 1 | AI archive guidance | ai-logs/016-ai-archive-guidance.md | Pending — empty |
+| 018 | Codex | Phase 2 | Implement and verify the recursive engine | ai-logs/018-phase2-recursive-engine.md | Archived |
 
 ## Original transcripts to archive
 
@@ -52,6 +53,7 @@ This document indexes the AI-assisted development interactions used throughout t
 - Archive this follow-up corrective-task request and its final response as a separate exchange.
 - Check the source conversations for additional development prompts and follow-ups. Index each original exchange and mark any missing original explicitly.
 | 017 | Codex | Phase 1 | Final Phase 1 verification | ai-logs/017-phase1-final-verification.md | Archived |
+| 018 | Codex | Phase 2 | Recursive celestial engine implementation | ai-logs/018-recursive-engine-implementation.md | Archived |
 ## Recording Policy
 
 - Preserve every project prompt.

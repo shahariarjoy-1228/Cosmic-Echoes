@@ -72,7 +72,7 @@ Provide Play, Pause, Resume, Stop, and Reset using the [transport behavior in th
 | ID | Phase | Status |
 |---|---|---|
 | P01 | Environment and repository setup | In progress |
-| P02 | Recursive celestial engine | Pending |
+| P02 | Recursive celestial engine | Completed (standalone) |
 | P03 | Musical mapping | Pending |
 | P04 | Procedural audio engine | Pending |
 | P05 | Cosmic visual engine | Pending |
@@ -86,4 +86,4 @@ Provide Play, Pause, Resume, Stop, and Reset using the [transport behavior in th
 
 ## Success Criteria
 
-The finished application must meet all six deliverables in the [hackathon requirements and module map](HACKATHON_REQUIREMENTS.md) and provide a coherent, relaxing musical experience without relying on external runtime services. Use the [testing plan](TESTING.md) to verify implementation. Phase 1 remains in progress until the [remaining setup checks and archival tasks](PROGRESS_LOG.md#next-task) are complete.
+The finished application must meet all six deliverables in the [hackathon requirements and module map](HACKATHON_REQUIREMENTS.md) and provide a coherent, relaxing musical experience without relying on external runtime services. Use the [testing plan](TESTING.md) to verify implementation. Phase 1 archive work remains open. The standalone Phase 2 engine exposes its [generation and capacity API](ARCHITECTURE.md#recursive-engine-api). The application controller will use that API during integration.

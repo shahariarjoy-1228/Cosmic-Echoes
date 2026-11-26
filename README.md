@@ -34,9 +34,9 @@ The application is designed to run entirely in the browser without external runt
 
 ## Development Status
 
-Phase 1 — Project initialization and planning (in progress). Repository setup has been audited. AI transcript archival and the remaining setup checks are pending.
+The Phase 2 recursive engine is implemented and verified in isolation. The app entry point is still a scaffold. Music, audio, Canvas rendering, and WAV export are planned. The Phase 1 transcript archive remains incomplete.
 
-Application implementation has not started.
+Run the recursion tests from the project root with `python -m http.server 8000 --bind 127.0.0.1` if Python is available, then open `http://127.0.0.1:8000/tests/recursion.test.html`. Any static HTTP server can serve the page. See the [engine API](docs/ARCHITECTURE.md#recursive-engine-api) and [test results](docs/TESTING.md).
 
 ## AI Usage
 
