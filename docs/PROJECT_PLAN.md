@@ -82,9 +82,9 @@ The release candidate feature freeze remains in effect.
 | P08 | User interface and accessibility | Completed (root verified) |
 | P09 | Creative features and polish | Completed (root verified) |
 | P10 | Final testing and debugging | Completed and developer-approved (verified release candidate) |
-| P11 | Documentation and demonstration | Materials prepared; archive recovery outstanding |
+| P11 | Documentation and demonstration | Preparation complete and developer-approved; rehearsal and archive recovery pending |
 | P12 | Final submission | Next planned, pending explicit authorization |
 
 ## Success Criteria
 
-The finished application must meet all six deliverables in the [hackathon requirements and module map](HACKATHON_REQUIREMENTS.md) and provide a coherent, relaxing musical experience without relying on external runtime services. Use the [testing plan](TESTING.md) to verify implementation. Phase 1 archive work remains open. The root app integrates the [recursive engine](ARCHITECTURE.md#recursive-engine-api) and [musical mapper](ARCHITECTURE.md#musical-mapping). Phase 10 accepted the six product deliverables within scope. Phase 11 materials are ready to rehearse. Full submission compliance depends on [original AI transcript recovery](AI_USAGE.md).
+The finished application must meet all six deliverables in the [hackathon requirements and module map](HACKATHON_REQUIREMENTS.md) and provide a coherent, relaxing musical experience without relying on external runtime services. Use the [testing plan](TESTING.md) to verify implementation. Phase 1 archive work remains open. The root app integrates the [recursive engine](ARCHITECTURE.md#recursive-engine-api) and [musical mapper](ARCHITECTURE.md#musical-mapping). Phase 10 accepted the six product deliverables within scope. Phase 11 preparation is complete and developer-approved within scope. Demonstration rehearsal is pending, and judging criteria await verification against the original rules PDF. Full submission compliance depends on [original AI transcript recovery](AI_USAGE.md).

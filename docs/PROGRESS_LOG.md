@@ -6,7 +6,7 @@ Cosmic Echoes
 
 ## Current Phase
 
-P10 is complete and developer-approved. P11 documentation and demonstration materials are prepared. AI archive recovery is open. P12 — Final Submission is next planned and awaits explicit authorization.
+P10 is complete and developer-approved. P11 documentation and demonstration preparation is complete and developer-approved within the documented scope. Rehearsal and AI archive recovery remain open. P12 — Final Submission is next planned and awaits explicit authorization.
 
 ## Status Definitions
 
@@ -30,7 +30,7 @@ P10 is complete and developer-approved. P11 documentation and demonstration mate
 | P08 | User interface and accessibility | Completed (root verified) |
 | P09 | Creative features and polish | Completed (root verified) |
 | P10 | Final testing and debugging | Completed and developer-approved (verified release candidate) |
-| P11 | Documentation and demonstration | Materials prepared; archive recovery outstanding |
+| P11 | Documentation and demonstration | Preparation complete and developer-approved; rehearsal and archive recovery pending |
 | P12 | Final submission | Next planned, pending explicit authorization |
 
 ## Development Entries
@@ -188,10 +188,16 @@ Reviewed all six pending deliverable mappings and the 24 pending application tes
 - Reconciled the AI index and recovered original Codex replies from project-local records. The index has 25 archived records, 15 incomplete records and one indexed empty file. Original early ChatGPT replies, source attachments and the Phase 11 final response remain open. [Recovery inventory](AI_USAGE.md).
 - Feature freeze remains in effect. Phase 10 regression suites were not rerun for this documentation pass.
 
+### Entry 025 — Official Phase 11 approval (2026-11-26)
+
+- The developer approved the documentation, demonstration materials, five authentic screenshots and verified sample WAV within the delivered scope. The [capture and sample limitations](assets/README.md) still apply. Judging alignment awaits verification against the original rules PDF.
+- Approval accepts the 72 resolved links and anchors, successful Git diff check, preserved source and tests, and the prior [Phase 10 results](TESTING.md#phase-10-automated-qa). No regression suites were rerun for this approval.
+- The approved archive inventory contains 41 indexed paths, 25 archived records covering 40 exchanges, 15 incomplete records and one indexed empty record. The unindexed duplicate remains empty. The original Phase 11 implementation response and approval exchange still need to be archived along with the other missing originals. [Recovery inventory](AI_USAGE.md).
+
 ## Known Issues
 
 The procedural audio engine and listening page are standalone. Integrated demo synchronization is verified within the reported scope. The tested root workflows passed. Physical mobile touch, assistive technology and formal audit checks, and physical audio-to-display latency remain unverified. Browser saving and independent-player playback passed in developer testing. Archive entries 001–012, 014, 016, 017 and 019 are incomplete or pending. An extra 018 file is empty. Entries 020 and 026 are outside the table and labeled Archived despite empty files. Phase 5, Phase 6 and Phase 8 exchanges still need archival or indexing.
 
 ## Next Task
 
-Recover the [remaining original AI records](AI_USAGE.md). Phase 12 — Final Submission awaits explicit authorization. Feature work remains frozen.
+Outstanding work includes demonstration rehearsal and recovery of the [remaining original AI records](AI_USAGE.md). Phase 12 — Final Submission awaits explicit authorization. Feature work remains frozen.
