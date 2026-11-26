@@ -105,6 +105,23 @@ footer p { max-width: 48rem; }
   .panel, .session { padding-inline: .7rem; }
   .onboarding p { font-size: .92rem; }
 }
+.header-actions { display: flex; align-items: center; flex-wrap: wrap; justify-content: flex-end; gap: .45rem .9rem; }
+.listening-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: .65rem 1.2rem; margin: .85rem 0; padding-top: .7rem; border-top: 1px solid var(--line); }
+.meditation label { display: inline-flex; min-height: var(--control-height); align-items: center; gap: .5rem; font-weight: 590; }
+#meditation-status { margin-top: .25rem; }
+.monitoring { padding-top: .4rem; }
+:root[data-focus="true"] .controls,
+:root[data-focus="true"] footer,
+:root[data-focus="true"] .page-heading,
+:root[data-focus="true"] .help-link,
+:root[data-focus="true"] .placement-row details { display: none; }
+:root[data-focus="true"] .masthead { position: sticky; top: 0; z-index: 2; }
+:root[data-focus="true"] .workspace { grid-template-columns: minmax(0, 1fr); padding-top: var(--gap); }
+:root[data-focus="true"] canvas { height: clamp(17rem, 65vh, 50rem); }
+@media (max-width: 28rem) {
+  .header-actions { gap: .25rem; }
+  .header-actions button { font-size: .9rem; }
+}
 @media (prefers-reduced-motion: reduce) {
   button { transition: none; }
 }

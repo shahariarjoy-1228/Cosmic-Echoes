@@ -3,6 +3,7 @@ import { DEFAULT_CONFIG, countEvents } from "./js/recursion.js";
 import { getScale } from "./js/music.js";
 import { VISUAL_THEMES, pointerToNormalized } from "./js/visuals.js";
 import { WavExporter } from "./js/export.js";
+import { createMeditationScheduler, getRecursionPreset, identifyMatchingPreset, RECURSION_PRESETS } from "./js/creative.js";
 
 const get = id => document.getElementById(id);
 const text = (id, value) => {
@@ -17,6 +18,7 @@ const errorMessage = error => error instanceof Error ? error.message : String(er
 const canvas = get("sky");
 const settings = Object.keys(DEFAULT_CONFIG);
 const exporter = new WavExporter();
+const meditation = createMeditationScheduler();
 const listeners = new AbortController();
 const listen = (element, event, handler) => element.addEventListener(event, handler, { signal: listeners.signal });
 const descriptions = {
@@ -51,6 +53,9 @@ let lastEngineError = "";
 for (const [id, theme] of Object.entries(VISUAL_THEMES)) get("environment").add(new Option(theme.name, id));
 get("environment").value = DEFAULT_CONTROLLER_CONFIG.environment;
 for (const key of settings) get(key).value = DEFAULT_CONFIG[key];
+for (const [id, { name, config }] of Object.entries(RECURSION_PRESETS)) {
+  get("recursion-preset").add(new Option(`${name} · ${countEvents(config.maxDepth, config.childrenPerStar)} stars`, id));
+}
 
 function clock(seconds) {
   const whole = Math.max(0, Math.floor(seconds));
@@ -69,13 +74,49 @@ function applyRecursion() {
   ));
   const suffixes = { tempo: " BPM", spreadAngle: "°", generationDelay: " s" };
   for (const key of settings) text(`${key}-value`, config[key] + (suffixes[key] ?? ""));
+  const presetId = identifyMatchingPreset(config);
+  get("recursion-preset").value = presetId;
+  text("preset-description", RECURSION_PRESETS[presetId]?.description ?? "Custom recursion settings.");
   const stars = countEvents(config.maxDepth, config.childrenPerStar);
   text("recursion-preview", `${stars} ${stars === 1 ? "star" : "stars"} per placement · ${config.maxDepth + 1} ${config.maxDepth ? "generations" : "generation"}`);
 }
 
+function updateMeditation(d) {
+  const wasEnabled = meditation.enabled;
+  let result;
+  if (!transition && !document.hidden) result = meditation.tick(d.state, d.position, (x, y) => controller.placeStar(x, y));
+  get("meditation").checked = meditation.enabled;
+  get("meditation").disabled = transition || (d.state !== "playing" && !meditation.enabled);
+  if (result && !result.accepted) {
+    if (result.reason === "event-capacity") text("meditation-status", "The sky is full. Auto Meditation will try again at the next interval.");
+    else {
+      text("meditation-status", `Auto Meditation off. ${reasons[result.reason] ?? result.message}`);
+      if (result.reason === "integration-failure") showError("error", result.message);
+    }
+  } else if (meditation.enabled) {
+    const current = get("meditation-status").textContent;
+    if (d.state === "paused") text("meditation-status", "Auto Meditation paused.");
+    else if (result?.accepted || current === "Auto Meditation paused.") text("meditation-status", "Auto Meditation is on.");
+  } else if (wasEnabled) text("meditation-status", "Auto Meditation stopped with the session.");
+  else if (d.state === "playing" && get("meditation-status").textContent.startsWith("Start a session")) {
+    text("meditation-status", "Auto Meditation is off.");
+  }
+  return result;
+}
+
+function setFocusMode(active) {
+  document.documentElement.dataset.focus = String(active);
+  const button = get("focus-mode");
+  button.setAttribute("aria-pressed", String(active));
+  text("focus-mode", active ? "Exit focus mode" : "Focus mode");
+  text("notice", active ? "Focus mode on." : "Focus mode off.");
+  button.focus();
+}
+
 function refresh() {
   if (disposed || !controller) return;
-  const d = controller.getDiagnostics();
+  let d = controller.getDiagnostics();
+  if (updateMeditation(d)) d = controller.getDiagnostics();
   const state = d.state;
   const active = ["initializing", "playing", "paused", "replaying"].includes(state);
   if (state !== lastState) {
@@ -173,6 +214,10 @@ function bindTransport() {
       transition = true;
       showError("error", "");
       try {
+        if (["start", "stop", "reset", "replay"].includes(id) && meditation.enabled) {
+          meditation.disable();
+          text("meditation-status", "Auto Meditation is off.");
+        }
         const operation = action();
         refresh();
         await operation;
@@ -259,6 +304,30 @@ try {
   bindPlacement();
   bindExport();
   for (const key of settings) listen(get(key), "input", applyRecursion);
+  listen(get("recursion-preset"), "change", event => {
+    if (event.target.value === "custom") { applyRecursion(); return; }
+    const preset = getRecursionPreset(event.target.value);
+    for (const key of settings) get(key).value = preset[key];
+    applyRecursion();
+    text("notice", `${RECURSION_PRESETS[event.target.value].name} selected for future stars.`);
+  });
+  listen(get("meditation"), "change", event => {
+    if (event.target.checked && controller.getState() === "playing" && !transition) {
+      meditation.enable(controller.getPlaybackPosition());
+      text("meditation-status", "Auto Meditation is on.");
+    } else {
+      meditation.disable();
+      text("meditation-status", "Auto Meditation is off.");
+    }
+    refresh();
+  });
+  listen(get("focus-mode"), "click", () => setFocusMode(document.documentElement.dataset.focus !== "true"));
+  listen(document, "keydown", event => {
+    if (event.key !== "Escape" || event.defaultPrevented || document.documentElement.dataset.focus !== "true" ||
+        event.target.closest?.("select, input, textarea, [contenteditable], dialog")) return;
+    event.preventDefault();
+    setFocusMode(false);
+  });
   listen(get("environment"), "change", event => {
     showError("error", "");
     try {
@@ -285,6 +354,8 @@ try {
   timer = setInterval(refresh, 150);
   listen(window, "pagehide", event => {
     clearInterval(timer);
+    meditation.disable();
+    text("meditation-status", "Auto Meditation is off.");
     if (event.persisted) {
       transportRevision += 1;
       transition = false;

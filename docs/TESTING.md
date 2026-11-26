@@ -48,6 +48,34 @@ Automated checks measure expected behavior. Browser checks exercise the interfac
 
 The standalone capacity helper passed exact-fit, rejection and invalid-occupancy checks. T16 and T20 remain pending for controller integration. Standalone user-gesture playback and listening passed the developer-reported checks below. Future application integration tests, including synchronization and WAV export, remain pending.
 
+## Phase 9 automated verification
+
+On 2026-11-26, headless Microsoft Edge ran eight browser suites over a local Python HTTP server. The browser debugger waited for asynchronous summaries. Live suites used `?live=1`, an autoplay override and muted monitoring. Scheduler edge cases used controlled positions and rejection responses. The real creative workflow used the actual same-origin root app, Web Audio, Canvas and offline renderer. The download anchor click was controlled.
+
+| Suite | Passed | Failed | Skipped |
+|---|---:|---:|---:|
+| Recursion | 32 | 0 | 0 |
+| Musical mapping | 69 | 0 | 0 |
+| Procedural audio | 23 | 0 | 0 |
+| Visual engine | 15 | 0 | 0 |
+| Synchronization | 8 | 0 | 0 |
+| WAV export | 13 | 0 | 0 |
+| Root application | 7 | 0 | 0 |
+| Creative features | 7 | 0 | 0 |
+| **Total** | **174** | **0** | **0** |
+
+The root workflow started silent, selected Quiet Orbit, recorded one real automatic root and one manual root, paused and resumed, toggled Focus Mode, and recorded another manual root under Starlight. It finalized 21 celestial events and prepared an independently parsed 44.1 kHz stereo PCM16 WAV. Replay kept Auto Meditation off and preserved the recording and prepared metadata. The root smoke check and all four development demo loads passed. The normal layout was checked at 320, 375, 390, 768, 1024 and 1440 CSS pixels. Focus Mode was checked at 320, 390, 768 and 1440 CSS pixels. Browser viewport checks do not establish physical touch or screen-reader behavior.
+
+## Phase 9 manual verification
+
+**Pending.** Serve the project root with `python -m http.server 8000 --bind 127.0.0.1` and open `http://127.0.0.1:8000/` in a normal browser.
+
+- **Auto Meditation:** Confirm it is off before starting and cannot activate audio. Start with Quiet Orbit, enable it, watch and listen for automatic roots, add a manual root, pause and resume, stop, and let a separate session finish naturally. Try rapid toggles and dense presets near both capacity limits. Look for clear feedback and no bursts after backgrounding.
+- **Focus Mode:** Use keyboard and pointer entry/exit, including Escape. Check Canvas emphasis, proportional placement after resize, transport, volume, center placement, Auto Meditation controls, progress and recording status. Confirm the timeline and prepared WAV survive layout changes.
+- **Presets:** Verify all four, the six control values, event counts, the Custom state and the unchanged environment. Switch during recording and confirm older stars retain their configuration.
+- **Recording and WAV:** Record manual and automatic roots together. Stop and replay without automatic generation. Save the exported WAV, play it independently, and compare music and timing with the session.
+- **Accessibility and polish:** Check visible focus, labels, reduced motion, clean narrow layouts, uncluttered announcements, and physical touch where available. Record browser, device, viewport and subjective observations. Normal audible playback and actual file saving were outside the Phase 9 headless verification.
+
 ## Phase 8 automated verification
 
 On 2026-11-26, headless Microsoft Edge ran seven browser suites over a local Python HTTP server. The debugger waited for final asynchronous summaries. Live audio, sync, export and app cases used `?live=1`, an autoplay override and muted monitoring. Tests exercised the real root app in a same-origin iframe. Export render failure and delayed completion used controlled substitutes, as did the final anchor click.

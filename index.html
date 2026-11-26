@@ -13,7 +13,10 @@
   <a class="skip" href="#transport">Skip to session controls</a>
   <header class="masthead">
     <a class="brand" href="./" aria-label="Cosmic Echoes home"><span class="brand-mark" aria-hidden="true">✦</span><span>Cosmic Echoes</span></a>
-    <a class="help-link" href="#about">Help &amp; About</a>
+    <div class="header-actions">
+      <a class="help-link" href="#about">Help &amp; About</a>
+      <button id="focus-mode" type="button" aria-pressed="false">Focus mode</button>
+    </div>
   </header>
   <main>
     <div class="page-heading">
@@ -51,6 +54,19 @@
               </form>
             </details>
           </div>
+          <div class="listening-controls">
+            <div class="meditation">
+              <label><input id="meditation" type="checkbox" aria-describedby="meditation-help" disabled> Auto Meditation</label>
+              <p id="meditation-help" class="muted">Let stars emerge automatically while you listen. Try Quiet Orbit for gentler echoes.</p>
+              <p id="meditation-status" class="muted" role="status">Start a session to enable Auto Meditation.</p>
+            </div>
+            <div class="monitoring">
+              <label class="slider" for="volume"><span>Monitoring volume</span><output id="volume-value" for="volume">70%</output></label>
+              <input id="volume" type="range" min="0" max="1" step=".01" value=".7">
+              <p class="muted">Playback only. WAV volume uses the recorded mix.</p>
+            </div>
+          </div>
+          <p id="recording" class="muted">Stop or finish a session to prepare a WAV.</p>
           <p id="notice" role="status">Ready when you are.</p>
           <p id="error" role="alert" hidden></p>
         </div>
@@ -67,6 +83,9 @@
         <section class="surface panel" aria-labelledby="echo-heading">
           <h2 id="echo-heading">Shape the echoes</h2>
           <p class="muted">Changes apply to the next star.</p>
+          <label for="recursion-preset">Recursion preset</label>
+          <select id="recursion-preset" aria-describedby="preset-description"><option value="custom" disabled>Custom</option></select>
+          <p id="preset-description" class="muted"></p>
           <label class="slider" for="maxDepth"><span>Recursion depth</span><output id="maxDepth-value" for="maxDepth">3</output></label>
           <input id="maxDepth" type="range" min="0" max="4" step="1" value="3">
           <label class="slider" for="childrenPerStar"><span>Children per star</span><output id="childrenPerStar-value" for="childrenPerStar">2</output></label>
@@ -86,7 +105,6 @@
         </section>
         <section class="surface panel" aria-labelledby="recording-heading">
           <h2 id="recording-heading">Recording &amp; export</h2>
-          <p id="recording" class="muted">Stop or finish a session to prepare a WAV.</p>
           <div class="export-actions">
             <button id="prepare" disabled>Prepare WAV</button><button id="download" disabled>Download WAV</button>
             <button id="cancel" disabled hidden>Cancel export</button><button id="clear-export" disabled hidden>Clear WAV</button>
@@ -96,10 +114,7 @@
           <p id="wav-metadata" class="muted" hidden></p>
         </section>
         <details class="surface panel">
-          <summary>Sound &amp; display</summary>
-          <label class="slider" for="volume"><span>Monitoring volume</span><output id="volume-value" for="volume">70%</output></label>
-          <input id="volume" type="range" min="0" max="1" step=".01" value=".7">
-          <p class="muted">Monitoring changes what you hear. The WAV uses the recorded mix.</p>
+          <summary>Display settings</summary>
           <label for="motion">Motion preference</label>
           <select id="motion"><option value="auto">Follow system</option><option value="full">Full motion</option><option value="reduced">Reduced motion</option></select>
           <div class="checks">

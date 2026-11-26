@@ -267,6 +267,23 @@ A finalized positive-duration recording enables Prepare WAV and Replay. WAV prep
 
 Native labels, focus styles, keyboard placement, visible messages and system or explicit reduced motion support accessibility. Default panel text contrast pairs calculate to about 15.67:1 for primary text and 8.17:1 for muted text. The control-border pair is about 3.92:1. These are selected color pairs. Assistive technology and on-device checks remain pending.
 
+## Creative modes and recursion presets
+
+`js/creative.js` holds the validated, immutable preset registry and a small scheduler with no timer. `getRecursionPreset(id)` returns a detached configuration, and `identifyMatchingPreset(config)` returns the matching ID or `custom`. The root UI updates all six controls through the existing controller and uses `countEvents` for displayed counts. Applying a preset changes future placements only. Musical environments and the accepted recording remain independent.
+
+| Preset | Depth | Children | Decay | Spread | Base delay | Tempo | Events |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Quiet Orbit | 2 | 1 | 0.65 | 60° | 1.5 s | 45 BPM | 3 |
+| Starlight | 3 | 2 | 0.65 | 100° | 0.8 s | 55 BPM | 15 |
+| Nebula Bloom | 3 | 3 | 0.60 | 140° | 1.2 s | 50 BPM | 40 |
+| Cosmic Cascade | 4 | 3 | 0.55 | 120° | 0.8 s | 65 BPM | 121 |
+
+Auto Meditation is off at startup and can be enabled during recording. The existing 150 ms UI refresh checks the playback position supplied by the controller. It places at most one root when five seconds of composition time have elapsed, then sets the next deadline five seconds after the observed time. The scheduler picks deterministic coordinates within 0.15–0.85 using two fractional sequences. No work runs while the document is hidden, and the resumed check places at most one due root. The session's audio and parameter state remains authoritative.
+
+Pause keeps the deadline frozen on the composition clock. Stop, completion, reset, replay and page exit disable generation. Temporary occupancy rejection waits until the next interval. A full recording, insufficient time or integration failure disables the mode and reports the reason. Ordinary accepted auto roots avoid live-region announcements. The unchanged controller owns the 300 occupied-event and historical caps, eight melodic voices including releases, two pads and one atmosphere source. Manual and automatic roots share the same placement, recording, replay and export pipeline.
+
+Focus Mode uses a root CSS attribute and the existing ResizeObserver. The shared Canvas grows while the settings column and diagnostics leave layout and keyboard navigation. Transport, monitoring, progress, recording, center placement and Auto Meditation remain available. The same button remains focused and becomes Exit focus mode. Escape exits outside native editing controls or dialogs. Entering and leaving preserve the clock, environment, events and prepared WAV. The feature adds no timer, canvas, audio graph or fullscreen dependency.
+
 ## Status
 
 Recursion, musical mapping and procedural audio are implemented as standalone modules. The development listening page exercises the audio engine. Standalone audio verification is complete, including developer-reported listening checks. The standalone visual engine and demo are implemented. Standalone visual verification includes developer-reported desktop checks. Phase 6 synchronization is verified in the integrated development demo. The Phase 7 demo prepares stereo WAV downloads. Standalone export verification includes developer-reported saving and independent-player playback. The root application passed its automated and developer-reported manual checks. Physical latency, formal accessibility and assistive technology checks, and physical mobile touch verification remain open.
