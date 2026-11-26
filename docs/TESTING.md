@@ -65,9 +65,27 @@ On 2026-11-26, headless Microsoft Edge ran seven browser suites over a local Pyt
 
 The application cases cover startup, labels, environment and motion, viewport sizing, pointer and coordinate placement, transport, cancellation, recovery, PCM header inspection and replay. Layout was tested at 320, 375, 390, 768, 1024 and 1440 CSS pixels. A 1440 × 960 root smoke check found an idle page, a 968 × 547 backing canvas, no reported page errors and no external resource requests. A browser Tab event exposed the skip link with a solid outline. All four previous demos loaded. Synthetic touch-drag checks covered the handler without testing physical hardware.
 
+The seven suite totals and viewport evidence are from the implementation run. The suites were not rerun during closure. The direct root smoke checked idle load, Canvas, no reported errors or external requests, and visible Tab focus. The same-origin application suite separately exercised actual placement, scheduling, Canvas activity, stop and finalization, Blob metadata and replay. The anchor click was controlled. The developer separately confirmed file saving and independent playback.
+
+## Phase 8 developer-reported manual results
+
+The developer reported **47 of 47 passes**. Browsers, devices and exact manual viewport sizes were not recorded. Physical mobile touch and formal screen-reader or accessibility audit results were not reported. No additional observations were supplied.
+
+| Area | Reported PASS checks | Count |
+|---|---|---:|
+| Initial experience | Root loads. Branding and instructions are clear. Initial Canvas renders. No audio before activation. Starting is intuitive. Initial volume is comfortable. | 6 |
+| Audio and visuals | Placement creates synchronized audio and visuals. Recursive echoes emerge. Multiple roots coexist during playback. All three environments work. Recursion controls are clear. Advanced settings are accessible. Parameter changes apply only to future placements. Event-count feedback is correct. | 8 |
+| Playback and recording | Pause freezes both streams. Resume continues. Stop finalizes. Replay reproduces the recording. Natural completion updates the interface. Discard behavior is clear. | 6 |
+| WAV export | Export is unavailable without finalization. Root preparation succeeds. Status is clear. File downloads. Independent playback works. Cancellation works. A second recording exports. Old and new results remain distinct. | 8 |
+| Accessibility | Primary controls are keyboard-operable. Keyboard placement works. Focus is visible. Labels and units are clear. Reduced motion works. Feedback appears outside Canvas. Important text is readable. Help and settings are accessible. | 8 |
+| Responsive layout | Desktop is comfortable. Narrow layout is usable. No unwanted horizontal scrolling. Resize preserves placement. Controls remain usable under zoom. | 5 |
+| Overall experience | Visual hierarchy feels polished. Canvas remains the focus. Experience feels calm. Diagnostics are unobtrusive. Rapid ordinary actions are stable. Core features are available at the root. | 6 |
+
+The automated total remains **167 passes**, separate from **148 developer-reported manual passes** across Phases 4–8.
+
 ## Phase 8 manual application verification
 
-**Pending.** Serve the repository root with `python -m http.server 8000 --bind 127.0.0.1`. Open `http://127.0.0.1:8000/` in a regular browser with normal autoplay policy.
+For repeat checks, Serve the repository root with `python -m http.server 8000 --bind 127.0.0.1`. Open `http://127.0.0.1:8000/` in a regular browser with normal autoplay policy.
 
 - Confirm branding, initial sky and onboarding, silence before Start, and comfortable sound after starting. Place several mouse or touch stars and compare root and recursive notes with their visuals. Try each environment, change all recursion settings and confirm the preview and future-placement behavior.
 - Pause and resume, stop and replay, allow natural completion, and verify what Clear recording discards. Try rapid ordinary actions and confirm feedback and calm visuals remain usable.

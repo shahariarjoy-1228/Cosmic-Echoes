@@ -34,7 +34,7 @@ The application is designed to run entirely in the browser without external runt
 
 ## Development Status
 
-The root application integrates synchronized stars and music, session recording, replay, and stereo WAV export. Phase 8 passed 167 automated browser tests. Manual verification of the root workflow, saved WAV playback and physical touch devices remains pending.
+The root application integrates synchronized stars and music, session recording, replay, and stereo WAV export. Phase 8 is complete within the verified root scope, with 167 prior automated passes and 47 developer-reported manual passes, including saving and independently playing a WAV. Physical mobile touch and formal accessibility verification remain open. Phase 9 — Creative Features and Polish awaits authorization.
 
 ## Run locally
 

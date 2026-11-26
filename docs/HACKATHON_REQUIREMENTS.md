@@ -6,12 +6,12 @@ Source: Official Hub's Quest Epoch 1 rules PDF, as supplied by the developer.
 
 | # | Requirement | Planned modules or files | Implementation | Verification |
 |---|---|---|---|---|
-| 1 | A functional recursive algorithm with configurable parameters. | `js/recursion.js`, `app.js` | Recursion and root parameter controls implemented | Automated coverage passed. Manual root verification pending. |
-| 2 | An interactive simulation or visualization. | `js/visuals.js`, `app.js`, `index.html` | Interactive sky at the root implemented | Automated coverage passed. Manual root verification pending. |
-| 3 | A procedural music-generation system that uses the recursive process. | `js/recursion.js`, `js/music.js`, `js/audio.js` | Recursive musical mapping and audio implemented | Automated coverage passed. Manual root verification pending. |
-| 4 | A user interface with parameter controls and audio playback. | `index.html`, `style.css`, `app.js`, `js/audio.js` | Root controls and playback implemented | Automated coverage passed. Manual root verification pending. |
-| 5 | A working audio export feature. | `js/export.js`, `js/audio.js`, `js/controller.js`, `app.js` | Implemented at the root | Automated root preparation and prior demo file saving verified. Manual root download and independent playback pending. |
-| 6 | A polished, accessible experience designed around relaxation and enjoyment. | `index.html`, `style.css`, `app.js`, `js/visuals.js`, `js/music.js`, `js/audio.js` | Root responsive and accessibility features implemented | Automated coverage passed. Manual root verification pending. |
+| 1 | A functional recursive algorithm with configurable parameters. | `js/recursion.js`, `app.js` | Implemented | Recursion and root placement/count tests passed. Developer confirmed parameters, echoes and count feedback. |
+| 2 | An interactive simulation or visualization. | `js/visuals.js`, `app.js`, `index.html` | Implemented | Visual and root integration tests passed. Developer confirmed placement, resize and multiple roots. Physical touch unverified. |
+| 3 | A procedural music-generation system that uses the recursive process. | `js/recursion.js`, `js/music.js`, `js/audio.js` | Implemented | Music, audio and synchronization suites passed. Developer confirmed all environments and synchronized recursive echoes. |
+| 4 | A user interface with parameter controls and audio playback. | `index.html`, `style.css`, `app.js`, `js/audio.js` | Implemented | Root transport and form tests passed. Developer confirmed controls, playback, pause/resume and replay. |
+| 5 | A working audio export feature. | `js/export.js`, `js/audio.js`, `js/controller.js`, `app.js` | Implemented | WAV format and root preparation tests passed. Developer confirmed root download and independent-player playback. |
+| 6 | A polished, accessible experience designed around relaxation and enjoyment. | `index.html`, `style.css`, `app.js`, `js/visuals.js`, `js/music.js`, `js/audio.js` | Implemented | Root checks passed at six widths, with visible keyboard focus. Developer confirmed keyboard placement, reduced motion and calm presentation. Formal accessibility and physical touch unverified. |
 
 ## Official evaluation weights
 
