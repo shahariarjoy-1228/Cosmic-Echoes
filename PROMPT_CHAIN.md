@@ -51,7 +51,7 @@ This document indexes the AI-assisted development interactions used throughout t
 - 016 — AI archive guidance. Recover the complete original prompt and response and confirm the AI tool.
 - Archive this follow-up corrective-task request and its final response as a separate exchange.
 - Check the source conversations for additional development prompts and follow-ups. Index each original exchange and mark any missing original explicitly.
-
+| 017 | Codex | Phase 1 | Final Phase 1 verification | ai-logs/017-phase1-final-verification.md | Archived |
 ## Recording Policy
 
 - Preserve every project prompt.
