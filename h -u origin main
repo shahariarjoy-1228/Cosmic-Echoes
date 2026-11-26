@@ -1,0 +1,17 @@
+ .gitignore                         | 37 [32m++++++++++++++++++[m
+ AGENTS.md                          | 78 [32m+++++++++++++++++++++++++++++++++++++[m
+ PROMPT_CHAIN.md                    | 34 [32m++++++++++++++++[m
+ README.md                          | 49 [32m+++++++++++++++++++++++[m
+ ai-logs/001-idea-generation.md     |  0
+ ai-logs/002-concept-refinement.md  | 27 [32m+++++++++++++[m
+ ai-logs/003-development-roadmap.md |  0
+ ai-logs/004-project-setup.md       |  0
+ app.js                             |  0
+ docs/ARCHITECTURE.md               | 65 [32m+++++++++++++++++++++++++++++++[m
+ docs/DEMO_SCRIPT.md                |  0
+ docs/PROGRESS_LOG.md               | 52 [32m+++++++++++++++++++++++++[m
+ docs/PROJECT_PLAN.md               | 80 [32m++++++++++++++++++++++++++++++++++++++[m
+ docs/TESTING.md                    | 20 [32m++++++++++[m
+ index.html                         |  0
+ style.css                          |  0
+ 16 files changed, 442 insertions(+)
