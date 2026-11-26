@@ -2,7 +2,15 @@
 
 ## Status
 
-Both test pages ran in headless Microsoft Edge over local Python HTTP on 2026-11-26. Recursion reported **32 passed, 0 failed** and musical mapping reported **69 passed, 0 failed**. No cases were skipped. A transient lock on the music page output cleared before the summary was read. Application integration, interactive browser use, playback, listening, and export tests remain pending.
+On 2026-11-26 all three suites ran in headless Microsoft Edge over Python loopback HTTP. The browser debugger waited for final asynchronous summaries. Audio used `?live=1` and `--autoplay-policy=no-user-gesture-required`, with live test engines muted. Offline tests measured actual AudioBuffer samples.
+
+| Suite | Passed | Failed | Skipped |
+|---|---:|---:|---:|
+| Recursion | 32 | 0 | 0 |
+| Musical mapping | 69 | 0 | 0 |
+| Audio | 23 | 0 | 0 |
+
+The initial audio run revealed a signed-zero noise endpoint and two wall-clock-sensitive transport assertions. The revised checks wait for audio-clock progress. In the final 44,100 Hz render, eight melody voices, two pads and one atmosphere source played at full master volume. Across dry, default and fully wet mixes, absolute peaks were **0.393525 left** and **0.171352 right**, below the 0.95 target. The demo generated mapped notes with its context still uninitialized.
 
 From the project root, run `python -m http.server 8000 --bind 127.0.0.1` using an existing Python installation or serve the root through another static HTTP server. Open `http://127.0.0.1:8000/tests/recursion.test.html` and `http://127.0.0.1:8000/tests/music.test.html` in a browser and check the summaries and individual results. Stop the server with Ctrl+C.
 
@@ -35,4 +43,18 @@ Automated checks measure expected behavior. Browser checks exercise the interfac
 | T23 | Export ambience and effects | Automated + listening | Ambient layers and effects remain audible in the WAV, with a reverb tail of at most 4 seconds. | Pending |
 | T24 | Reduced motion | Browser | With the reduced-motion preference enabled, motion is reduced and essential controls remain usable. | Pending |
 
-The standalone capacity helper passed exact-fit, rejection and invalid-occupancy checks. T16 and T20 remain pending for controller integration.
+The standalone capacity helper passed exact-fit, rejection and invalid-occupancy checks. T16 and T20 remain pending for controller integration. Normal user-gesture playback, subjective listening, full application synchronization and WAV export remain pending.
+
+## Phase 4 manual listening checklist
+
+From the project root, run `python -m http.server 8000 --bind 127.0.0.1`. Open `http://127.0.0.1:8000/tests/audio-demo.html` in a regular browser. The automated counterpart at `/tests/audio.test.html` runs offline tests on a normal visit and skips the optional live transport group.
+
+1. Confirm the page opens silently. Generate the default binary tree and confirm the context remains uninitialized until Play.
+2. Play at low volume. Compare One root note and the binary tree. Listen for the Starlight tone, the quieter Echo voices and the parent-child melody relationship.
+3. Mute and restore ambient harmony and atmosphere independently. Compare Ambient harmony only, Melody only, dry and reverberant playback.
+4. Compare all three environments. Try maximum ternary and two-root scenarios and listen for harsh peaks or distracting density.
+5. Try left, center and right roots. Move master volume during playback and listen for clicks or abrupt volume changes.
+6. Pause and confirm the clock freezes. Resume and confirm playback continues. Stop and confirm silence, then replay.
+7. Try rapid playback commands and let a composition finish naturally. Check the endpoint and control states.
+
+**Subjective sound quality is pending.** If tuning is needed, reduce the Starlight harmonic blend or cutoff for harshness, shorten release for ringing, lower pads or reverb for muddy bass, and lower atmosphere if it masks melody. Try a lower voice cap for density or a smaller pan range for imbalance. If sliders click, inspect the smoothing on the audio clock. Record browser, output device, scenario and observations.

@@ -106,7 +106,42 @@ Ambient events use instrument `nebula-pad` and role `ambient`. Celestial, root, 
 
 The planner sorts by onset, depth and ID. It counts voices over half-open intervals `[startTime, startTime + duration)`. Roots and then shallower notes get first access at simultaneous onsets. Already sounding notes keep their slots. Silent and excess notes appear in `suppressed` with unchanged onsets and references. Finite limits round and clamp to 1–8 and non-finite limits default to eight. The planner rejects malformed intervals and duplicate or non-melodic inputs. Ambient and visual events stay separate from this budget.
 
-The future audio engine will synthesize the abstract instruments, translate relative intensity into gain and envelopes, and enforce runtime voice limits with release tails and live interaction.
+The standalone audio engine consumes raw mapped notes and applies its own release-aware capacity check. The musical planner is still available for comparing nominal note intervals.
+
+## Procedural Audio Engine
+
+`js/audio.js` defers live context creation until a caller explicitly invokes `initialize()` or `play()` from a user gesture. Both live and offline paths use the same node graph, synthesis and interval accounting. They preserve mapper pitches, IDs and composition-relative onsets.
+
+| Instrument | Source and filter | Peak coefficient × intensity | Attack | Release after note interval |
+|---|---|---:|---:|---:|
+| Starlight | Sine fundamental, 9% second harmonic below Nyquist, 2300 Hz low-pass | 0.075 | 55 ms | 220 ms |
+| Echo | Sine, 1700 Hz low-pass | 0.052 | 35 ms | 160 ms |
+| Nebula pad | Sine, 950 Hz low-pass | 0.105 | 1.1 s | 600 ms |
+
+Envelopes ramp up from zero, decay toward a lower sustain, then ramp to zero before the sources finish. Short intervals shorten the attack. StereoPannerNode uses the mapped pan when available. The fallback sends the filtered mono signal to the bus, centered in the stereo output.
+
+Melodic, pad and atmosphere buses feed direct gain `1 − mix` and one shared stereo convolver whose return gain is `0.65 × mix`. Both paths sum into a 2:1 compressor at −14 dB and then master gain. The compressor provides gentle peak control. Default master is 0.30, pad bus 0.55, reverb mix 0.20 and atmosphere bus 0.25. Sliders settle to their target within 85 ms of audio time. Dry mode sets the convolver return to zero.
+
+A seeded integer PRNG supplies a two-second loop with tapered edges, a 360 Hz band-pass and fades up to 0.8 seconds. The atmosphere envelope peaks at 0.055 before its bus. One source runs per composition when enabled. Reverb uses an independent seeded stereo buffer with damped low-frequency content and cubic decay. Its default length is 2.5 seconds and maximum is 4 seconds. Each context caches its latest buffer of each kind. Matching seeds and sample rates yield matching input buffers. Context sample rate changes buffer length and sample sequence at a given time.
+
+### Audio API
+
+| Export | Contract |
+|---|---|
+| `DEFAULT_AUDIO_CONFIG`, `validateAudioConfig(config)` | Frozen defaults and a fresh bounded configuration. Master, reverb mix and layer controls range from 0 to 1. Voice cap is 1–8, polling 10–50 ms, horizon 0.08–0.25 s, impulse 0.1–4 s, and offline rate 22,050–48,000 Hz. Non-finite numbers default. Atmosphere enablement requires a boolean. Seed is an unsigned 32-bit integer. |
+| `createAudioGraph(context, destination = context.destination, config)` | Construct buses, shared reverb, dynamics and master output. The returned graph has `disconnect()`. |
+| `createSeededNoiseBuffer(context, duration = 2, seed)`, `createReverbImpulseResponse(context, duration = 2.5, seed)` | Return mono noise and stereo impulse buffers, with lengths bounded to 0.1–4 seconds. Both default to seed 1729. |
+| `scheduleInstrumentVoice(context, destination, note, when, duration = note.duration, onEnd)` | Schedule a validated event at absolute audio-clock seconds. The handle has `stop()`. Completion disconnects all voice nodes and invokes the optional callback. |
+| `renderCompositionOffline(composition, config)` | Resolve to a stereo AudioBuffer, using 44,100 Hz by default. |
+| `new AudioEngine(config)` | Construct an idle live engine. Context creation is deferred. |
+
+`loadComposition({ notes = [], ambient = [], duration = 60 })` validates and copies up to 300 melodic notes and two pads with unique IDs, replacing playback. Duration must be 0.05–60 seconds. Invalid events or layer assignments throw. Events at or beyond the endpoint are declined. An overlapping nominal note interval is shortened to the endpoint, then receives its instrument release. Both paths allow `min(4, 0.6 + reverbDuration)` seconds after the endpoint. Offline frame count rounds up. The buffer contains synthesis, with encoding reserved for Phase 7.
+
+`initialize()`, `play()`, `pause()`, `resume()` and `dispose()` are async. Invoke live initialization or playback in a user gesture. `play()` starts from zero and ignores repeat calls while playing or paused. Pause suspends the dedicated context and stops polling. Resume uses the same graph and previously scheduled notes. `stop()` cancels sources, disconnects the old graph and zeros the playhead while retaining the loaded composition. Natural completion leaves the playhead at the endpoint after the allowed tail. `reset()` clears the composition and keeps mix settings. `dispose()` clears and closes the context and is idempotent. Stop and disposal invalidate pending transport operations.
+
+`setMasterVolume(value)`, `setReverbMix(value)`, `setAmbientVolume(value)`, and `setAtmosphereVolume(value)` update the current and next graph settings. `getState()`, `getDuration()`, `getPlaybackPosition()`, and `getDiagnostics()` expose state, duration, clamped seconds and numeric/suppression diagnostics. States are idle, playing, paused, stopped and disposed. The composition-relative position derives from AudioContext.currentTime and stays stable while paused.
+
+Live scheduling starts with 35 ms lead, polls every 25 ms and looks ahead 100 ms by default. Notes up to 20 ms late start at the current clock time. Older notes are suppressed. Equal onsets are ordered by depth and ID. The registry counts intersecting intervals including release and already reserved starts. It allows at most eight melodic voices, two pads and one atmosphere source. Sources use at most two oscillators per logical voice. Already sounding voices retain their slots. Suppression records contain musical ID, celestial ID and reason. Offline schedules in one pass without live timer lateness. The future controller owns live additions and ambient replacement or crossfades.
 
 ## Synchronization
 
@@ -130,4 +165,4 @@ Export stereo 16-bit PCM WAV at 44,100 Hz. Provide headroom and peak control in 
 
 ## Status
 
-The recursive engine and musical mapper passed their standalone browser suites. Application integration, playback, rendering and export are planned.
+Recursion, musical mapping and procedural audio are implemented as standalone modules. The development listening page exercises the audio engine. Application integration, listening verification, rendering, synchronization and WAV export remain pending.

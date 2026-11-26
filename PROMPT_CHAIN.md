@@ -56,7 +56,7 @@ This document indexes the AI-assisted development interactions used throughout t
 - 019 — Musical mapping implementation. Archive the complete original prompt and response.
 - Archive this follow-up corrective-task request and its final response as a separate exchange.
 - Check the source conversations for additional development prompts and follow-ups. Index each original exchange and mark any missing original explicitly.
-
+| 020 | Codex | Phase 4 | Procedural audio engine implementation | ai-logs/020-procedural-audio-engine.md | Archived |
 ## Recording Policy
 
 - Preserve every project prompt.

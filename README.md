@@ -34,9 +34,9 @@ The application is designed to run entirely in the browser without external runt
 
 ## Development Status
 
-The Phase 2 recursive engine and Phase 3 musical mapper are implemented and verified in isolation. The mapper produces note, ambient harmony and voice-planning data. Audio synthesis, Canvas rendering and WAV export are planned. The Phase 1 transcript archive remains incomplete.
+Phase 4 adds standalone procedural Web Audio playback, a development listening page and bounded offline stereo rendering. Manual listening and user-gesture verification are pending. Canvas rendering, application integration and WAV export are planned. The Phase 1 transcript archive remains incomplete.
 
-Run the recursion and music tests from the project root with `python -m http.server 8000 --bind 127.0.0.1` if Python is available, then open `http://127.0.0.1:8000/tests/recursion.test.html` and `http://127.0.0.1:8000/tests/music.test.html`. Any static HTTP server can serve the page. See the [musical mapping API](docs/ARCHITECTURE.md#musical-mapping) and [test results](docs/TESTING.md).
+Serve the project from the root with `python -m http.server 8000 --bind 127.0.0.1` if Python is available, then open `http://127.0.0.1:8000/tests/audio-demo.html`. Select a scenario, choose Generate composition, then press Play. Any static HTTP server can serve the page. See the [audio API](docs/ARCHITECTURE.md#procedural-audio-engine) and [test results](docs/TESTING.md).
 
 ## AI Usage
 
