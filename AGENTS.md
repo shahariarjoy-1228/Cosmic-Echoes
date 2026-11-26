@@ -48,7 +48,7 @@ The developer is a JavaScript beginner working with AI assistance under a 24-hou
 - Implement only the explicitly requested development phase.
 - Do not modify unrelated working functionality.
 - Do not introduce unnecessary features.
-- Preserve mandatory hackathon deliverables.
+- Preserve the mandatory deliverables documented in [docs/HACKATHON_REQUIREMENTS.md](docs/HACKATHON_REQUIREMENTS.md).
 - Use readable names and concise comments.
 - Explain important technical decisions in beginner-friendly language.
 - Identify assumptions and unresolved issues.
@@ -73,6 +73,6 @@ The developer is a JavaScript beginner working with AI assistance under a 24-hou
 
 ## Current Phase
 
-Phase 1 — Project initialization and documentation.
+Phase 1 — Project initialization and documentation (in progress). See [docs/PROGRESS_LOG.md](docs/PROGRESS_LOG.md) for the remaining checks and archival tasks.
 
 Do not implement application functionality until explicitly instructed.

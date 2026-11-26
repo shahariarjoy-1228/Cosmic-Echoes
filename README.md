@@ -34,16 +34,18 @@ The application is designed to run entirely in the browser without external runt
 
 ## Development Status
 
-Phase 1 — Project initialization and planning.
+Phase 1 — Project initialization and planning (in progress). Repository setup has been audited. AI transcript archival and the remaining setup checks are pending.
 
 Application implementation has not started.
 
 ## AI Usage
 
-AI-assisted development is permitted under the hackathon rules. The prompt chain and corresponding agent responses will be documented in `PROMPT_CHAIN.md` and the `ai-logs/` directory.
+AI-assisted development is permitted under the hackathon rules. [PROMPT_CHAIN.md](PROMPT_CHAIN.md) tracks the AI interactions and their archival status. The original prompts and responses still to be recovered are listed there.
 
 ## Event
 
 Hub's Quest — Epoch 1
 
 Recursive Soundscapes · Solo Hackathon
+
+See the [hackathon requirements and deliverable map](docs/HACKATHON_REQUIREMENTS.md), [project plan](docs/PROJECT_PLAN.md), and [testing record](docs/TESTING.md).

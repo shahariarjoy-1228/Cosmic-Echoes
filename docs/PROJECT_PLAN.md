@@ -18,9 +18,18 @@ Each root star generates smaller child echoes. The children repeat the process u
 | Children per star | 2 | 1–3 |
 | Decay factor | 0.65 | 0.35–0.85 |
 | Spread angle | 100 degrees | 30–180 degrees |
-| Generation delay | 0.8 seconds | 0.4–2 seconds |
+| Configured generation delay | 0.8 seconds at 55 BPM | 0.4–2 seconds |
 | Tempo | 55 BPM | 40–80 BPM |
-| Maximum melodic voices | 8 | Internal limit |
+| Maximum simultaneous melodic voices | 8 | Across all roots |
+| Maximum recursive events per root | 121 | Includes the root |
+| Maximum active visual events | 300 | Across all roots |
+| Maximum pending and active recursive events combined | 300 | Across all roots |
+| Musical scale | C major pentatonic | Default |
+| Composition duration | 60 seconds | Default |
+
+Generate events deterministically using normalized canvas coordinates. Validate numeric inputs, restore defaults for non-finite parameters or reject inputs with no default, clamp finite inputs, and round integer-only parameters. Actual delay = configured delay × 55 ÷ selected BPM. Use the Web Audio clock to synchronize playback and visuals. Keep audio and visual scheduling bounded across roots. Check the full event tree before accepting a root. If capacity is full, provide feedback and let the user try again once space is available.
+
+Provide Play, Pause, Resume, Stop, and Reset using the [transport behavior in the architecture](ARCHITECTURE.md#synchronization). Preserve event history and relevant parameter changes. Use OfflineAudioContext to export that composition with the same live synthesis settings, musical events, ambient layers and effects as stereo 16-bit PCM WAV at 44,100 Hz, with up to 4 seconds of reverb tail and peak control to prevent clipping. Export uses the recorded event history available when the user requests it.
 
 ## Must Have
 
@@ -77,4 +86,4 @@ Each root star generates smaller child echoes. The children repeat the process u
 
 ## Success Criteria
 
-The finished application must meet all six mandatory hackathon deliverables and provide a coherent, relaxing musical experience without relying on external runtime services.
+The finished application must meet all six deliverables in the [hackathon requirements and module map](HACKATHON_REQUIREMENTS.md) and provide a coherent, relaxing musical experience without relying on external runtime services. Use the [testing plan](TESTING.md) to verify implementation. Phase 1 remains in progress until the [remaining setup checks and archival tasks](PROGRESS_LOG.md#next-task) are complete.
