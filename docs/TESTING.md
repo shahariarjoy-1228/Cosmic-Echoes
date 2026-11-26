@@ -97,13 +97,27 @@ Early stops add no tail beyond frame rounding. Natural completion added the obse
 
 ### Acceptance and archive
 
-All six product deliverables retain their verified status from the [requirements map](HACKATHON_REQUIREMENTS.md). Fresh recursion and app tests covered configurable recursion; visual and sync tests covered interactive Canvas; music and audio verified recursive synthesis; app and sync verified transport; export and final tests verified WAV encoding; and root and creative tests verified the accessible controls and responsive layout. Earlier developer reports (186 passes across Phases 4–9) include listening, actual download and independent playback. No new developer manual results were supplied for Phase 10.
+All six product deliverables retain their verified status from the [requirements map](HACKATHON_REQUIREMENTS.md). Fresh recursion and app tests covered configurable recursion; visual and sync tests covered interactive Canvas; music and audio verified recursive synthesis; app and sync verified transport; export and final tests verified WAV encoding; and root and creative tests verified the accessible controls and responsive layout. The developer separately reported 50 of 50 Phase 10 manual checks passed, including listening, actual download and independent playback. The cumulative manual total is 236 passes across Phases 4–10.
 
 Archive records 013, 015 and 018 have archived prompt and response text. Entries 001–012, 014, 017 and 019 are incomplete, and 016 is empty. The extra 018 file is empty and unindexed. Empty entries 020 and 026 are outside the table with inaccurate Archived labels. Phase 5, 6, 8, 9 and later exchanges need original archival or confirmation. Product acceptance does not close the AI transcript submission requirement.
 
 ## Phase 10 manual acceptance
 
-**Pending for this revision.** From the project root run `python -m http.server 8000 --bind 127.0.0.1` and open `http://127.0.0.1:8000/` in a normal browser. Record browser version, device, viewport and results.
+**Developer-reported result: 50 passed, 0 failed, 0 unverified within the consolidated checklist.** No browser, device, viewport, downloaded WAV metadata or additional observations were supplied. Physical mobile touch, screen-reader and additional device checks were not separately reported.
+
+| Area | Reported PASS checks | Count |
+|---|---|---:|
+| Startup and usability | Root loads. Initial Canvas appears. No audio before activation. Starting is intuitive. Initial volume is comfortable. Instructions are clear. | 6 |
+| Core audio and visuals | Manual placement produces both streams. Child generations appear. Multiple roots coexist. All three environments work. Changes apply only to future placements. Maximum depth is usable. Capacity rejection is clear. No obvious clipping or distortion. | 8 |
+| Transport and recording | Pause freezes both streams. Resume continues. Stop finalizes. Natural completion works. Replay reproduces the recording. Reset follows discard policy. Rapid ordinary actions remain stable. | 7 |
+| Creative features | Gentle auto roots. Meditation pause and resume. Meditation stops with recording. Focus retains essential controls. Focus entry and exit are easy. All four presets work. Edited presets show Custom. | 7 |
+| WAV export | Finalized recording exports. Actual download succeeds. Independent playback works. Export matches the recording. Early stop preserves the hard cut. Natural export retains the tail. Repeat exports remain stable. Cancellation works. | 8 |
+| Accessibility and responsiveness | Keyboard controls and placement work. Focus remains visible. No obvious keyboard trap. Reduced motion works. Text and labels are readable. Desktop and narrow layouts are usable. No unwanted horizontal scrolling. Increased browser zoom is usable. | 10 |
+| Stability and overall experience | Consecutive sessions work. Repeated recording and replay remain stable. Repeated Focus and Meditation toggles remain stable. The experience feels calm and coherent. | 4 |
+
+The production source is unchanged from the tested baseline. No suites reran in closure. The prior automated evidence remains 179 Edge passes plus 14 repeated Chrome passes, with zero failures or skips. The examples in the WAV table above were independently parsed. Browser decoding was verified separately on representative export-suite fixtures and an early-stop WAV. The developer's file was independently played and its exact metadata was not recorded. No product defects were identified or fixed in this scope (0 blocker, high, medium or low). The earlier diagnostics sampling issue was in the test procedure.
+
+For repeat checks, from the project root run `python -m http.server 8000 --bind 127.0.0.1` and open `http://127.0.0.1:8000/` in a normal browser. Record browser version, device, viewport and results.
 
 - Verify initial load, Canvas, instructions, no autoplay and comfortable monitoring volume. Place manual and multiple roots in every environment, try maximum depth and capacity rejection, and listen for synchronized echoes, clipping, distortion or excessive overlap.
 - Pause, resume, stop, allow natural completion, replay and reset. Repeat several sessions and rapid ordinary transport controls. Try all presets, Custom, Auto Meditation pause/resume and completion, and Focus entry/exit with essential controls preserved.
@@ -111,7 +125,7 @@ Archive records 013, 015 and 018 have archived prompt and response text. Entries
 - Check keyboard-only navigation without traps, visible focus, center placement, labels, feedback, reduced motion, desktop and narrow views, proportional resize, horizontal overflow and browser zoom. Evaluate overall calmness and prolonged use.
 - Record physical mobile touch/audio/download, additional browsers, screen-reader results or measured timing/export performance only when actually performed.
 
-Phase 10 automated QA is complete. Developer manual acceptance is pending. Phase 11 has not started.
+Phase 10 is complete. Cosmic Echoes is a verified hackathon release candidate within the tested scope. Phase 11 awaits explicit authorization. AI archive compliance remains unresolved.
 
 ## Phase 9 automated verification
 
