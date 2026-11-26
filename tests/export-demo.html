@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cosmic Echoes WAV export demo</title>
+  <style>
+    :root { color-scheme: dark; color: #e4ecff; background: #0b1020; font: 16px/1.5 system-ui; }
+    main { max-width: 64rem; margin: auto; padding: 1rem; }
+    canvas { display: block; width: 100%; height: clamp(220px, 48vh, 500px); border-radius: .7rem; }
+    fieldset { margin: 1rem 0; border: 1px solid #64738e; border-radius: .5rem; }
+    label { display: inline-flex; gap: .45rem; align-items: baseline; flex-wrap: wrap; margin: .25rem; }
+    button, select, input { font: inherit; min-height: 2.1rem; margin: .2rem; }
+    input[type=number] { width: 4.5rem; }
+    :focus-visible { outline: 2px solid #b8ddff; outline-offset: 3px; }
+    #export-error { color: #ffc6c6; }
+  </style>
+  <script type="module" src="./export-demo.js"></script>
+</head>
+<body>
+<main>
+  <h1>Cosmic Echoes WAV export demo</h1>
+  <p id="instructions">Start a session, then click or tap the sky or use Place Center Star. Stop or let the session finish before preparing a WAV.</p>
+  <canvas id="sky" role="img" aria-label="Cosmic sky with recorded recursive stars" aria-describedby="instructions recording"></canvas>
+  <fieldset>
+    <legend>Recording session</legend>
+    <label>Session length <select id="duration"><option value="6">6 seconds</option><option value="12">12 seconds</option><option value="60">60 seconds</option></select></label>
+    <label>Environment <select id="environment"></select></label>
+    <label>Monitoring volume <input id="volume" type="range" min="0" max="1" step=".01" value=".7"></label>
+    <div>
+      <button id="start">Start session</button><button id="pause">Pause</button><button id="resume">Resume</button>
+      <button id="stop">Stop</button><button id="replay">Replay</button><button id="reset">Clear recording</button>
+    </div>
+    <label>Depth <input id="depth" type="number" min="0" max="4" value="3"></label>
+    <label>Children <input id="children" type="number" min="1" max="3" value="2"></label>
+    <button id="place">Place Center Star</button>
+    <button id="dense">Place overlapping roots</button>
+    <p>Use depth 0 for one note, depth 3 with two children for the default tree, or place several roots. Start and stop without placing a star for an ambient-only recording.</p>
+  </fieldset>
+  <p id="session-message" role="status"></p>
+  <p id="recording"></p>
+  <fieldset>
+    <legend>Stereo WAV</legend>
+    <button id="prepare">Prepare WAV</button><button id="cancel">Cancel export</button>
+    <button id="download">Download WAV</button><button id="clear-export">Clear prepared WAV</button>
+    <p id="export-status" role="status"></p>
+    <p id="export-error" role="alert"></p>
+    <p id="metadata"></p>
+  </fieldset>
+</main>
+</body>
+</html>

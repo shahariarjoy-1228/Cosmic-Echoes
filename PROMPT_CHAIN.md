@@ -57,6 +57,7 @@ This document indexes the AI-assisted development interactions used throughout t
 - Archive this follow-up corrective-task request and its final response as a separate exchange.
 - Check the source conversations for additional development prompts and follow-ups. Index each original exchange and mark any missing original explicitly.
 | 020 | Codex | Phase 4 | Procedural audio engine implementation | ai-logs/020-procedural-audio-engine.md | Archived |
+| 026 | Codex | Phase 7 | WAV export system implementation | ai-logs/026-wav-export-implementation.md | Archived |
 ## Recording Policy
 
 - Preserve every project prompt.

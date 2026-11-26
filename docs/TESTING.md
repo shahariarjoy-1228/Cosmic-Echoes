@@ -48,6 +48,35 @@ Automated checks measure expected behavior. Browser checks exercise the interfac
 
 The standalone capacity helper passed exact-fit, rejection and invalid-occupancy checks. T16 and T20 remain pending for controller integration. Standalone user-gesture playback and listening passed the developer-reported checks below. Future application integration tests, including synchronization and WAV export, remain pending.
 
+## Phase 7 automated verification
+
+On 2026-11-26, headless Microsoft Edge ran six test pages over local Python HTTP. The debugger waited for final asynchronous summaries. Live audio, synchronization and export groups used `?live=1` and an autoplay override with muted monitoring. Binary tests used an independent DataView parser and browser decoding at the matching rate. Download and URL lifetime tests used controlled anchor and object URL substitutes.
+
+| Suite | Passed | Failed | Skipped |
+|---|---:|---:|---:|
+| Recursion | 32 | 0 | 0 |
+| Musical mapping | 69 | 0 | 0 |
+| Procedural audio | 23 | 0 | 0 |
+| Visual engine | 15 | 0 | 0 |
+| Synchronization | 8 | 0 | 0 |
+| WAV export | 13 | 0 | 0 |
+| **Total** | **160** | **0** | **0** |
+
+The export tests covered actual early-stop and completed recordings, cancellation and suppressed note exclusion, browser decoding, replay after export and a silent recording. The demo started with an uninitialized audio context, recorded a 15-event tree, stopped, and prepared `cosmic-echoes-deep-space-session-1.wav`: 123,232 bytes, 44,100 Hz, stereo PCM16, approximately 0.698 seconds, and zero clipped samples. No page errors were reported.
+
+A separate maximum-size check used the real offline renderer with a 60-second ambient-only fixture and a four-second capped tail. It prepared 2,822,400 frames and an 11,289,644-byte Blob with zero clipped samples. No export speed or browser memory footprint was measured.
+
+## Phase 7 manual WAV verification
+
+**Pending.** Serve the root with `python -m http.server 8000 --bind 127.0.0.1` and open `http://127.0.0.1:8000/tests/export-demo.html` in a regular browser.
+
+1. Start a short session, place a single root and a binary tree, and stop. Check eligibility and status, then choose Prepare WAV and Download WAV using the keyboard as well as the pointer.
+2. Verify the downloaded filename, file size and independent local-player playback. Check the recorded melody, recursive echoes, ambience, atmosphere, stereo placement and absence of unexpected distortion.
+3. Compare an early stop with natural completion. Verify the hard cut and expected bounded tail. Try multiple roots, overlapping roots and an ambient-only recording.
+4. Prepare another WAV, try repeat actions during rendering, cancel a long render, and wait for the busy state to clear. Check replacement cleanup, re-download, and recording and replay after export. Confirm export stays unavailable before finalization.
+
+Headless Blob generation, browser decoding and a mocked anchor request do not verify an operating-system save. Actual save and independent-player playback remain pending.
+
 ## Phase 6 automated verification
 
 On 2026-11-26, Microsoft Edge ran all five browser suites headlessly over Python loopback HTTP. Browser debugger polling waited for the final summaries. Audio and sync used `?live=1` with an autoplay override and muted monitoring. Offline checks inspected real stereo AudioBuffer samples.

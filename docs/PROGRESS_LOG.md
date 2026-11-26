@@ -8,7 +8,7 @@ Cosmic Echoes
 
 P05 — Cosmic Visual Engine (completed, standalone verified)
 
-P06 — Audio-Visual Synchronization (completed, integrated demo verified). Next is P07 — WAV Export System, pending authorization.
+P07 — WAV Export System (implemented, manual verification pending).
 
 ## Status Definitions
 
@@ -28,7 +28,7 @@ P06 — Audio-Visual Synchronization (completed, integrated demo verified). Next
 | P04 | Procedural audio engine | Completed (standalone verified) |
 | P05 | Cosmic visual engine | Completed (standalone verified) |
 | P06 | Audio-visual synchronization | Completed (integrated demo verified) |
-| P07 | WAV export | Next (pending authorization) |
+| P07 | WAV export | Implemented (manual verification pending) |
 | P08 | User interface and accessibility | Pending |
 | P09 | Optional features and polish | Pending |
 | P10 | Testing and debugging | Pending |
@@ -127,10 +127,16 @@ Reviewed all six pending deliverable mappings and the 24 pending application tes
 - A separate headless offline smoke check rendered a completed two-second recording to stereo at 44,100 Hz with approximately 0.7 seconds of tail. Eight admitted melodies were rendered and four suppressed IDs were excluded.
 - Phase 6 integrated-demo verification is complete. Phase 7 awaits authorization.
 
+### Entry 015 — Phase 7 WAV export (2026-11-26)
+
+- Implemented isolated recording export without changing the existing controller or engines. The development demo separates WAV preparation from user-triggered download.
+- Headless Edge ran six suites with 160 passes, zero failures and zero skips. The demo prepared a WAV from a stopped binary recording. A separate 64-second maximum-size render succeeded.
+- Manual browser saving and independent player playback remain pending. Archive gaps remain below.
+
 ## Known Issues
 
-The procedural audio engine and listening page are standalone. Integrated demo synchronization is verified within the reported scope. Mobile and touch verification in the final application, physical latency, final UI integration and WAV export remain pending. Archive entries 001–012, 014, 016, 017 and 019 are incomplete or pending. The entry for 020 is outside the index table and labeled Archived, but its referenced file is empty.
+The procedural audio engine and listening page are standalone. Integrated demo synchronization is verified within the reported scope. Mobile and touch verification in the final application, physical latency, final UI integration and manual WAV download and player verification remain pending. Archive entries 001–012, 014, 016, 017 and 019 are incomplete or pending. The entry for 020 is outside the index table and labeled Archived, but its referenced file is empty.
 
 ## Next Task
 
-Recover the original [AI transcripts](../PROMPT_CHAIN.md) before closing Phase 1. Begin Phase 7 — WAV Export System only when explicitly authorized.
+Recover the original [AI transcripts](../PROMPT_CHAIN.md) before closing Phase 1. Complete the Phase 7 manual export checks. Begin Phase 8 only when explicitly authorized.
