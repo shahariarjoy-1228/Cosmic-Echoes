@@ -8,7 +8,7 @@ Cosmic Echoes
 
 P05 — Cosmic Visual Engine (completed, standalone verified)
 
-P09 — Creative Features and Polish (completed, root verified). Next is P10 — Final Testing and Debugging, pending authorization.
+P10 — Final Testing and Debugging (automated QA complete, manual acceptance pending).
 
 ## Status Definitions
 
@@ -31,7 +31,7 @@ P09 — Creative Features and Polish (completed, root verified). Next is P10 —
 | P07 | WAV export | Completed (development demo verified) |
 | P08 | User interface and accessibility | Completed (root verified) |
 | P09 | Creative features and polish | Completed (root verified) |
-| P10 | Final testing and debugging | Next (pending authorization) |
+| P10 | Final testing and debugging | Automated QA complete (manual acceptance pending) |
 | P11 | Documentation and demonstration | Pending |
 | P12 | Final submission | Pending |
 
@@ -165,10 +165,16 @@ Reviewed all six pending deliverable mappings and the 24 pending application tes
 - Recorded 38 developer-reported manual passes, including audible automatic roots, Focus Mode, presets, and saving and independently playing the WAV. Manual browser, device and viewport details were not supplied.
 - The six mandatory product deliverables retain their verified status in the tested scope. Planned features are complete. Phase 10 awaits explicit authorization.
 
+### Entry 021 — Phase 10 automated QA (2026-11-26)
+
+- Started at clean commit `2f34d8e`. Fresh Edge regression passed 174 existing cases. Five additional focused cases passed. Chrome repeated the seven root and seven creative cases under a local URL prefix.
+- Verified dense occupancy rejection, three recording/export/replay cycles, synthetic touch cancellation, a trusted audio-start gesture, short-landscape reduced motion, and a maximum-size WAV. See [Phase 10 evidence](TESTING.md#phase-10-automated-qa).
+- No product defects required source fixes within the tested scope. Feature freeze remains in place. Developer manual acceptance and archive recovery remain open.
+
 ## Known Issues
 
 The procedural audio engine and listening page are standalone. Integrated demo synchronization is verified within the reported scope. The tested root workflows passed. Physical mobile touch, assistive technology and formal audit checks, and physical audio-to-display latency remain unverified. Browser saving and independent-player playback passed in developer testing. Archive entries 001–012, 014, 016, 017 and 019 are incomplete or pending. An extra 018 file is empty. Entries 020 and 026 are outside the table and labeled Archived despite empty files. Phase 5, Phase 6 and Phase 8 exchanges still need archival or indexing.
 
 ## Next Task
 
-Recover the original [AI transcripts](../PROMPT_CHAIN.md) before closing Phase 1. Begin Phase 10 — Final Testing and Debugging only when explicitly authorized. Planned features are frozen.
+Recover the original [AI transcripts](../PROMPT_CHAIN.md) before closing Phase 1. Complete the [Phase 10 manual acceptance checklist](TESTING.md#phase-10-manual-acceptance). Phase 11 requires explicit authorization. Planned features remain frozen.

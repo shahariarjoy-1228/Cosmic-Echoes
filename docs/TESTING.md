@@ -48,6 +48,71 @@ Automated checks measure expected behavior. Browser checks exercise the interfac
 
 The standalone capacity helper passed exact-fit, rejection and invalid-occupancy checks. T16 and T20 remain pending for controller integration. Standalone user-gesture playback and listening passed the developer-reported checks below. Future application integration tests, including synchronization and WAV export, remain pending.
 
+## Phase 10 automated QA
+
+On 2026-11-26, QA started at clean commit `2f34d8e` on Windows. Local Python HTTP served the workspace to fresh, isolated headless browser profiles. Debugger polling waited for final summaries. Live test pages used `?live=1`, an autoplay override and muted monitoring. No virtual time was used. Tests exercised real Canvas, Web Audio, recording, offline rendering and browser decoding. Existing lifecycle tests inject failures or control scheduling, and controlled download requests cannot prove disk saving.
+
+| Edge 158.0.4370.33 page | Passed | Failed | Skipped |
+|---|---:|---:|---:|
+| recursion.test.html | 32 | 0 | 0 |
+| music.test.html | 69 | 0 | 0 |
+| audio.test.html | 23 | 0 | 0 |
+| visuals.test.html | 15 | 0 | 0 |
+| sync.test.html | 8 | 0 | 0 |
+| export.test.html | 13 | 0 | 0 |
+| app.test.html | 7 | 0 | 0 |
+| creative.test.html | 7 | 0 | 0 |
+| final.test.html | 5 | 0 | 0 |
+| **Total** | **179** | **0** | **0** |
+
+The eight existing suites repeated the 174 baseline passes. The five extra cases supplement that coverage. Chrome 158.0.8127.38 passed the root and creative suites (7 + 7, zero failures or skips) under a local `/preview/` prefix. These repeat the same cases and are excluded from the unique Edge total. Firefox and Safari were not available in the test environment. Edge and Chrome both loaded all four development demos and the root with no reported page errors. The root smoke checks found no external resource requests. An additional Edge run used a trusted browser click with the default autoplay policy and muted monitoring. It started, placed a 15-event tree, and stopped.
+
+### End-to-end and stress evidence
+
+- Root and creative tests exercised silent startup, pointers and keyboard placement, presets and Auto Meditation, pause/resume, live scheduling and Canvas, stop and finalization, actual WAV generation, and replay without adding roots. A timed logical scheduler check covers delayed ticks and capacity rejections. A physical hidden-tab/audio-background session was not tested.
+- The extra suite checked tree counts **1, 2, 3, 15, 40, 121**, deterministic IDs, geometry and valid parent links. Two 121-event trees were accepted. A third was rejected atomically. The record stayed at **242** while occupied events fell to **216** after about two seconds. Peak melodic voices were **8**, with **2** pad voices and **1** atmosphere source. Existing sync tests checked the exact 300-event boundary, rollback, and historical capacity after expirations.
+- One real controller ran three consecutive recording, WAV preparation and replay cycles with two depth-zero roots per cycle. Root settings retained their different tempos. Snapshot edits did not reach the controller. Suppressed and cancelled notes stayed out of adapter input. Stop cleared scheduled voices and occupied visuals. This is bounded lifecycle evidence, and heap or long-run leak profiling remains open.
+- The partial-operation root check recovered from a controlled AudioContext startup rejection. It then issued five Start clicks, 24 Focus toggles, 24 Auto Meditation toggles, 24 preset selections, ten center placements, one cancelled and one accepted synthetic touch-style gesture, and two each of Pause, Resume, Stop and Reset. It recorded **33** stars with no unexpected errors. Prior regression cases covered offline and encoding errors, cancellation settlement, stale-result rejection and object URL cleanup.
+
+### Synchronization and WAV measurements
+
+In Edge's foreground headless tab, 30 samples were taken approximately 20 ms apart using `getDiagnostics().logicalTimelineDifference`. The sample session used two depth-zero roots with Quiet Orbit-derived and Starlight-derived settings at 45 and 55 BPM. The maximum gap was **21.33 ms** and median **10.67 ms**. This compares the sampled audio clock to the latest Canvas render timestamp. Physical speaker-to-display latency was not measured.
+
+An independent DataView parser checked all standard RIFF/WAVE identifiers, format fields, sample rate, alignment, byte rate and exact lengths. All examples were 44,100 Hz stereo signed PCM16 with no clipped samples. Existing decoding tests verified signed quantization and left/right interleaving independently.
+
+| Test output | Recording endpoint | Rendered duration | Frames | PCM bytes | WAV bytes |
+|---|---:|---:|---:|---:|---:|
+| Early stop, cycle 1 | 0.906333 s | 0.906349 s | 39,970 | 159,880 | 159,924 |
+| Early stop, cycle 2 | 0.405 s | 0.405011 s | 17,861 | 71,444 | 71,488 |
+| Natural completion | 2.5 s | 3.2 s | 141,120 | 564,480 | 564,524 |
+| Maximum ambient fixture | 60 s | 64 s | 2,822,400 | 11,289,600 | 11,289,644 |
+
+Early stops add no tail beyond frame rounding. Natural completion added the observed 0.7-second tail. The maximum check used an ambient-only adapter fixture with real offline synthesis and a four-second capped tail. It did not require a 60-second live session. Export speed and memory usage were not measured. The separate audio stress test measured sample peaks of 0.393525 left and 0.171352 right in its tested mixes.
+
+### Layout, accessibility and defects
+
+- Fresh normal layout tests passed at **320, 375, 390, 768, 1024 and 1440 CSS pixels**. Focus Mode passed at **320, 390, 768 and 1440**. A separate **667 × 375 CSS-pixel** landscape check at emulated DPR 2 passed with no horizontal overflow and positive Canvas bounds in both modes.
+- The root has a single main heading, semantic regions, native labelled controls, center and coordinate placement, and status and alert text. Browser Tab showed the visible skip-link focus indicator. Focus Mode hides secondary controls from focus order. Emulated system reduced motion produced reduced rendering and zero button transition duration. Explicit reduced motion was also exercised during a live session. Physical touch, device audio, zoom, screen readers and formal accessibility conformance remain manual or outside the tested scope.
+- Initial separate landscape tooling read the diagnostics before its asynchronous UI update. Waiting for that update fixed the measurement procedure. No application defect requiring a source fix was found within this scope. There are no known unresolved blocker or high-severity findings from these checks.
+
+### Acceptance and archive
+
+All six product deliverables retain their verified status from the [requirements map](HACKATHON_REQUIREMENTS.md). Fresh recursion and app tests covered configurable recursion; visual and sync tests covered interactive Canvas; music and audio verified recursive synthesis; app and sync verified transport; export and final tests verified WAV encoding; and root and creative tests verified the accessible controls and responsive layout. Earlier developer reports (186 passes across Phases 4–9) include listening, actual download and independent playback. No new developer manual results were supplied for Phase 10.
+
+Archive records 013, 015 and 018 have archived prompt and response text. Entries 001–012, 014, 017 and 019 are incomplete, and 016 is empty. The extra 018 file is empty and unindexed. Empty entries 020 and 026 are outside the table with inaccurate Archived labels. Phase 5, 6, 8, 9 and later exchanges need original archival or confirmation. Product acceptance does not close the AI transcript submission requirement.
+
+## Phase 10 manual acceptance
+
+**Pending for this revision.** From the project root run `python -m http.server 8000 --bind 127.0.0.1` and open `http://127.0.0.1:8000/` in a normal browser. Record browser version, device, viewport and results.
+
+- Verify initial load, Canvas, instructions, no autoplay and comfortable monitoring volume. Place manual and multiple roots in every environment, try maximum depth and capacity rejection, and listen for synchronized echoes, clipping, distortion or excessive overlap.
+- Pause, resume, stop, allow natural completion, replay and reset. Repeat several sessions and rapid ordinary transport controls. Try all presets, Custom, Auto Meditation pause/resume and completion, and Focus entry/exit with essential controls preserved.
+- Prepare, cancel, repeat and save WAVs, and verify independent playback, recorded content, early-stop cutoff and natural tail. Check export eligibility and replacement after new recordings.
+- Check keyboard-only navigation without traps, visible focus, center placement, labels, feedback, reduced motion, desktop and narrow views, proportional resize, horizontal overflow and browser zoom. Evaluate overall calmness and prolonged use.
+- Record physical mobile touch/audio/download, additional browsers, screen-reader results or measured timing/export performance only when actually performed.
+
+Phase 10 automated QA is complete. Developer manual acceptance is pending. Phase 11 has not started.
+
 ## Phase 9 automated verification
 
 On 2026-11-26, headless Microsoft Edge ran eight browser suites over a local Python HTTP server. The browser debugger waited for asynchronous summaries. Live suites used `?live=1`, an autoplay override and muted monitoring. Scheduler edge cases used controlled positions and rejection responses. The real creative workflow used the actual same-origin root app, Web Audio, Canvas and offline renderer. The download anchor click was controlled.
