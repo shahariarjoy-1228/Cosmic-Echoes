@@ -48,6 +48,48 @@ Automated checks measure expected behavior. Browser checks exercise the interfac
 
 The standalone capacity helper passed exact-fit, rejection and invalid-occupancy checks. T16 and T20 remain pending for controller integration. Standalone user-gesture playback and listening passed the developer-reported checks below. Future application integration tests, including synchronization and WAV export, remain pending.
 
+## Phase 5 automated verification
+
+On 2026-11-26, headless Microsoft Edge ran all four suites through a local Python HTTP server. The browser debugger waited for each final asynchronous summary. The audio regression used the prior muted live test workflow with the autoplay override and `?live=1`.
+
+| Suite | Passed | Failed | Skipped |
+|---|---:|---:|---:|
+| Recursion | 32 | 0 | 0 |
+| Musical mapping | 69 | 0 | 0 |
+| Procedural audio | 23 | 0 | 0 |
+| Visual engine | 15 | 0 | 0 |
+| **Total** | **139** | **0** | **0** |
+
+The first visual run found a one-value RGB difference after resize. The final run used a small per-channel tolerance and verified exact backing-store sizes and transforms. The 15 visual cases group configuration, coordinate, real Canvas pixel, timeline, relationship, capacity and controlled callback assertions. A synthetic 300-active-event frame was drawn without error.
+
+The demo smoke check loaded the 15-event binary scenario, exercised the center placement button, loaded 300 events, rejected an additional tree, advanced and paused. The page reported no JavaScript errors and made no request for the audio module. A diagnostic sample showed approximately **58 FPS** at DPR 1, approximately 680 × 283 CSS pixels, with 300 occupied events and five active stars early in the stress scenario. This is a headless sample. Representative desktop and mobile performance is still pending.
+
+The Phase 5 closure uses this prior automated run. No suites were rerun during closure.
+
+## Phase 5 developer-reported manual results
+
+The developer reported **29 passed out of 29** on the standalone visual demo. No manual frame rate was measured. Mobile and touch results were not reported. No additional observations were supplied.
+
+| Area | Reported PASS checks | Count |
+|---|---|---:|
+| Visual appearance | Calm and immersive background. Roots distinguishable. Smaller, softer echoes. Progressive generations. Smooth ripple expansion and fade. Correct constellation links. Gentle star fades. Subtle particles. Consistent themes. | 9 |
+| Interaction | Accurate mouse placement. Keyboard placement. Parameter changes affect new stars. Multiple roots coexist. Safe capacity rejection. Clear Universe removes events. Pause freezes time. Resume continues correctly. | 8 |
+| Responsiveness and accessibility | Proportional resize. Sharp on the available display. Usable narrow layout. Reduced motion works. Recursion remains recognizable in reduced motion. Keyboard-accessible controls. | 6 |
+| Performance and stability | Maximum ternary tree renders. Near-capacity scene usable. Expired capacity released with repeated placements. Stable theme changes. Resize works during animation. No noticeable degradation during prolonged use. | 6 |
+
+Standalone closure evidence consists of **139 automated passes** and **29 developer-reported manual passes**. Application-wide synchronization remains pending.
+
+## Phase 5 manual visual checklist
+
+For repeat checks and outstanding mobile and touch coverage, serve the repo with `python -m http.server 8000 --bind 127.0.0.1`. Open `http://127.0.0.1:8000/tests/visuals-demo.html`, choose a scenario, select Load scenario and press Start. For technical checks, open `/tests/visuals.test.html` on the same server. Record desktop and touch-device results separately.
+
+- **Appearance** — Check the calm background, root prominence, smaller and softer child echoes, progressive generations, smooth ripples, accurate links, gentle fades, subtle particles, absence of flashing, and readability across all three themes.
+- **Interaction** — Check pointer position, touch placement on a supported device, keyboard and center placement, depth and branching changes for future trees, independent roots, safe rejection at capacity, Clear Universe, pause and resume.
+- **Responsive and accessible behavior** — Resize during animation and confirm proportional positions, high-DPI sharpness, narrow-screen usability, reduced motion with recognizable recursion, visible focus and labels, and status outside the canvas.
+- **Stability and performance** — Try the maximum ternary and near-capacity scenarios. Repeat placements and theme switching, watch occupied and retained counts decline, resize during playback, and record approximate FPS with browser, device, canvas size, DPR and active event count. Observe prolonged use.
+
+Phase 6 audio-clock integration and application-level synchronization tests remain pending.
+
 ## Phase 4 developer-reported manual results
 
 The developer tested the standalone audio demo using normal browser playback and reported **20 passed out of 20**. These checks are separate from the automated results above.

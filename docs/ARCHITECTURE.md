@@ -143,6 +143,49 @@ A seeded integer PRNG supplies a two-second loop with tapered edges, a 360 Hz ba
 
 Live scheduling starts with 35 ms lead, polls every 25 ms and looks ahead 100 ms by default. Notes up to 20 ms late start at the current clock time. Older notes are suppressed. Equal onsets are ordered by depth and ID. The registry counts intersecting intervals including release and already reserved starts. It allows at most eight melodic voices, two pads and one atmosphere source. Sources use at most two oscillators per logical voice. Already sounding voices retain their slots. Suppression records contain musical ID, celestial ID and reason. Offline schedules in one pass without live timer lateness. The future controller owns live additions and ambient replacement or crossfades.
 
+## Cosmic Visual Engine
+
+`js/visuals.js` renders the existing recursion events on a caller-owned Canvas 2D element. Importing the module has no DOM effects. The constructor initializes the supplied canvas and installs resize and motion-preference listeners. The canvas should have CSS-defined display dimensions independent of its backing-store attributes.
+
+| Theme ID | Palette | Future musical association |
+|---|---|---|
+| `deep-space` | Navy, indigo, pale blue | C major pentatonic |
+| `nebula-dreams` | Violet, lavender, soft pink | A minor pentatonic |
+| `solar-harmony` | Charcoal, gold, cream | F major pentatonic |
+
+The registry and defaults are frozen. Theme selection only changes the palette. Default effects are particles, glow, ripples and connections enabled, with standard quality, automatic motion, and 100 seeded particles. Particle count clamps to 0–200, seed to an unsigned 32-bit integer, configured DPR cap to 1–2. Missing and non-finite optional numeric settings use defaults. Unknown themes, motion modes and quality settings throw.
+
+### Visual API
+
+| Signature | Behavior |
+|---|---|
+| `DEFAULT_VISUAL_CONFIG`, `VISUAL_THEMES`, `validateVisualConfig(config)` | Defaults, palette registry, and a fresh validated configuration. |
+| `normalizedToCanvas(x, y, width, height)`, `canvasToNormalized(x, y, width, height)` | Convert between normalized units and logical CSS pixels. Clamp out-of-bounds values. Inverse conversion returns null for a zero-size canvas. Invalid or non-finite numbers throw. |
+| `pointerToNormalized(canvas, clientX, clientY)` | Subtract the canvas client rectangle offset and convert in CSS pixels, independent of DPR. |
+| `getEventVisualState(event, time)` | Return `{ status, age, progress }` from composition seconds. Age can be negative and progress is clamped. Invalid lifetimes or times throw. |
+| `getVisualMetrics(event, progress, shortestSide, reducedMotion = false)` | Derive radius, opacity, ripple radius and ripple opacity for a validated event and logical pixel size. |
+| `new VisualEngine(canvas, config)` | Initialize a 2D renderer. Invalid arguments or an unavailable 2D context throw. |
+
+`addEvents(batch)` accepts complete new root trees, returns their event count, and copies incoming records. IDs, coordinates, lifetimes, depth, amplitude and parent relationships must be valid. The mapper and renderer use the same celestial IDs and onset seconds. Duplicate IDs, roots or sibling indices, cross-tree parents, early child onsets, expired events, and oversized batches are rejected before any storage changes.
+
+`renderAt(seconds)` uses supplied finite nonnegative time and draws the scene, even while paused. Each event is active in `[startTime, startTime + duration)`, pending before onset and expired at the endpoint. There is no visual tail or extra tempo scaling. Age equals time minus onset and normalized progress equals age divided by duration. Expired records are pruned. Backward time reevaluates retained events only, so a seek or replay that needs expired scenes must reset and re-submit original trees. The demo reset clears all events and returns to zero.
+
+`start(timeProvider)` starts one animation loop and ignores duplicate starts. `pause()` cancels its frame and retains the provider. `resume()` reuses that provider. Its owner must freeze its clock during playback pause. `stop()` cancels the frame and drops the provider, leaving the scene at its last position. `resize()` redraws at the current position. `clear()` removes all events without changing time or theme. `reset()` stops, clears, and returns to zero. `dispose()` is idempotent and cancels frames, detaches observers and listeners, and releases storage and rendering references.
+
+`setTheme(id)`, `setReducedMotion("auto" | "full" | "reduced")`, `setQuality("standard" | "reduced")`, `setParticlesEnabled(boolean)`, `setRipplesEnabled(boolean)` and `setConnectionsEnabled(boolean)` redraw at the same time. Automatic motion follows the system preference. Reduced motion freezes background drift and disables expanding rings while preserving fades, onsets and links. Reduced quality draws fewer particles and omits glow sprites. `getDiagnostics()` returns state, seconds, event counts, roots, retained parent positions, canvas size, effective DPR, approximate smoothed FPS and error text.
+
+### Rendering, resizing and capacity
+
+ResizeObserver and the window resize event measure CSS bounds. Backing-store pixel dimensions use effective DPR, capped by 2, 4096 pixels per side and 8 million total pixels. Hidden canvases use a 1×1 buffer. A fresh transform maps CSS pixels to the backing store. Normalized locations scale with width and height, while circular radii use the shorter side.
+
+Star radius is `clamp(event.radius × shortestSide × 0.32, 0.65, 44)` CSS pixels. Opacity uses smoothstep attack through 14% progress, fade after 55%, square-root amplitude and depth attenuation. A cached radial sprite supplies the inner and outer glow and a small separate disk supplies the core. One thin ring expands from the star radius toward five times that radius using `1 + 4 × (1 − (1 − progress)²)`. Ring opacity is star opacity times `0.44 × (1 − progress)`. It shares the star fade and lifetime.
+
+The background uses a cached radial gradient and a bounded, seeded field of tiny points. Drift is a gentle time-derived horizontal offset. Parent-child strokes appear only while the child is active, fade with its opacity and dim with depth. A map supplies live parent positions. Expired parents keep position only while a remaining child refers to them. Completed root metadata is removed, and the retained parent map can contain at most one entry per pending or active event. The visible event list and lookup sets are reused across frames.
+
+The renderer enforces 121 events per root and 300 pending plus active events total. The demo uses recursion's count and capacity helpers before generating complete trees with unique root IDs. It stamps placements with demo time, including zero before Start and the frozen time while paused. Rejected placements are reported and never queued. Clear Universe keeps the clock and visual settings. The future controller owns application-wide capacity and any replay history.
+
+Phase 6 can call `renderer.renderAt(audioEngine.getPlaybackPosition())` or use `renderer.start(() => audioEngine.getPlaybackPosition())` with transport coordination. The Phase 5 demo uses a separate `performance.now()` clock and does not import audio.
+
 ## Synchronization
 
 The Web Audio clock is the authoritative playback clock. Audio and visuals read the same event timeline at the same composition position. Initialize audio after a user gesture.
@@ -165,4 +208,4 @@ Export stereo 16-bit PCM WAV at 44,100 Hz. Provide headroom and peak control in 
 
 ## Status
 
-Recursion, musical mapping and procedural audio are implemented as standalone modules. The development listening page exercises the audio engine. Standalone audio verification is complete, including developer-reported listening checks. Application integration, rendering, synchronization and WAV export remain pending.
+Recursion, musical mapping and procedural audio are implemented as standalone modules. The development listening page exercises the audio engine. Standalone audio verification is complete, including developer-reported listening checks. The standalone visual engine and demo are implemented. Standalone visual verification includes developer-reported desktop checks. Mobile and touch verification, application integration, synchronization and WAV export remain pending.

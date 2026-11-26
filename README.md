@@ -34,9 +34,11 @@ The application is designed to run entirely in the browser without external runt
 
 ## Development Status
 
-Phase 4 adds standalone procedural Web Audio playback, a development listening page and bounded offline stereo rendering. Standalone verification is complete with 124 previously passed automated tests and 20 developer-reported manual checks. Phase 5 — Cosmic Visual Engine is next. Canvas rendering, application integration and WAV export are planned. The Phase 1 transcript archive remains incomplete.
+Phase 4 adds standalone procedural Web Audio playback, a development listening page and bounded offline stereo rendering. Standalone verification is complete with 124 previously passed automated tests and 20 developer-reported manual checks. Phase 5 delivers a standalone Canvas 2D visual engine and demo. Its verification includes 139 previously passed automated tests across all suites and 29 developer-reported manual visual checks. Phase 6 — Audio-Visual Synchronization is next. Application integration, audio-visual synchronization and WAV export are planned. The Phase 1 transcript archive remains incomplete.
 
 Serve the project from the root with `python -m http.server 8000 --bind 127.0.0.1` if Python is available, then open `http://127.0.0.1:8000/tests/audio-demo.html`. Select a scenario, choose Generate composition, then press Play. Any static HTTP server can serve the page. See the [audio API](docs/ARCHITECTURE.md#procedural-audio-engine) and [test results](docs/TESTING.md).
+
+For the visual demo, open `http://127.0.0.1:8000/tests/visuals-demo.html` with the same server. Choose a scenario, select **Load scenario**, and press **Start**. Click or tap the canvas or use the placement buttons. The demo has its own silent timeline.
 
 ## AI Usage
 

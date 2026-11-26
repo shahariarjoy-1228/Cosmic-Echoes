@@ -6,9 +6,9 @@ Cosmic Echoes
 
 ## Current Phase
 
-P04 — Procedural Web Audio Engine (completed, standalone verified)
+P05 — Cosmic Visual Engine (completed, standalone verified)
 
-Next phase is P05 — Cosmic Visual Engine, pending authorization.
+Next phase is P06 — Audio-Visual Synchronization, pending authorization.
 
 ## Status Definitions
 
@@ -26,8 +26,8 @@ Next phase is P05 — Cosmic Visual Engine, pending authorization.
 | P02 | Recursive celestial engine | Completed (standalone) |
 | P03 | Musical mapping | Completed (standalone) |
 | P04 | Procedural audio engine | Completed (standalone verified) |
-| P05 | Cosmic visual engine | Next (pending authorization) |
-| P06 | Audio-visual synchronization | Pending |
+| P05 | Cosmic visual engine | Completed (standalone verified) |
+| P06 | Audio-visual synchronization | Next (pending authorization) |
 | P07 | WAV export | Pending |
 | P08 | User interface and accessibility | Pending |
 | P09 | Optional features and polish | Pending |
@@ -102,10 +102,22 @@ Reviewed all six pending deliverable mappings and the 24 pending application tes
 - Developer reported 20 of 20 manual checks passed on the standalone demo using normal browser playback. See [manual results](TESTING.md#phase-4-developer-reported-manual-results).
 - Phase 4 is complete in standalone use. Phase 5 is next. Future application integration tests remain pending.
 
+### Entry 011 — Phase 5 visual engine (2026-11-26)
+
+- Implemented the Canvas 2D renderer, bounded event and parent storage, external-time animation, themes, reduced motion and a silent development demo. Existing recursion, music and audio interfaces were preserved.
+- Headless Edge over loopback HTTP passed 32 recursion, 69 music, 23 audio and 15 visual tests, with no failures or skips in the final run. The demo exercised scenario loading, exact capacity, rejection and pause without loading audio.
+- Manual desktop appearance, touch and mobile checks remain pending. The developer will archive the Phase 5 prompt and response. Existing archive gaps are retained below.
+
+### Entry 012 — Phase 5 standalone closure (2026-11-26)
+
+- Reviewed the prior browser evidence: 32 recursion, 69 music, 23 audio and 15 visual cases passed. The prior demo smoke check passed. No automated rerun was performed during closure.
+- The developer reported 29 of 29 manual checks passed on the standalone visual demo. Mobile and touch results were not reported, and the developer did not measure FPS.
+- Phase 5 is complete in standalone use. Phase 6 is next. Application-wide synchronization remains pending.
+
 ## Known Issues
 
-The procedural audio engine and listening page are standalone. Application integration, visuals, synchronization and WAV export remain pending. Archive entries 001–012, 014, 016, 017 and 019 are incomplete or pending. The entry for 020 is outside the index table and labeled Archived, but its referenced file is empty.
+The procedural audio engine and listening page are standalone. Mobile and touch verification, application integration, synchronization and WAV export remain pending. Archive entries 001–012, 014, 016, 017 and 019 are incomplete or pending. The entry for 020 is outside the index table and labeled Archived, but its referenced file is empty.
 
 ## Next Task
 
-Recover the original [AI transcripts](../PROMPT_CHAIN.md) before closing Phase 1. Begin Phase 5 — Cosmic Visual Engine only when explicitly authorized.
+Recover the original [AI transcripts](../PROMPT_CHAIN.md) before closing Phase 1. Begin Phase 6 — Audio-Visual Synchronization only when explicitly authorized.
