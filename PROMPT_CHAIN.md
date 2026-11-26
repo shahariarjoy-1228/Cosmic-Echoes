@@ -53,7 +53,6 @@ This document indexes the AI-assisted development interactions used throughout t
 - Archive this follow-up corrective-task request and its final response as a separate exchange.
 - Check the source conversations for additional development prompts and follow-ups. Index each original exchange and mark any missing original explicitly.
 | 017 | Codex | Phase 1 | Final Phase 1 verification | ai-logs/017-phase1-final-verification.md | Archived |
-| 018 | Codex | Phase 2 | Recursive celestial engine implementation | ai-logs/018-recursive-engine-implementation.md | Archived |
 ## Recording Policy
 
 - Preserve every project prompt.
