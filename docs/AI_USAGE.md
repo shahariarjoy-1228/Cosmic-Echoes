@@ -6,7 +6,7 @@ The [prompt index](../PROMPT_CHAIN.md) and [records](../ai-logs/) document devel
 
 ## Inventory
 
-Phase 12 recovered two complete Phase 11 exchanges from the project Codex session and preserved the Phase 12 task attachment verbatim. All 43 indexed paths resolve. There are 27 archived records covering 42 exchanges, 15 incomplete records, one indexed empty record and one unindexed empty duplicate. No indexed file is missing. The number of exchanges outside the available project records remains unknown. Empty and duplicate files were preserved.
+The archive contains 44 indexed records. Of these, 29 are complete and cover 44 original exchanges, including 16 in S19. The other 15 indexed records are incomplete, including empty 016. A second empty file is an unindexed duplicate 018 placeholder. All indexed paths resolve. The original Phase 12 final reply was recovered from Codex and paired with the verified task attachment. The available project history confirmed the previously archived Codex exchanges. S19 documents Codex archive coordination; the original ChatGPT replies remain missing. No complete original ChatGPT transcript was present in the workspace. Six records lack original prompts, and 002 still needs prompt verification. Fifteen lack original final replies, including S18, for which the available Codex history records no final reply. Eight relevant attachments are missing: the rules PDF and seven screenshots. The number of exchanges outside the available history remains unknown.
 
 | ID | File | Original prompt | Actual response | Attachment | Order | Status | Indexed | Empty | Duplicate ID |
 |---|---|---|---|---|---|---|---|---|---|
@@ -33,7 +33,7 @@ Phase 12 recovered two complete Phase 11 exchanges from the project Codex sessio
 | 026 | [026-wav-export-implementation.md](../ai-logs/026-wav-export-implementation.md) | Present | Present | Task text embedded | Source pair preserved | Archived | Yes | No | No |
 | P11 | [phase11-documentation-and-demonstration.md](../ai-logs/phase11-documentation-and-demonstration.md) | Present | Present | Task text embedded | Source pair preserved | Archived | Yes | No | No |
 | P11A | [phase11-approval.md](../ai-logs/phase11-approval.md) | Present | Present | None flagged | Source pair preserved | Archived | Yes | No | No |
-| P12 | [phase12-final-submission-preparation.md](../ai-logs/phase12-final-submission-preparation.md) | Present | Missing | Task text embedded | Partial | Incomplete | Yes | No | No |
+| P12 | [phase12-final-submission-preparation.md](../ai-logs/phase12-final-submission-preparation.md) | Present | Present | Original task attachment verified | Source pair preserved | Archived | Yes | No | No |
 | S01 | [s01-phase1-corrective-execution.md](../ai-logs/s01-phase1-corrective-execution.md) | Present | Present | None flagged | Source pair preserved | Archived | Yes | No | No |
 | S02 | [s02-phase1-verification-before-recheck.md](../ai-logs/s02-phase1-verification-before-recheck.md) | Present | Present | None flagged | Source pair preserved | Archived | Yes | No | No |
 | S03 | [s03-phase2-baseline-confirmation.md](../ai-logs/s03-phase2-baseline-confirmation.md) | Present | Present | Task text embedded | Source pair preserved | Archived | Yes | No | No |
@@ -53,30 +53,30 @@ Phase 12 recovered two complete Phase 11 exchanges from the project Codex sessio
 | S17 | [s17-phase10-approval.md](../ai-logs/s17-phase10-approval.md) | Present | Present | None flagged | Source pair preserved | Archived | Yes | No | No |
 | S18 | [s18-phase1-setup-guidance.md](../ai-logs/s18-phase1-setup-guidance.md) | Present | Missing | None flagged | Partial | Incomplete | Yes | No | No |
 | S19 | [s19-phase1-archive-coordination.md](../ai-logs/s19-phase1-archive-coordination.md) | Present | Present | None flagged | 16 pairs preserved in source order | Archived | Yes | No | No |
+| S20 | [s20-ai-archive-recovery.md](../ai-logs/s20-ai-archive-recovery.md) | Present | Present | None flagged | Source pair preserved | Archived | Yes | No | No |
 | Extra 018 | [018-recursive-engine-implementation.md](../ai-logs/018-recursive-engine-implementation.md) | Missing | Missing | None flagged | Unavailable | Empty duplicate | No | Yes | Yes |
 
 ## Recovery checklist
 
 | ID | Missing material | Expected source | Developer action | Status | Archive path |
 |---|---|---|---|---|---|
-| 001 | Original reply | Original ChatGPT project conversation | Supply the complete original reply and original rules PDF. | Incomplete | [001-idea-generation.md](../ai-logs/001-idea-generation.md) |
-| 002 | Prompt provenance and original reply | Original ChatGPT project conversation | Confirm the prompt against the original and supply the complete reply. | Incomplete | [002-concept-refinement.md](../ai-logs/002-concept-refinement.md) |
-| 003 | Original reply | Original ChatGPT project conversation | Export and supply the complete original reply. | Incomplete | [003-development-roadmap.md](../ai-logs/003-development-roadmap.md) |
-| 004 | Original reply | Original ChatGPT project conversation | Export and supply the complete original reply. | Incomplete | [004-project-setup.md](../ai-logs/004-project-setup.md) |
-| 005 | Original reply | Original ChatGPT project conversation | Export and supply the complete original reply. | Incomplete | [005-ai-documentation-guidance.md](../ai-logs/005-ai-documentation-guidance.md) |
-| 006 | Original screenshot and reply | Original ChatGPT project conversation | Supply the original screenshot and corresponding complete reply. | Incomplete | [006-git-push-error.md](../ai-logs/006-git-push-error.md) |
-| 007 | Original screenshot and reply | Original ChatGPT project conversation | Supply the original screenshot and corresponding complete reply. | Incomplete | [007-remote-history-rejection.md](../ai-logs/007-remote-history-rejection.md) |
-| 008 | Original screenshot and reply | Original ChatGPT project conversation | Supply the original screenshot and corresponding complete reply. | Incomplete | [008-readme-merge-conflict.md](../ai-logs/008-readme-merge-conflict.md) |
-| 009 | Original screenshot and reply | Original ChatGPT project conversation | Supply the original screenshot and corresponding complete reply. | Incomplete | [009-successful-git-push.md](../ai-logs/009-successful-git-push.md) |
-| 010 | Original screenshot and reply | Original ChatGPT project conversation | Supply the original screenshot and corresponding complete reply. | Incomplete | [010-repository-structure-review.md](../ai-logs/010-repository-structure-review.md) |
-| 011 | Original screenshot and reply | Original ChatGPT project conversation | Supply the original screenshot and corresponding complete reply. | Incomplete | [011-ai-logs-verification.md](../ai-logs/011-ai-logs-verification.md) |
-| 012 | Original screenshot and reply | Original ChatGPT project conversation | Supply the original screenshot and corresponding complete reply. | Incomplete | [012-documentation-verification.md](../ai-logs/012-documentation-verification.md) |
-| 014 | Exact original prompt and actual reply | Original ChatGPT project conversation | Supply the exact submitted corrective-planning prompt and complete reply. | Incomplete | [014-phase1-corrective-planning.md](../ai-logs/014-phase1-corrective-planning.md) |
-| 016 | Original prompt, reply and tool identification | Original Phase 1 AI session | Identify the tool and supply the original prompt and response. | Empty | [016-ai-archive-guidance.md](../ai-logs/016-ai-archive-guidance.md) |
-| P12 | Original final response | Current Codex Phase 12 exchange | Append the actual final response after delivery and revalidate the entry. | Incomplete | [phase12-final-submission-preparation.md](../ai-logs/phase12-final-submission-preparation.md) |
-| S18 | Final reply, if one exists | Original Codex setup session or developer export | Confirm whether a final response was delivered and supply it if available. | Incomplete | [s18-phase1-setup-guidance.md](../ai-logs/s18-phase1-setup-guidance.md) |
-| Extra 018 | Confirm whether the empty duplicate had a distinct source | Existing empty file and canonical 018 | Preserve the empty duplicate. Confirm it never held distinct original content. | Empty duplicate | [018-recursive-engine-implementation.md](../ai-logs/018-recursive-engine-implementation.md) |
-| 001 / PDF | Original organizer rules document | Organizer or original ChatGPT attachment | Supply the original PDF or authoritative source. Confirm permitted archive handling before publication. | Missing | [001-idea-generation.md](../ai-logs/001-idea-generation.md) |
+| 001 | Original reply and organizer PDF | Original ChatGPT ideation turn | Supply the complete original reply and original rules PDF. | Incomplete | [001-idea-generation.md](../ai-logs/001-idea-generation.md) |
+| 002 | Prompt provenance and original reply | Original ChatGPT concept refinement turn | Confirm the prompt against the original and supply the complete reply. | Incomplete | [002-concept-refinement.md](../ai-logs/002-concept-refinement.md) |
+| 003 | Original reply | Original ChatGPT roadmap turn | Export and supply the complete original reply. | Incomplete | [003-development-roadmap.md](../ai-logs/003-development-roadmap.md) |
+| 004 | Original reply | Original ChatGPT initial setup turn | Export and supply the complete original reply. | Incomplete | [004-project-setup.md](../ai-logs/004-project-setup.md) |
+| 005 | Original reply | Original ChatGPT step 6.2 follow-up turn | Export and supply the complete original reply. | Incomplete | [005-ai-documentation-guidance.md](../ai-logs/005-ai-documentation-guidance.md) |
+| 006 | Original screenshot and reply | Original ChatGPT Git push error turn | Supply the original screenshot and corresponding complete reply. | Incomplete | [006-git-push-error.md](../ai-logs/006-git-push-error.md) |
+| 007 | Original screenshot and reply | Original ChatGPT remote history rejection turn | Supply the original screenshot and corresponding complete reply. | Incomplete | [007-remote-history-rejection.md](../ai-logs/007-remote-history-rejection.md) |
+| 008 | Original screenshot and reply | Original ChatGPT README merge conflict turn | Supply the original screenshot and corresponding complete reply. | Incomplete | [008-readme-merge-conflict.md](../ai-logs/008-readme-merge-conflict.md) |
+| 009 | Image-only prompt and original reply | Original ChatGPT successful Git push follow-up turn | Supply the original screenshot and corresponding complete reply. | Incomplete | [009-successful-git-push.md](../ai-logs/009-successful-git-push.md) |
+| 010 | Image-only prompt and original reply | Original ChatGPT repository structure review turn | Supply the original screenshot and corresponding complete reply. | Incomplete | [010-repository-structure-review.md](../ai-logs/010-repository-structure-review.md) |
+| 011 | Image-only prompt and original reply | Original ChatGPT AI logs verification turn | Supply the original screenshot and corresponding complete reply. | Incomplete | [011-ai-logs-verification.md](../ai-logs/011-ai-logs-verification.md) |
+| 012 | Image-only prompt and original reply | Original ChatGPT documentation verification turn | Supply the original screenshot and corresponding complete reply. | Incomplete | [012-documentation-verification.md](../ai-logs/012-documentation-verification.md) |
+| 014 | Exact original prompt and actual reply | Original ChatGPT corrective planning turn | Supply the exact submitted corrective-planning prompt and complete reply. | Incomplete | [014-phase1-corrective-planning.md](../ai-logs/014-phase1-corrective-planning.md) |
+| 016 | Original prompt, reply and tool identification | Original Phase 1 AI session | Identify the tool and supply the exact prompt and reply, or confirm no distinct exchange occurred. | Empty | [016-ai-archive-guidance.md](../ai-logs/016-ai-archive-guidance.md) |
+| S18 | Final reply, if one exists | Original Codex setup session or developer export | Check the original setup thread and supply the final reply if delivered, or confirm the turn ended without one. | Incomplete | [s18-phase1-setup-guidance.md](../ai-logs/s18-phase1-setup-guidance.md) |
 | Later exchanges | Any additional original project exchanges | Developer project conversations | Supply any separate project exchanges and preserve later approval, deployment and submission interactions if they occur. | Pending inventory confirmation | [PROMPT_CHAIN.md](../PROMPT_CHAIN.md) |
+
+The empty 018 placeholder has no conversation content in the working tree or repository history. Canonical 018 and S03 preserve the two Phase 2 submissions with separate replies.
 
 Historical absolute workspace references and local paths occur inside original transcripts. Review their publication suitability, along with attachment rights and unrelated private material. Preserve authentic records and follow organizer-approved handling for anything that cannot be published. The Phase 11 demonstration screenshots are separate assets. [Requirements record](HACKATHON_REQUIREMENTS.md#ai-usage-requirement).

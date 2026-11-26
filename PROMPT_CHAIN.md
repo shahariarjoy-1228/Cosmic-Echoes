@@ -10,7 +10,7 @@ Hub's Quest — Epoch 1, Recursive Soundscapes Solo Hackathon.
 
 ## Purpose
 
-This document indexes the AI-assisted development interactions used throughout the project. The `ai-logs/` directory contains partial records and placeholders. The index shows which original exchanges still need to be archived.
+This document indexes the AI-assisted development interactions used throughout the project. The `ai-logs/` directory contains original transcripts, partial records, and placeholders. The index shows which original exchanges still need to be archived.
 
 ## Interaction Index
 
@@ -39,7 +39,7 @@ This document indexes the AI-assisted development interactions used throughout t
 | 026 | Codex | Phase 7 | WAV export system implementation | ai-logs/026-wav-export-implementation.md | Archived |
 | P11 | Codex | Phase 11 | Documentation and demonstration | ai-logs/phase11-documentation-and-demonstration.md | Archived |
 | P11A | Codex | Phase 11 | Official documentation and demonstration approval | ai-logs/phase11-approval.md | Archived |
-| P12 | Codex | Phase 12 | Final submission preparation | ai-logs/phase12-final-submission-preparation.md | Incomplete - original task attachment preserved, archive final response after delivery |
+| P12 | Codex | Phase 12 | Final submission preparation | ai-logs/phase12-final-submission-preparation.md | Archived |
 
 ## Recovered exchanges
 
@@ -64,8 +64,32 @@ Supplemental identifiers preserve existing interaction numbers. These are origin
 | S15 | Codex | Phase 10 | Final testing and debugging | ai-logs/s15-phase10-testing.md | Archived |
 | S16 | Codex | Phase 10 | Final acceptance and closure | ai-logs/s16-phase10-closure.md | Archived |
 | S17 | Codex | Phase 10 | Official release candidate approval | ai-logs/s17-phase10-approval.md | Archived |
-| S18 | Codex | Phase 1 | Initial repository setup guidance | ai-logs/s18-phase1-setup-guidance.md | Incomplete - no final response in the available session |
+| S18 | Codex | Phase 1 | Initial review-only readiness request | ai-logs/s18-phase1-setup-guidance.md | Incomplete - no final response in the available session |
 | S19 | Codex | Phase 1 | Archive coordination (16 exchanges in source order) | ai-logs/s19-phase1-archive-coordination.md | Archived |
+| S20 | Codex | Archive recovery | Recover original transcripts and reconcile the inventory | ai-logs/s20-ai-archive-recovery.md | Archived |
+
+## Exchanges inside S19
+
+The 16 original Codex coordination exchanges appear in source order. Repeated submissions received distinct replies.
+
+- [S19.01](ai-logs/s19-phase1-archive-coordination.md#exchange-01)
+- [S19.02](ai-logs/s19-phase1-archive-coordination.md#exchange-02)
+- [S19.03](ai-logs/s19-phase1-archive-coordination.md#exchange-03)
+- [S19.04](ai-logs/s19-phase1-archive-coordination.md#exchange-04)
+- [S19.05](ai-logs/s19-phase1-archive-coordination.md#exchange-05)
+- [S19.06](ai-logs/s19-phase1-archive-coordination.md#exchange-06)
+- [S19.07](ai-logs/s19-phase1-archive-coordination.md#exchange-07)
+- [S19.08](ai-logs/s19-phase1-archive-coordination.md#exchange-08)
+- [S19.09](ai-logs/s19-phase1-archive-coordination.md#exchange-09)
+- [S19.10](ai-logs/s19-phase1-archive-coordination.md#exchange-10)
+- [S19.11](ai-logs/s19-phase1-archive-coordination.md#exchange-11)
+- [S19.12](ai-logs/s19-phase1-archive-coordination.md#exchange-12)
+- [S19.13](ai-logs/s19-phase1-archive-coordination.md#exchange-13)
+- [S19.14](ai-logs/s19-phase1-archive-coordination.md#exchange-14)
+- [S19.15](ai-logs/s19-phase1-archive-coordination.md#exchange-15)
+- [S19.16](ai-logs/s19-phase1-archive-coordination.md#exchange-16)
+
+018 and S03 used identical task text in separate exchanges with different replies. The [empty duplicate 018 placeholder](ai-logs/018-recursive-engine-implementation.md) represents no known distinct exchange.
 
 ## Original transcripts to archive
 
@@ -83,7 +107,7 @@ Supplemental identifiers preserve existing interaction numbers. These are origin
 - 012 — Image-only documentation verification. Recover the original screenshot and full response.
 - 014 — Audit review and corrective planning. Recover the exact prompt submitted to ChatGPT and the full original response.
 - 016 — AI archive guidance. Recover the complete original prompt and response and confirm the AI tool.
-- P12: Archive the original final response once delivered. Index subsequent approval, deployment and submission exchanges if they occur.
+- S18: Check the original setup conversation for a final reply. Supply it if delivered, or confirm that the turn ended without one.
 - See the [recovery inventory](docs/AI_USAGE.md) for the unindexed duplicate 018 and later coverage gaps.
 - Check the source conversations for additional development prompts and follow-ups. Index each original exchange and mark any missing original explicitly.
 ## Recording Policy
