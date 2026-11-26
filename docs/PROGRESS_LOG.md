@@ -8,7 +8,7 @@ Cosmic Echoes
 
 P05 — Cosmic Visual Engine (completed, standalone verified)
 
-P07 — WAV Export System (completed, development demo verified). Next is P08 — User Interface and Accessibility, pending authorization.
+P08 — User Interface and Accessibility (implemented, manual verification pending).
 
 ## Status Definitions
 
@@ -29,7 +29,7 @@ P07 — WAV Export System (completed, development demo verified). Next is P08 �
 | P05 | Cosmic visual engine | Completed (standalone verified) |
 | P06 | Audio-visual synchronization | Completed (integrated demo verified) |
 | P07 | WAV export | Completed (development demo verified) |
-| P08 | User interface and accessibility | Next (pending authorization) |
+| P08 | User interface and accessibility | Implemented (manual verification pending) |
 | P09 | Optional features and polish | Pending |
 | P10 | Testing and debugging | Pending |
 | P11 | Documentation and demonstration | Pending |
@@ -140,10 +140,16 @@ Reviewed all six pending deliverable mappings and the 24 pending application tes
 - Ran a separate headless check of two recorded WAVs. The early-stop file preserved the endpoint without an effect tail. The naturally completed file included the calculated 0.7-second tail.
 - The mandatory WAV export deliverable is implemented and verified in the development demo. Phase 8 awaits authorization.
 
+### Entry 017 — Phase 8 root application (2026-11-26)
+
+- Integrated the six foundational modules at the root with a responsive Canvas-centered interface, keyboard placement, motion controls, recording and WAV export.
+- Headless Edge passed all seven suites, 167 tests with zero failures or skips. Root smoke, visible Tab focus, six viewport widths and all four development demo load checks passed.
+- Manual normal-browser listening, saved-file playback from the root, assistive technology and physical touch verification remain pending.
+
 ## Known Issues
 
-The procedural audio engine and listening page are standalone. Integrated demo synchronization is verified within the reported scope. Mobile and touch verification in the final application, physical latency, final UI integration remains pending. Browser saving and independent-player playback passed in developer testing. Archive entries 001–012, 014, 016, 017 and 019 are incomplete or pending. The entry for 020 is outside the index table and labeled Archived, but its referenced file is empty.
+The procedural audio engine and listening page are standalone. Integrated demo synchronization is verified within the reported scope. Manual root workflows, physical touch and mobile verification, assistive technology checks and physical audio-to-display latency remain pending. Browser saving and independent-player playback passed in developer testing. Archive entries 001–012, 014, 016, 017 and 019 are incomplete or pending. The entry for 020 is outside the index table and labeled Archived, but its referenced file is empty.
 
 ## Next Task
 
-Recover the original [AI transcripts](../PROMPT_CHAIN.md) before closing Phase 1. Begin Phase 8 — User Interface and Accessibility only when explicitly authorized.
+Recover the original [AI transcripts](../PROMPT_CHAIN.md) before closing Phase 1. Complete the Phase 8 manual checklist. Phase 9 optional features and polish, and Phase 10 broader testing, require explicit authorization.

@@ -34,7 +34,18 @@ The application is designed to run entirely in the browser without external runt
 
 ## Development Status
 
-Phase 4 adds standalone procedural Web Audio playback, a development listening page and bounded offline stereo rendering. Standalone verification is complete with 124 previously passed automated tests and 20 developer-reported manual checks. Phase 5 delivers a standalone Canvas 2D visual engine and demo. Its verification includes 139 previously passed automated tests across all suites and 29 developer-reported manual visual checks. Phase 6 connects audio and visuals in a standalone synchronized demo, with live placement, recording and replay. Phase 6 verification includes 147 prior automated passes and 28 developer-reported manual passes. Phase 7 adds recorded-composition WAV export. Phase 7 verification includes 160 prior automated passes and 24 developer-reported manual passes, including browser download and independent-player playback. Phase 8 — User Interface and Accessibility is next. The final application interface remains planned. The Phase 1 transcript archive remains incomplete.
+The root application integrates synchronized stars and music, session recording, replay, and stereo WAV export. Phase 8 passed 167 automated browser tests. Manual verification of the root workflow, saved WAV playback and physical touch devices remains pending.
+
+## Run locally
+
+From the project root, run `python -m http.server 8000 --bind 127.0.0.1` and open `http://127.0.0.1:8000/`. Any static HTTP server works. The app starts silent.
+
+1. Select an environment and choose **Start session**.
+2. Click or tap the sky, or choose **Place center star** or **Place by coordinates**. Change recursion sliders to shape future stars.
+3. Pause and resume as needed. Stop or finish to finalize the recording. **Replay** plays it again, and **Clear recording** discards it.
+4. Choose **Prepare WAV**, then **Download WAV** when ready.
+
+**Sound & display** offers monitoring volume, automatic or explicit reduced motion, and visual layer toggles. Monitoring volume does not change WAV gain. See the [manual checklist](docs/TESTING.md#phase-8-manual-application-verification) and [architecture](docs/ARCHITECTURE.md#root-application).
 
 Serve the project from the root with `python -m http.server 8000 --bind 127.0.0.1` if Python is available, then open `http://127.0.0.1:8000/tests/audio-demo.html`. Select a scenario, choose Generate composition, then press Play. Any static HTTP server can serve the page. See the [audio API](docs/ARCHITECTURE.md#procedural-audio-engine) and [test results](docs/TESTING.md).
 

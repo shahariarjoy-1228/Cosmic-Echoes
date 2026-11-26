@@ -48,6 +48,33 @@ Automated checks measure expected behavior. Browser checks exercise the interfac
 
 The standalone capacity helper passed exact-fit, rejection and invalid-occupancy checks. T16 and T20 remain pending for controller integration. Standalone user-gesture playback and listening passed the developer-reported checks below. Future application integration tests, including synchronization and WAV export, remain pending.
 
+## Phase 8 automated verification
+
+On 2026-11-26, headless Microsoft Edge ran seven browser suites over a local Python HTTP server. The debugger waited for final asynchronous summaries. Live audio, sync, export and app cases used `?live=1`, an autoplay override and muted monitoring. Tests exercised the real root app in a same-origin iframe. Export render failure and delayed completion used controlled substitutes, as did the final anchor click.
+
+| Suite | Passed | Failed | Skipped |
+|---|---:|---:|---:|
+| Recursion | 32 | 0 | 0 |
+| Musical mapping | 69 | 0 | 0 |
+| Procedural audio | 23 | 0 | 0 |
+| Visual engine | 15 | 0 | 0 |
+| Synchronization | 8 | 0 | 0 |
+| WAV export | 13 | 0 | 0 |
+| Root application | 7 | 0 | 0 |
+| **Total** | **167** | **0** | **0** |
+
+The application cases cover startup, labels, environment and motion, viewport sizing, pointer and coordinate placement, transport, cancellation, recovery, PCM header inspection and replay. Layout was tested at 320, 375, 390, 768, 1024 and 1440 CSS pixels. A 1440 × 960 root smoke check found an idle page, a 968 × 547 backing canvas, no reported page errors and no external resource requests. A browser Tab event exposed the skip link with a solid outline. All four previous demos loaded. Synthetic touch-drag checks covered the handler without testing physical hardware.
+
+## Phase 8 manual application verification
+
+**Pending.** Serve the repository root with `python -m http.server 8000 --bind 127.0.0.1`. Open `http://127.0.0.1:8000/` in a regular browser with normal autoplay policy.
+
+- Confirm branding, initial sky and onboarding, silence before Start, and comfortable sound after starting. Place several mouse or touch stars and compare root and recursive notes with their visuals. Try each environment, change all recursion settings and confirm the preview and future-placement behavior.
+- Pause and resume, stop and replay, allow natural completion, and verify what Clear recording discards. Try rapid ordinary actions and confirm feedback and calm visuals remain usable.
+- Confirm export is unavailable before finalization. Prepare WAV, cancel a separate render, download a file and play it in an independent player. Export a second recording and check that no obsolete metadata survives the new session. Use the keyboard for both placement and export.
+- Navigate with Tab and a screen reader where available. Check labels, focus, units, alerts, help, and visual toggles. Try system and explicit reduced motion. Check narrow layout, increased zoom, resize during playback, and actual touch on suitable hardware. Record the device and browser separately.
+- Confirm every core action works from the root. Keep subjective appearance, perceived synchronization, normal autoplay behavior, file saving and cross-browser results separate from headless evidence.
+
 ## Phase 7 automated verification
 
 On 2026-11-26, headless Microsoft Edge ran six test pages over local Python HTTP. The debugger waited for final asynchronous summaries. Live audio, synchronization and export groups used `?live=1` and an autoplay override with muted monitoring. Binary tests used an independent DataView parser and browser decoding at the matching rate. Download and URL lifetime tests used controlled anchor and object URL substitutes.

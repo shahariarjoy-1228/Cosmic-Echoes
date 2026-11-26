@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en" data-theme="deep-space">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Create a peaceful cosmic soundscape through recursive stars, musical echoes and interactive celestial patterns.">
+  <meta name="theme-color" content="#050714">
+  <title>Cosmic Echoes</title>
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#transport">Skip to session controls</a>
+  <header class="masthead">
+    <a class="brand" href="./" aria-label="Cosmic Echoes home"><span class="brand-mark" aria-hidden="true">✦</span><span>Cosmic Echoes</span></a>
+    <a class="help-link" href="#about">Help &amp; About</a>
+  </header>
+  <main>
+    <div class="page-heading">
+      <h1>Cosmic Echoes</h1>
+      <p>Every star has a voice. Every echo creates a universe.</p>
+    </div>
+    <div class="workspace">
+      <section class="experience" aria-label="Cosmic canvas and session">
+        <div class="observatory">
+          <div class="sky-head"><span id="sky-environment">Deep Space</span><span id="session-state" class="state">Idle</span></div>
+          <canvas id="sky" role="img" aria-label="Cosmic sky" aria-describedby="sky-help">Use the star placement buttons below to compose without the canvas.</canvas>
+          <div class="onboarding" id="onboarding">
+            <span class="onboarding-star" aria-hidden="true">✧</span>
+            <h2>Make the sky sing.</h2>
+            <p>Start a session, then click or tap the sky to place a star and hear its echoes.</p>
+          </div>
+          <p id="sky-help" class="sky-help">Click or tap to place a star. Keyboard placement is below.</p>
+        </div>
+        <div class="session surface" id="transport" tabindex="-1">
+          <div class="transport">
+            <button id="start" class="primary" disabled>Start session</button>
+            <button id="pause" disabled>Pause</button><button id="resume" disabled hidden>Resume</button>
+            <button id="stop" disabled>Stop</button><button id="replay" disabled>Replay</button>
+            <button id="reset" class="quiet" disabled>Clear recording</button>
+          </div>
+          <div class="time-row"><span id="session-time">0:00 / 1:00</span><progress id="playhead" max="60" value="0" aria-label="Session progress"></progress></div>
+          <div class="placement-row">
+            <button id="center" disabled>Place center star</button>
+            <details>
+              <summary>Place by coordinates</summary>
+              <form id="placement">
+                <label>X <input id="x" type="number" value="0.5" min="0" max="1" step="any" required></label>
+                <label>Y <input id="y" type="number" value="0.5" min="0" max="1" step="any" required></label>
+                <button id="place" disabled>Place star</button>
+              </form>
+            </details>
+          </div>
+          <p id="notice" role="status">Ready when you are.</p>
+          <p id="error" role="alert" hidden></p>
+        </div>
+      </section>
+
+      <aside class="controls" aria-label="Soundscape controls">
+        <section class="surface panel" aria-labelledby="environment-heading">
+          <h2 id="environment-heading">Environment</h2>
+          <label for="environment" class="sr-only">Musical environment</label>
+          <select id="environment"></select>
+          <p id="environment-description" class="muted"></p>
+          <p id="environment-lock" class="muted" hidden>Stop playback to change the environment.</p>
+        </section>
+        <section class="surface panel" aria-labelledby="echo-heading">
+          <h2 id="echo-heading">Shape the echoes</h2>
+          <p class="muted">Changes apply to the next star.</p>
+          <label class="slider" for="maxDepth"><span>Recursion depth</span><output id="maxDepth-value" for="maxDepth">3</output></label>
+          <input id="maxDepth" type="range" min="0" max="4" step="1" value="3">
+          <label class="slider" for="childrenPerStar"><span>Children per star</span><output id="childrenPerStar-value" for="childrenPerStar">2</output></label>
+          <input id="childrenPerStar" type="range" min="1" max="3" step="1" value="2">
+          <label class="slider" for="tempo"><span>Tempo</span><output id="tempo-value" for="tempo">55</output></label>
+          <input id="tempo" type="range" min="40" max="80" step="1" value="55">
+          <p id="recursion-preview" class="preview">15 stars per placement · 4 generations</p>
+          <details>
+            <summary>Advanced recursion</summary>
+            <label class="slider" for="decay"><span>Decay</span><output id="decay-value" for="decay">0.65</output></label>
+          <input id="decay" type="range" min="0.35" max="0.85" step="0.01" value="0.65">
+            <label class="slider" for="spreadAngle"><span>Spread angle</span><output id="spreadAngle-value" for="spreadAngle">100</output></label>
+          <input id="spreadAngle" type="range" min="30" max="180" step="1" value="100">
+            <label class="slider" for="generationDelay"><span>Base delay</span><output id="generationDelay-value" for="generationDelay">0.8</output></label>
+          <input id="generationDelay" type="range" min="0.4" max="2" step="0.05" value="0.8">
+          </details>
+        </section>
+        <section class="surface panel" aria-labelledby="recording-heading">
+          <h2 id="recording-heading">Recording &amp; export</h2>
+          <p id="recording" class="muted">Stop or finish a session to prepare a WAV.</p>
+          <div class="export-actions">
+            <button id="prepare" disabled>Prepare WAV</button><button id="download" disabled>Download WAV</button>
+            <button id="cancel" disabled hidden>Cancel export</button><button id="clear-export" disabled hidden>Clear WAV</button>
+          </div>
+          <p id="export-status" role="status"></p>
+          <p id="export-error" role="alert" hidden></p>
+          <p id="wav-metadata" class="muted" hidden></p>
+        </section>
+        <details class="surface panel">
+          <summary>Sound &amp; display</summary>
+          <label class="slider" for="volume"><span>Monitoring volume</span><output id="volume-value" for="volume">70%</output></label>
+          <input id="volume" type="range" min="0" max="1" step=".01" value=".7">
+          <p class="muted">Monitoring changes what you hear. The WAV uses the recorded mix.</p>
+          <label for="motion">Motion preference</label>
+          <select id="motion"><option value="auto">Follow system</option><option value="full">Full motion</option><option value="reduced">Reduced motion</option></select>
+          <div class="checks">
+            <label><input id="particles" type="checkbox" checked> Background particles</label>
+            <label><input id="ripples" type="checkbox" checked> Ripples</label>
+            <label><input id="connections" type="checkbox" checked> Constellation lines</label>
+          </div>
+        </details>
+        <details class="surface panel" id="diagnostics-panel">
+          <summary>Diagnostics</summary>
+          <p id="diagnostics" class="muted"></p>
+        </details>
+      </aside>
+    </div>
+  </main>
+  <footer id="about">
+    <details>
+      <summary>How Cosmic Echoes works</summary>
+      <p>Each star creates smaller stars until it reaches the chosen depth. Branching sets the number of children, decay softens them, and the base delay and tempo shape their timing. Audio drives the visual timeline. WAV export renders the recorded notes offline.</p>
+      <p>Built with HTML, CSS, vanilla JavaScript, Canvas 2D, Web Audio, OfflineAudioContext and PCM WAV encoding.</p>
+    </details>
+  </footer>
+</body>
+</html>
