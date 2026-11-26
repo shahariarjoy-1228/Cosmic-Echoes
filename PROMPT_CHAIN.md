@@ -32,7 +32,9 @@ This document indexes the AI-assisted development interactions used throughout t
 | 014 | ChatGPT | Phase 1 | Audit review and corrective planning | ai-logs/014-phase1-corrective-planning.md | Incomplete — original prompt and response missing |
 | 015 | Codex | Phase 1 | Corrective documentation task | ai-logs/015-codex-corrective-task.md | Archived |
 | 016 | Unconfirmed | Phase 1 | AI archive guidance | ai-logs/016-ai-archive-guidance.md | Pending — empty |
+| 017 | Codex | Phase 1 | Final Phase 1 verification | ai-logs/017-phase1-final-verification.md | Incomplete — response missing |
 | 018 | Codex | Phase 2 | Implement and verify the recursive engine | ai-logs/018-phase2-recursive-engine.md | Archived |
+| 019 | Codex | Phase 3 | Musical mapping implementation | ai-logs/019-musical-mapping-implementation.md | Pending — prompt and response placeholders |
 
 ## Original transcripts to archive
 
@@ -50,11 +52,11 @@ This document indexes the AI-assisted development interactions used throughout t
 - 012 — Image-only documentation verification. Recover the original screenshot and full response.
 - 014 — Audit review and corrective planning. Recover the exact prompt submitted to ChatGPT and the full original response.
 - 016 — AI archive guidance. Recover the complete original prompt and response and confirm the AI tool.
+- 017 — Phase 1 completion recheck. The prompt is present. Archive the original response.
+- 019 — Musical mapping implementation. Archive the complete original prompt and response.
 - Archive this follow-up corrective-task request and its final response as a separate exchange.
 - Check the source conversations for additional development prompts and follow-ups. Index each original exchange and mark any missing original explicitly.
-| 017 | Codex | Phase 1 | Final Phase 1 verification | ai-logs/017-phase1-final-verification.md | Archived |
 
-| 019 | Codex | Phase 3 | Musical mapping implementation | ai-logs/019-musical-mapping-implementation.md | Archived |
 ## Recording Policy
 
 - Preserve every project prompt.
