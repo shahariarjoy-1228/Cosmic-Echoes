@@ -66,16 +66,41 @@ The export tests covered actual early-stop and completed recordings, cancellatio
 
 A separate maximum-size check used the real offline renderer with a 60-second ambient-only fixture and a four-second capped tail. It prepared 2,822,400 frames and an 11,289,644-byte Blob with zero clipped samples. No export speed or browser memory footprint was measured.
 
+The six suite totals above are from the implementation run. No suites were rerun for closure. Binary parsing, independent decoding and recorded-composition rendering used actual browser output. Failure injection, anchor clicks and object URL ownership checks used controlled substitutes. The prior demo smoke check reached a ready WAV with displayed metadata. The developer separately verified the real download and cancellation/replacement workflow.
+
+### Phase 7 targeted WAV check during closure
+
+A separate headless Edge check used local HTTP, an autoplay override and muted live monitoring. Both files came from actual controller recordings. An independent DataView reader confirmed RIFF, WAVE, fmt and data identifiers, exact chunk lengths, PCM format code 1, 176,400 bytes/s and four-byte block alignment. Both were 44,100 Hz stereo PCM16 with MIME type audio/wav and zero clipped samples. Successful encoding rejects non-finite samples.
+
+| Recording | Endpoint | Rendered duration | Tail policy | Frames | PCM bytes | WAV bytes |
+|---|---:|---:|---|---:|---:|---:|
+| Early stop | 0.477 s | 0.4770068 s | None, rounded up to a frame | 21,036 | 84,144 | 84,188 |
+| Natural completion | 2.000 s | 2.7000227 s | 0.700 s, rounded up to a frame | 119,071 | 476,284 | 476,328 |
+
+These are automated test outputs. The developer did not record exact metadata for the manually downloaded file.
+
+## Phase 7 developer-reported manual results
+
+The developer reported **24 of 24 checks passed** in normal browser use. This includes an actual saved file and independent media-player playback. No filename, duration, size, player name, performance measurements or additional observations were supplied.
+
+| Area | Reported PASS checks | Count |
+|---|---|---:|
+| Recording and download | Recursive recording finalizes. Export becomes available. Status is clear. WAV preparation succeeds. File downloads. Filename ends in .wav. File size is positive and plausible. Independent playback works. Music matches the recording. | 9 |
+| Audio fidelity | Recursive echoes, ambient harmony, enabled atmosphere and stereo positioning are preserved. No unexpected clipping or distortion. Early cut and natural tail follow the recorded policy. | 7 |
+| Stability and usability | A second export succeeds. Repeat actions do not conflict. Recording and replay still work. Missing finalized input is handled. Cancellation works. Re-download works where supported. Replacement does not retain an obsolete preview. Controls are keyboard accessible. | 8 |
+
+The developer-reported manual total across Phases 4–7 is **101 passes**. The regression suite total remains **160 passes**. The targeted closure check is separate.
+
 ## Phase 7 manual WAV verification
 
-**Pending.** Serve the root with `python -m http.server 8000 --bind 127.0.0.1` and open `http://127.0.0.1:8000/tests/export-demo.html` in a regular browser.
+For repeat checks, Serve the root with `python -m http.server 8000 --bind 127.0.0.1` and open `http://127.0.0.1:8000/tests/export-demo.html` in a regular browser.
 
 1. Start a short session, place a single root and a binary tree, and stop. Check eligibility and status, then choose Prepare WAV and Download WAV using the keyboard as well as the pointer.
 2. Verify the downloaded filename, file size and independent local-player playback. Check the recorded melody, recursive echoes, ambience, atmosphere, stereo placement and absence of unexpected distortion.
 3. Compare an early stop with natural completion. Verify the hard cut and expected bounded tail. Try multiple roots, overlapping roots and an ambient-only recording.
 4. Prepare another WAV, try repeat actions during rendering, cancel a long render, and wait for the busy state to clear. Check replacement cleanup, re-download, and recording and replay after export. Confirm export stays unavailable before finalization.
 
-Headless Blob generation, browser decoding and a mocked anchor request do not verify an operating-system save. Actual save and independent-player playback remain pending.
+Headless Blob generation, browser decoding and a mocked anchor request do not verify an operating-system save. Actual save and independent-player playback are verified by the separate developer report above.
 
 ## Phase 6 automated verification
 
