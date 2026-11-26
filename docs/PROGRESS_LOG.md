@@ -6,9 +6,7 @@ Cosmic Echoes
 
 ## Current Phase
 
-P05 — Cosmic Visual Engine (completed, standalone verified)
-
-P10 — Final Testing and Debugging (completed and developer-approved, release candidate verified within tested scope). Next is P11 — Documentation and Demonstration, pending authorization.
+P10 is complete and developer-approved. P11 documentation and demonstration materials are prepared. AI archive recovery is open. P12 — Final Submission is next planned and awaits explicit authorization.
 
 ## Status Definitions
 
@@ -32,8 +30,8 @@ P10 — Final Testing and Debugging (completed and developer-approved, release c
 | P08 | User interface and accessibility | Completed (root verified) |
 | P09 | Creative features and polish | Completed (root verified) |
 | P10 | Final testing and debugging | Completed and developer-approved (verified release candidate) |
-| P11 | Documentation and demonstration | Next (pending authorization) |
-| P12 | Final submission | Pending |
+| P11 | Documentation and demonstration | Materials prepared; archive recovery outstanding |
+| P12 | Final submission | Next planned, pending explicit authorization |
 
 ## Development Entries
 
@@ -183,10 +181,17 @@ Reviewed all six pending deliverable mappings and the 24 pending application tes
 - Approval includes the logical synchronization measurements and maximum-duration WAV fixture recorded in the testing evidence. All testing limitations and the AI archive submission requirement remain open within their documented scope.
 - The feature freeze remains in effect. Phase 11 is next and awaits explicit implementation authorization. No tests reran for this approval record.
 
+### Entry 024 — Phase 11 documentation and demonstration (2026-11-26)
+
+- Documented setup, architecture, the recursive algorithm, composing, demo timing, slides, judging alignment and accepted test evidence.
+- Captured five root UI screenshots and generated a verified 15.1-second WAV using the existing exporter. [Capture methods and limits](assets/README.md).
+- Reconciled the AI index and recovered original Codex replies from project-local records. The index has 25 archived records, 15 incomplete records and one indexed empty file. Original early ChatGPT replies, source attachments and the Phase 11 final response remain open. [Recovery inventory](AI_USAGE.md).
+- Feature freeze remains in effect. Phase 10 regression suites were not rerun for this documentation pass.
+
 ## Known Issues
 
 The procedural audio engine and listening page are standalone. Integrated demo synchronization is verified within the reported scope. The tested root workflows passed. Physical mobile touch, assistive technology and formal audit checks, and physical audio-to-display latency remain unverified. Browser saving and independent-player playback passed in developer testing. Archive entries 001–012, 014, 016, 017 and 019 are incomplete or pending. An extra 018 file is empty. Entries 020 and 026 are outside the table and labeled Archived despite empty files. Phase 5, Phase 6 and Phase 8 exchanges still need archival or indexing.
 
 ## Next Task
 
-Recover the original [AI transcripts](../PROMPT_CHAIN.md) before closing Phase 1. Phase 10 manual acceptance is recorded in [TESTING.md](TESTING.md#phase-10-manual-acceptance). Begin Phase 11 — Documentation and Demonstration only when explicitly authorized. Planned features remain frozen.
+Recover the [remaining original AI records](AI_USAGE.md). Phase 12 — Final Submission awaits explicit authorization. Feature work remains frozen.

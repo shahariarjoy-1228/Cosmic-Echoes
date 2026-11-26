@@ -30,6 +30,7 @@ __pycache__/
 
 # Generated audio exports
 *.wav
+!/docs/assets/audio/quiet-orbit-sample.wav
 *.mp3
 *.ogg
 

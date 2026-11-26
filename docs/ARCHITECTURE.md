@@ -4,15 +4,22 @@
 
 Cosmic Echoes uses a modular, event-driven architecture.
 
-```text
-User interaction → Application controller → Recursive generator → Shared event timeline
+```mermaid
+flowchart TD
+    UI[Root UI] --> C[Session controller]
+    C --> R[Recursive generator]
+    R --> E[Shared celestial events and timestamps]
+    E --> V[Canvas visual engine]
+    E --> M[Musical mapper]
+    M --> A[Live Web Audio engine]
+    A -->|Composition clock| V
+    E --> J[Recording]
+    A -->|Note admissions and timing| J
+    J --> X[Offline renderer and WAV encoder]
+    X --> W[Downloadable WAV]
 ```
 
-The shared timeline drives:
-
-- Canvas visual rendering
-- Musical mapping and audio synthesis
-- Offline audio export
+This separation lets the recursion engine return plain event data without drawing or playing audio. One timing model supports live playback, replay and export. See the [algorithm and event counts](ALGORITHM.md).
 
 ## Module Responsibilities
 
@@ -24,7 +31,8 @@ The shared timeline drives:
 | `js/audio.js` | Synthesize instruments and schedule playback |
 | `js/visuals.js` | Render synchronized celestial animations |
 | `js/export.js` | Render and encode downloadable WAV compositions |
-| `js/presets.js` | Store environmental and musical configurations |
+| `js/controller.js` | Coordinate transport, event budgets, recording and replay |
+| `js/creative.js` | Define recursion presets and Auto Meditation placement timing |
 
 ## Generation and limits
 
@@ -100,7 +108,7 @@ Musical duration is `celestialDuration × (1 + min(radius, 1)) ÷ (1 + 0.15 × d
 
 Each event has `id`, `celestialEventId`, `rootId`, `parentMusicalEventId`, `depth`, `midiNote`, `noteName`, `frequency` in Hz, `startTime` and `duration` in seconds, `intensity`, `pan`, `instrument`, and `role`. Melodic IDs are JSON-encoded pairs of the string "note" and the celestial ID. Roots use instrument `starlight` and role `melody`, with a null musical parent. Children use `echo` for both.
 
-Ambient events use instrument `nebula-pad` and role `ambient`. Celestial, root, parent and depth references are null. The tonic is MIDI 36 plus its pitch class, and the fifth is seven semitones higher. Both have intensity 0.12 and centered pan. Ambient register is independent of the melody range. Start time defaults to zero when missing or non-finite, and finite negative starts clamp to zero. Duration defaults to 60 seconds and clamps to 0.4–60 seconds. An onset too large to represent its duration is rejected. The controller should request one layer per composition and manage its lifecycle and crossfades.
+Ambient events use instrument `nebula-pad` and role `ambient`. Celestial, root, parent and depth references are null. The tonic is MIDI 36 plus its pitch class, and the fifth is seven semitones higher. Both have intensity 0.12 and centered pan. Ambient register is independent of the melody range. Start time defaults to zero when missing or non-finite, and finite negative starts clamp to zero. Duration defaults to 60 seconds and clamps to 0.4–60 seconds. An onset too large to represent its duration is rejected. The controller manages the ambient layer for the composition.
 
 ### Voice planning and integration
 
@@ -192,13 +200,23 @@ The Web Audio clock is the authoritative playback clock. Audio and visuals read 
 
 Tempo defaults to 55 BPM and ranges from 40 to 80 BPM. The configured generation delay defaults to 0.8 seconds at 55 BPM. Actual generation delay = configured delay × 55 ÷ selected BPM. Record the effective timings and parameter changes so already-created events retain their timing.
 
-| Control | Planned behavior |
+| Root control | Behavior |
 |---|---|
-| Play | Start the current composition at time zero from a stopped state. Repeated Play while playing has no effect. |
-| Pause | Freeze composition time and visuals, mute audio, and preserve the playhead. |
-| Resume | Continue audio and visuals from the saved playhead without replaying earlier onsets. |
-| Stop | Fade and cancel audio, clear active visuals, and return the playhead to zero while retaining the composition and settings. |
-| Reset | Stop playback, clear composition events and parameter history, and restore defaults. |
+| Start session | Start a new live recording at composition time zero. |
+| Pause / Resume | Hold the shared playhead and continue from the stored position. |
+| Stop | Finalize a live take at its current position or stop replay. |
+| Replay | Play the finalized recording using its stored events and audio admissions. |
+| Clear recording | Discard the finalized take and prepared download. |
+
+For a tree scheduled at 1.00 s with the default delay and tempo, both engines see the same generation timestamps.
+
+```text
+Composition time     1.00 s       1.80 s       2.60 s       3.40 s
+Canvas               Root         Children     Depth 2      Depth 3
+Audio timeline       Root onset   Child onset  Depth 2      Depth 3
+```
+
+The audio clock drives composition position, and Canvas draws that position on animation frames. The Phase 10 Edge check measured a 10.67 ms median and 21.33 ms maximum logical difference across 30 samples. Physical speaker-to-display latency was outside the measurement. [Test method](TESTING.md#synchronization-and-wav-measurements).
 
 ## Synchronized controller
 
@@ -223,7 +241,7 @@ Placement validates coordinates, time remaining and whole-tree capacity before s
 
 Release-aware admission still counts attack, decay and release against eight melodic voices, plus separate budgets for two pads and one atmosphere. `AudioEngine.getSchedulingJournal()` reports admitted notes with effective onset, duration and release, plus suppression IDs and reasons. The finalized recording retains the schema version, session and environment, root and config snapshots, complete celestial and raw note arrays, admitted and suppressed notes, cancellations, interruptions, ambient instructions and audio settings including the procedural seed.
 
-Replay restores recorded celestial events and schedules only originally admitted notes at effective onsets. It uses recorded pitches, durations, pan and ambient harmony, with the original synthesis settings. Finished visual events are reloaded from the recording. Early stop is a hard cut for all layers. Replay and offline rendering preserve the original layer envelope up to the cut, then truncate output at that endpoint. Completed sessions retain the normal bounded tail. Future export can pass the adapter directly to `renderCompositionOffline(composition, config)`. Phase 7 encodes the bounded stereo buffer as WAV and provides a user-triggered download in the development demo. Session recording is in memory and captures static environment and mix plus per-placement recursion settings. Monitoring gain, live mix automation, and hardware output latency are outside the recorded content.
+Replay restores recorded celestial events and schedules only originally admitted notes at effective onsets. It uses recorded pitches, durations, pan and ambient harmony, with the original synthesis settings. Finished visual events are reloaded from the recording. Early stop is a hard cut for all layers. Replay and offline rendering preserve the original layer envelope up to the cut, then truncate output at that endpoint. Completed sessions retain the normal bounded tail. The root exporter passes the recorded composition to `renderCompositionOffline(composition, config)`, encodes the stereo buffer as WAV and offers a user-triggered download. Session recording is in memory and captures static environment and mix plus per-placement recursion settings. Monitoring gain, live mix automation, and hardware output latency are outside the recorded content.
 
 Deep Space pairs with C major pentatonic, Nebula Dreams with A minor pentatonic, and Solar Harmony with F major pentatonic. The environment and synthesis mix are fixed during a recording. Recursion changes apply only to future placements.
 

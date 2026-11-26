@@ -29,7 +29,7 @@ Each root star generates smaller child echoes. The children repeat the process u
 
 Generate events deterministically using normalized canvas coordinates. Validate numeric inputs, restore defaults for non-finite parameters or reject inputs with no default, clamp finite inputs, and round integer-only parameters. Actual delay = configured delay × 55 ÷ selected BPM. Use the Web Audio clock to synchronize playback and visuals. Keep audio and visual scheduling bounded across roots. Check the full event tree before accepting a root. If capacity is full, provide feedback and let the user try again once space is available.
 
-Provide Play, Pause, Resume, Stop, and Reset using the [transport behavior in the architecture](ARCHITECTURE.md#synchronization). Preserve event history and relevant parameter changes. Use OfflineAudioContext to export that composition with the same live synthesis settings, musical events, ambient layers and effects as stereo 16-bit PCM WAV at 44,100 Hz, with up to 4 seconds of reverb tail and peak control to prevent clipping. Export uses the recorded event history available when the user requests it.
+The root provides Start session, Pause, Resume, Stop, Replay and Clear recording. The controller preserves the event history and settings needed for replay and export. OfflineAudioContext renders the recorded settings, notes, ambience and effects as 44,100 Hz stereo 16-bit PCM WAV. Natural completion retains a tail of up to four seconds and early Stop cuts all layers at the endpoint. [Transport behavior](ARCHITECTURE.md#synchronization) · [WAV export](ARCHITECTURE.md#audio-export).
 
 ## Must Have
 
@@ -43,19 +43,20 @@ Provide Play, Pause, Resume, Stop, and Reset using the [transport behavior in th
 - Accessible interface
 - Complete AI prompt-response history
 
-## Should Have
+## Implemented creative features
 
-- Cosmic Meditation mode
-- Constellation Harmony
-- Environmental presets
-- Recursion inspector
+- Auto Meditation and Focus Mode
+- Three musical environments and four recursion presets
+- Recursion parameter controls and event-count feedback
 
-## Could Have
+## Deferred concepts
 
-- Fullscreen meditation
-- Breathing visualization
-- Save and reload compositions
+- Separate Constellation Harmony mode
+- Fullscreen meditation and breathing visualization
+- Persistent save and reload
 - Additional export durations
+
+The release candidate feature freeze remains in effect.
 
 ## Out of Scope
 
@@ -81,9 +82,9 @@ Provide Play, Pause, Resume, Stop, and Reset using the [transport behavior in th
 | P08 | User interface and accessibility | Completed (root verified) |
 | P09 | Creative features and polish | Completed (root verified) |
 | P10 | Final testing and debugging | Completed and developer-approved (verified release candidate) |
-| P11 | Documentation and demonstration | Next (pending authorization) |
-| P12 | Final submission | Pending |
+| P11 | Documentation and demonstration | Materials prepared; archive recovery outstanding |
+| P12 | Final submission | Next planned, pending explicit authorization |
 
 ## Success Criteria
 
-The finished application must meet all six deliverables in the [hackathon requirements and module map](HACKATHON_REQUIREMENTS.md) and provide a coherent, relaxing musical experience without relying on external runtime services. Use the [testing plan](TESTING.md) to verify implementation. Phase 1 archive work remains open. The standalone Phase 2 engine exposes its [generation and capacity API](ARCHITECTURE.md#recursive-engine-api). The application controller will use that API during integration. The standalone [musical mapper](ARCHITECTURE.md#musical-mapping) provides notes, ambient harmony and an optional voice plan for Phase 4.
+The finished application must meet all six deliverables in the [hackathon requirements and module map](HACKATHON_REQUIREMENTS.md) and provide a coherent, relaxing musical experience without relying on external runtime services. Use the [testing plan](TESTING.md) to verify implementation. Phase 1 archive work remains open. The root app integrates the [recursive engine](ARCHITECTURE.md#recursive-engine-api) and [musical mapper](ARCHITECTURE.md#musical-mapping). Phase 10 accepted the six product deliverables within scope. Phase 11 materials are ready to rehearse. Full submission compliance depends on [original AI transcript recovery](AI_USAGE.md).

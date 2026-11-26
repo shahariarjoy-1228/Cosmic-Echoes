@@ -1,6 +1,10 @@
 # Testing Record
 
-## Status
+## Current verification
+
+Phase 10 is developer-approved. See [automated QA](#phase-10-automated-qa), [developer-reported manual acceptance](#phase-10-manual-acceptance) and [Phase 11 evidence](#phase-11-demonstration-evidence).
+
+## Phase 4 automated verification
 
 On 2026-11-26 all three suites ran in headless Microsoft Edge over Python loopback HTTP. The browser debugger waited for final asynchronous summaries. Audio used `?live=1` and `--autoplay-policy=no-user-gesture-required`, with live test engines muted. Offline tests measured actual AudioBuffer samples.
 
@@ -125,7 +129,11 @@ For repeat checks, from the project root run `python -m http.server 8000 --bind 
 - Check keyboard-only navigation without traps, visible focus, center placement, labels, feedback, reduced motion, desktop and narrow views, proportional resize, horizontal overflow and browser zoom. Evaluate overall calmness and prolonged use.
 - Record physical mobile touch/audio/download, additional browsers, screen-reader results or measured timing/export performance only when actually performed.
 
-Phase 10 is complete. Cosmic Echoes is a verified hackathon release candidate within the tested scope. Phase 11 awaits explicit authorization. AI archive compliance remains unresolved.
+Phase 10 is complete. Cosmic Echoes is a verified hackathon release candidate within the tested scope. AI archive compliance remains unresolved.
+
+## Phase 11 demonstration evidence
+
+Phase 11 carried forward 179 Edge automated passes and 14 supplementary Chrome passes from Phase 10. The developer reported 50/50 Phase 10 acceptance checks and 236 cumulative manual passes. The regression suites were not rerun for documentation. A locally served root session supplied five screenshots, and a separate short offline export was parsed and decoded. The sample did not undergo a fresh independent-player listening test. See [demonstration evidence](assets/README.md).
 
 ## Phase 9 automated verification
 
@@ -349,7 +357,7 @@ For repeat checks and outstanding mobile and touch coverage, serve the repo with
 - **Responsive and accessible behavior** — Resize during animation and confirm proportional positions, high-DPI sharpness, narrow-screen usability, reduced motion with recognizable recursion, visible focus and labels, and status outside the canvas.
 - **Stability and performance** — Try the maximum ternary and near-capacity scenarios. Repeat placements and theme switching, watch occupied and retained counts decline, resize during playback, and record approximate FPS with browser, device, canvas size, DPR and active event count. Observe prolonged use.
 
-Phase 6 audio-clock integration is verified in the standalone synchronized demo. Final application integration tests remain pending.
+At Phase 5 closure, root application integration was pending. See the subsequent [Phase 6 evidence](#phase-6-automated-verification) and [Phase 10 evidence](#phase-10-automated-qa).
 
 ## Phase 4 developer-reported manual results
 

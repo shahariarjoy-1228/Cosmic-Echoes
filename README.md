@@ -1,70 +1,39 @@
 # Cosmic Echoes
 
-> Every star has a voice. Every echo creates a universe.
+**Every star has a voice. Every echo creates a universe.**
 
-Cosmic Echoes is an interactive, space-themed procedural music application being developed for the Hub's Quest Epoch 1 solo hackathon.
+Cosmic Echoes is a browser-based instrument for Hub's Quest Epoch 1, the Recursive Soundscapes Solo Hackathon. Place a star and it sends out generations of softer echoes. The same tree shapes the constellation and a slow pentatonic phrase. A few deliberate placements leave space for the melody and ambience to breathe.
 
-## Project Concept
+![Cosmic Echoes on first load, with the sky, transport and settings visible](docs/assets/screenshots/cosmic-echoes-home.png)
 
-The application transforms recursive celestial echo propagation into relaxing musical compositions and synchronized cosmic visualizations.
+## Play and compose
 
-Users will be able to create stars, generate recursive echoes, customize mathematical and musical parameters, and export their compositions as audio files.
+Choose Deep Space, Nebula Dreams or Solar Harmony, select a recursion preset, and press **Start session**. Click the sky or use **Place center star**. Change depth, branching, decay, spread, delay or tempo to shape your next placement. Use **Auto Meditation** for automatic placements and **Focus mode** for a larger sky. Pause, resume, stop and replay, then prepare and download a WAV of the recording.
 
-## Planned Features
-
-- Configurable recursive celestial echo generation
-- Interactive cosmic visualization
-- Procedural ambient music
-- Harmonic musical inheritance
-- Synchronized audio and visuals
-- Playback and volume controls
-- WAV audio export
-- Accessible and responsive interface
-
-## Technology Stack
-
-- HTML5
-- CSS3
-- Vanilla JavaScript
-- Canvas 2D
-- Web Audio API
-- OfflineAudioContext
-
-The application is designed to run entirely in the browser without external runtime dependencies or paid APIs.
-
-## Development Status
-
-The root application integrates synchronized stars and music, session recording, replay, and stereo WAV export. Phase 8 is complete within the verified root scope, with 167 prior automated passes and 47 developer-reported manual passes, including saving and independently playing a WAV. Physical mobile touch and formal accessibility verification remain open. Phase 9 adds Auto Meditation, Focus Mode and four recursion presets. Phase 9 is complete with 174 prior automated passes and 38 developer-reported manual passes. Planned feature development is frozen. Phase 10 automated QA passed 179 unique Edge cases, with additional Chrome coverage. The developer passed all 50 Phase 10 manual checks. Cosmic Echoes is a verified hackathon release candidate within the tested scope. Phase 11 — Documentation and Demonstration awaits authorization. AI transcript completeness remains a separate submission requirement.
+Each placement grows a bounded tree. Canvas draws its stars, ripples and constellation lines. A musical mapper gives each branch notes related to its parent, and Web Audio keeps the sound and visuals on a shared timeline. Vanilla JavaScript, HTML and CSS run directly in a modern browser. WAV export uses OfflineAudioContext.
 
 ## Run locally
 
-From the project root, run `python -m http.server 8000 --bind 127.0.0.1` and open `http://127.0.0.1:8000/`. Any static HTTP server works. The app starts silent.
+```sh
+git clone https://github.com/shahariarjoy-1228/Cosmic-Echoes.git
+cd Cosmic-Echoes
+python -m http.server 8000 --bind 127.0.0.1
+```
 
-1. Select an environment and choose **Start session**.
-2. Click or tap the sky, or choose **Place center star** or **Place by coordinates**. Change recursion sliders to shape future stars.
-3. Pause and resume as needed. Stop or finish to finalize the recording. **Replay** plays it again, and **Clear recording** discards it.
-4. Choose **Prepare WAV**, then **Download WAV** when ready.
+On Windows, use `py -m http.server 8000 --bind 127.0.0.1` if needed. Open [http://127.0.0.1:8000/](http://127.0.0.1:8000/) and select **Start session**. Use loopback HTTP for JavaScript modules. No build step or package installation is required.
 
-Monitoring volume is beside the playback controls. **Display settings** offers automatic or explicit reduced motion and visual layer toggles. Monitoring volume does not change WAV gain. See the [manual checklist](docs/TESTING.md#phase-8-manual-application-verification) and [architecture](docs/ARCHITECTURE.md#root-application).
+## Explore the project
 
-Serve the project from the root with `python -m http.server 8000 --bind 127.0.0.1` if Python is available, then open `http://127.0.0.1:8000/tests/audio-demo.html`. Select a scenario, choose Generate composition, then press Play. Any static HTTP server can serve the page. See the [audio API](docs/ARCHITECTURE.md#procedural-audio-engine) and [test results](docs/TESTING.md).
+- [User guide and preset values](docs/USER_GUIDE.md)
+- [Recursive algorithm](docs/ALGORITHM.md) and [architecture](docs/ARCHITECTURE.md)
+- [Demo scripts](docs/DEMO_SCRIPT.md), [four-slide outline](docs/PRESENTATION.md) and [screenshots and sample WAV](docs/assets/README.md)
+- [Hackathon deliverables and judging criteria](docs/HACKATHON_REQUIREMENTS.md)
+- [Testing record](docs/TESTING.md), [project plan](docs/PROJECT_PLAN.md) and [progress log](docs/PROGRESS_LOG.md)
 
-For the visual demo, open `http://127.0.0.1:8000/tests/visuals-demo.html` with the same server. Choose a scenario, select **Load scenario**, and press **Start**. Click or tap the canvas or use the placement buttons. The demo has its own silent timeline.
+The root interface lives in `index.html`, `style.css` and `app.js`. Engine modules live in `js/`, browser test pages in `tests/`, and developer docs and demonstration evidence in `docs/`.
 
-Open `http://127.0.0.1:8000/tests/sync-demo.html` on the same server. Select **Start session**, place stars, then **Stop** and **Replay recording**. Start at a comfortable monitoring volume. See the [controller API](docs/ARCHITECTURE.md#synchronized-controller) and [integrated checklist](docs/TESTING.md#phase-6-manual-integrated-verification).
+## Verification and AI use
 
-For export, open `http://127.0.0.1:8000/tests/export-demo.html`. Start a session, place stars, stop or wait for completion, choose **Prepare WAV**, then **Download WAV**. The WAV contains the admitted recorded notes, ambient layers, and the recording's endpoint policy. See the [export API](docs/ARCHITECTURE.md#audio-export).
+Phase 10 established a developer-approved release candidate within the tested scope. Edge passed 179 automated checks with zero failures and zero skips, Chrome passed 14 supplementary checks, and the developer reported 50/50 final manual checks. Physical mobile touch, screen-reader behavior and physical audio-to-display latency remain unverified. [Evidence and limitations](docs/TESTING.md).
 
-Choose **Quiet Orbit** for sparse echoes, or select another recursion preset to shape future stars. While recording, **Auto Meditation** places a star every five seconds of playback time. **Focus mode** expands the sky and keeps the transport and monitoring controls available. Use **Exit focus mode** or Escape to restore the settings panel.
-
-## AI Usage
-
-AI-assisted development is permitted under the hackathon rules. [PROMPT_CHAIN.md](PROMPT_CHAIN.md) tracks the AI interactions and their archival status. The original prompts and responses still to be recovered are listed there.
-
-## Event
-
-Hub's Quest — Epoch 1
-
-Recursive Soundscapes · Solo Hackathon
-
-See the [hackathon requirements and deliverable map](docs/HACKATHON_REQUIREMENTS.md), [project plan](docs/PROJECT_PLAN.md), and [testing record](docs/TESTING.md).
+Phase 11 documentation and demonstration materials are prepared. The feature freeze remains in effect. Original AI transcript recovery remains a submission blocker. The developer directed and manually tested the project, with ChatGPT and Codex assisting across planning, development and verification. [AI use and recovery status](docs/AI_USAGE.md) · [Prompt chain](PROMPT_CHAIN.md).
